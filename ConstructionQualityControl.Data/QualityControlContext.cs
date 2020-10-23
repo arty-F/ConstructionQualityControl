@@ -12,7 +12,7 @@ namespace ConstructionQualityControl.Data
         public DbSet<Report> Reports { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
-        public QualityControlContext(DbContextOptions<QualityControlContext> options) : base(options) { Cities.Add(new City { Id = 1 , Name="asd"}); }
+        public QualityControlContext(DbContextOptions<QualityControlContext> options) : base(options) { }
     }
 
 }

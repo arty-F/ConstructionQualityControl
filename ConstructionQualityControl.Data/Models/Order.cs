@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConstructionQualityControl.Data.Models
 {
-    public class Order
+    public class Order : IEntity
     {
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }

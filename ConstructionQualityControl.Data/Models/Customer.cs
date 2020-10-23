@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConstructionQualityControl.Data.Models
 {
-    public class Customer
+    public class Customer : IEntity
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

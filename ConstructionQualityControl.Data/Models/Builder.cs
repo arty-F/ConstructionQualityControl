@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConstructionQualityControl.Data.Models
 {
-    public class Builder
+    public class Builder : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

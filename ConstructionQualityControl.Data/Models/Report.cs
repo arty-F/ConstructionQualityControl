@@ -2,7 +2,7 @@
 
 namespace ConstructionQualityControl.Data.Models
 {
-    public class Report
+    public class Report : IEntity
     {
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }

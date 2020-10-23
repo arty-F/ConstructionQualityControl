@@ -2,7 +2,7 @@
 
 namespace ConstructionQualityControl.Data.Models
 {
-    public class Comment
+    public class Comment : IEntity
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
