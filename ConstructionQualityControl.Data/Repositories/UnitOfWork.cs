@@ -1,5 +1,6 @@
 ﻿using ConstructionQualityControl.Data.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace ConstructionQualityControl.Data.Repositories
 {
@@ -11,7 +12,7 @@ namespace ConstructionQualityControl.Data.Repositories
 
         public IRepository<T> GetRepository<T>() where T : class, IEntity => new Repository<T>(context);
 
-        public async void SaveAsync() => await context.SaveChangesAsync();
+        public async Task SaveAsync() => await context.SaveChangesAsync();
 
         #region IDisposable
         private bool disposed = false;
