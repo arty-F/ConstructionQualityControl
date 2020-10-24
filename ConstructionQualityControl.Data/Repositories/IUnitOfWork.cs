@@ -4,7 +4,7 @@ namespace ConstructionQualityControl.Data.Repositories
 {
     public interface IUnitOfWork
     {
-        public IRepository<IEntity> GetRepository<T>() where T : IEntity;
-        public void Save();
+        public IRepository<T> GetRepository<T>() where T : class, IEntity;
+        public void SaveAsync();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ConstructionQualityControl.Data.Models
 {
@@ -10,7 +11,9 @@ namespace ConstructionQualityControl.Data.Models
         public Customer Customer { get; set; }
         public Builder Builder { get; set; }
         public string Demands { get; set; }
+        [NotMapped]
         public bool IsCompleted { get; set; }
+        [NotMapped]
         public bool IsActive { get; set; }
 
         public virtual List<Comment> Comments { get; set; }

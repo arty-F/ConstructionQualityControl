@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ConstructionQualityControl.Data;
-using ConstructionQualityControl.Data.Repositories.Implementation;
-using ConstructionQualityControl.Data.Repositories.Interfaces;
+using ConstructionQualityControl.Data.Models;
+using ConstructionQualityControl.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace ConstructionQualityControl.Controllers
@@ -15,10 +13,7 @@ namespace ConstructionQualityControl.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        ITestRep rep;
-
-
-
+        IUnitOfWork uow;
 
         private static readonly string[] Summaries = new[]
         {
@@ -27,25 +22,26 @@ namespace ConstructionQualityControl.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, ITestRep rep)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IUnitOfWork uow)
         {
             _logger = logger;
-            this.rep = rep;
+            this.uow = uow;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<City>> Get()
         {
-            rep.Get();
+            return await uow.GetRepository<City>().GetAsync();
+            
 
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            //var rng = new Random();
+            //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            //{
+            //    Date = DateTime.Now.AddDays(index),
+            //    TemperatureC = rng.Next(-20, 55),
+            //    Summary = Summaries[rng.Next(Summaries.Length)]
+            //})
+            //.ToArray();
         }
     }
 }

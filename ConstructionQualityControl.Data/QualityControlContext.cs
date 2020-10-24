@@ -14,5 +14,4 @@ namespace ConstructionQualityControl.Data
 
         public QualityControlContext(DbContextOptions<QualityControlContext> options) : base(options) { }
     }
-
 }

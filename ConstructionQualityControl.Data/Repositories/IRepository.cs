@@ -9,10 +9,10 @@ namespace ConstructionQualityControl.Data.Repositories
 {
     public interface IRepository<T> where T : class, IEntity
     {
-        Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "");
+        Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null);
         Task<T> GetByIdAsync(int id);
         Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
+        void Update(T entity);
         Task DeleteAsync(int id);
     }
 }

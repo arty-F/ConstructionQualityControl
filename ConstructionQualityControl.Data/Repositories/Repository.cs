@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionQualityControl.Data.Repositories
@@ -20,29 +19,41 @@ namespace ConstructionQualityControl.Data.Repositories
             dbSet = context.Set<T>();
         }
 
-        public Task AddAsync(T entity)
+        public async Task AddAsync(T entity) => await dbSet.AddAsync(entity);
+
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            T entityToDelete = await dbSet.FindAsync(id);
+            Delete(entityToDelete);
         }
 
-        public Task DeleteAsync(int id)
+        public virtual void Delete(T entityToDelete)
         {
-            throw new NotImplementedException();
+            if (context.Entry(entityToDelete).State == EntityState.Detached)
+                dbSet.Attach(entityToDelete);
+
+            dbSet.Remove(entityToDelete);
         }
 
-        public Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
+        public async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = dbSet;
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            if (orderBy != null)
+                return await orderBy(query).ToListAsync();
+            else
+                return await query.ToListAsync();
         }
 
-        public Task<T> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<T> GetByIdAsync(int id) => await dbSet.FindAsync(id);
 
-        public Task UpdateAsync(T entity)
+        public void Update(T entity)
         {
-            throw new NotImplementedException();
+            dbSet.Attach(entity);
+            context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

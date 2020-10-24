@@ -1,18 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ConstructionQualityControl.Data;
-using ConstructionQualityControl.Data.Repositories.Implementation;
-using ConstructionQualityControl.Data.Repositories.Interfaces;
+using ConstructionQualityControl.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace ConstructionQualityControl
 {
@@ -31,7 +24,7 @@ namespace ConstructionQualityControl
             
             services.AddControllers();
 
-            services.AddScoped<ITestRep, TestRep>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConstructionQualityControl.Data.Models
 {
@@ -8,6 +9,7 @@ namespace ConstructionQualityControl.Data.Models
         public DateTime CreationDate { get; set; }
         public Builder Builder { get; set; }
         public Order Order { get; set; }
+        [MaxLength(5)]
         public string FileExtension { get; set; }
         public byte[] Data { get; set; }
     }

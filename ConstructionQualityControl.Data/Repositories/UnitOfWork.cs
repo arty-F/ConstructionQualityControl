@@ -1,24 +1,37 @@
 ﻿using ConstructionQualityControl.Data.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionQualityControl.Data.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly QualityControlContext context;
 
         public UnitOfWork(QualityControlContext context) => this.context = context;
 
-        public IRepository<IEntity> GetRepository<T>() where T : IEntity
+        public IRepository<T> GetRepository<T>() where T : class, IEntity => new Repository<T>(context);
+
+        public async void SaveAsync() => await context.SaveChangesAsync();
+
+        #region IDisposable
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
         {
-            throw new NotImplementedException();
+            if (!disposed)
+                if (disposing)
+                    context.Dispose();
+
+            disposed = true;
         }
 
-        public void Save()
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+
+        ~UnitOfWork() => Dispose(false);
+        #endregion
     }
 }
