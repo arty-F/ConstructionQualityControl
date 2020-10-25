@@ -15,11 +15,6 @@ namespace ConstructionQualityControl.Controllers
     {
         IUnitOfWork uow;
 
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger, IUnitOfWork uow)
@@ -29,19 +24,22 @@ namespace ConstructionQualityControl.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<City>> Get()
+        public async Task<ActionResult<IEnumerable<City>>> Get()
         {
-            return await uow.GetRepository<City>().GetAsync();
-            
+            var result = await uow.GetRepository<City>().GetAsync();
 
-            //var rng = new Random();
-            //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            //{
-            //    Date = DateTime.Now.AddDays(index),
-            //    TemperatureC = rng.Next(-20, 55),
-            //    Summary = Summaries[rng.Next(Summaries.Length)]
-            //})
-            //.ToArray();
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<City>> Post(City city)
+        {
+            var repo = uow.GetRepository<City>();
+            await repo.AddAsync(city);
+            await uow.SaveAsync();
+
+            return Ok();
+            //return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
         }
     }
 }
