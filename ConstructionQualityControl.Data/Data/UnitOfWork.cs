@@ -17,22 +17,21 @@ namespace ConstructionQualityControl.Data
         #region IDisposable
         private bool disposed = false;
 
-        protected virtual void Dispose(bool disposing)
+        protected void DisposeContext()
         {
-            if (!disposed)
-                if (disposing)
-                    context.Dispose();
+            if (disposed) return;                    
 
             disposed = true;
+            context.Dispose();
         }
 
         public void Dispose()
         {
-            Dispose(true);
+            DisposeContext();
             GC.SuppressFinalize(this);
         }
 
-        ~UnitOfWork() => Dispose(false);
+        ~UnitOfWork() => DisposeContext();
         #endregion
     }
 }

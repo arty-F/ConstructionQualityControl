@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionQualityControl.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1C52714E-EADF-462D-8136-E0319042E536}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructionQualityControl.UnitTests", "ConstructionQualityControl.UnitTests\ConstructionQualityControl.UnitTests.csproj", "{3A1627D9-6601-4272-AF66-0439C7A43359}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionQualityControl.ModuleTests", "ConstructionQualityControl.UnitTests\ConstructionQualityControl.ModuleTests.csproj", "{3A1627D9-6601-4272-AF66-0439C7A43359}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
