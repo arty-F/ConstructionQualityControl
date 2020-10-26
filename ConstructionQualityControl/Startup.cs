@@ -1,5 +1,4 @@
 using ConstructionQualityControl.Data;
-using ConstructionQualityControl.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

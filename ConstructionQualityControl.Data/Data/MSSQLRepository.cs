@@ -6,14 +6,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace ConstructionQualityControl.Data.Repositories
+namespace ConstructionQualityControl.Data
 {
-    public class Repository<T> : IRepository<T> where T : class, IEntity
+    public class MSSQLRepository<T> : IRepository<T> where T : class, IEntity
     {
         internal QualityControlContext context;
         internal DbSet<T> dbSet;
 
-        public Repository(QualityControlContext context)
+        public MSSQLRepository(QualityControlContext context)
         {
             this.context = context;
             dbSet = context.Set<T>();

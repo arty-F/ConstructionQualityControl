@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace ConstructionQualityControl.Data.Repositories
+namespace ConstructionQualityControl.Data
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
@@ -10,7 +10,7 @@ namespace ConstructionQualityControl.Data.Repositories
 
         public UnitOfWork(QualityControlContext context) => this.context = context;
 
-        public IRepository<T> GetRepository<T>() where T : class, IEntity => new Repository<T>(context);
+        public IRepository<T> GetRepository<T>() where T : class, IEntity => new MSSQLRepository<T>(context);
 
         public async Task SaveAsync() => await context.SaveChangesAsync();
 

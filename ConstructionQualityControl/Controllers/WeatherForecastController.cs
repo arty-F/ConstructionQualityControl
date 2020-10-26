@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConstructionQualityControl.Data;
 using ConstructionQualityControl.Data.Models;
-using ConstructionQualityControl.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
