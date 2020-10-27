@@ -5,13 +5,14 @@ namespace ConstructionQualityControl.Data
 {
     public class QualityControlContext : DbContext
     {
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Builder> Builders { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<City> Cities { get; set; }
-        public DbSet<Report> Reports { get; set; }
-        public DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Builder> Builders { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Report> Reports { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
 
         public QualityControlContext(DbContextOptions<QualityControlContext> options) : base(options) { }
+        public QualityControlContext() : base() { }
     }
 }

@@ -43,6 +43,6 @@ namespace ConstructionQualityControl.Data
         /// Delete current entity from DbContext.
         /// </summary>
         /// <param name="id">Entity to remove.</param>
-        Task DeleteAsync(int id);
+        Task DeleteByIdAsync(int id);
     }
 }

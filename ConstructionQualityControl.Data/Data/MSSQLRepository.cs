@@ -10,8 +10,8 @@ namespace ConstructionQualityControl.Data
 {
     public class MSSQLRepository<T> : IRepository<T> where T : class, IEntity
     {
-        internal QualityControlContext context;
-        internal DbSet<T> dbSet;
+        QualityControlContext context;
+        DbSet<T> dbSet;
 
         public MSSQLRepository(QualityControlContext context)
         {
@@ -21,7 +21,7 @@ namespace ConstructionQualityControl.Data
 
         public async Task AddAsync(T entity) => await dbSet.AddAsync(entity);
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteByIdAsync(int id)
         {
             T entityToDelete = await dbSet.FindAsync(id);
             Delete(entityToDelete);
