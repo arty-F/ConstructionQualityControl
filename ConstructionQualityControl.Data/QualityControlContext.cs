@@ -13,6 +13,6 @@ namespace ConstructionQualityControl.Data
         public virtual DbSet<Comment> Comments { get; set; }
 
         public QualityControlContext(DbContextOptions<QualityControlContext> options) : base(options) { }
-        public QualityControlContext() : base() { }
+        public QualityControlContext() { }
     }
 }

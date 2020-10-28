@@ -10,8 +10,8 @@ namespace ConstructionQualityControl.Data
 {
     public class MSSQLRepository<T> : IRepository<T> where T : class, IEntity
     {
-        QualityControlContext context;
-        DbSet<T> dbSet;
+        private readonly QualityControlContext context;
+        private readonly DbSet<T> dbSet;
 
         public MSSQLRepository(QualityControlContext context)
         {
@@ -43,9 +43,9 @@ namespace ConstructionQualityControl.Data
                 query = query.Where(filter);
 
             if (orderBy != null)
-                return await orderBy(query).ToListAsync();
+                return await Task.Run(() => orderBy(query).ToList());
             else
-                return await query.ToListAsync();
+                return await Task.Run(() => query.ToList());
         }
 
         public async Task<T> GetByIdAsync(int id) => await dbSet.FindAsync(id);
