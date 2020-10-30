@@ -6,17 +6,20 @@ namespace ConstructionQualityControl.Data.Mocks
     public class MockUnitOfWork : IUnitOfWork
     {
         public MockRepository<City> CityRep { get; private set; }
+        public MockRepository<Region> RegionRep { get; private set; }
         public MockRepository<Customer> CustomerRep { get; private set; }
         public MockRepository<Builder> BuilderRep { get; private set; }
         public MockRepository<Order> OrderRep { get; private set; }
         public MockRepository<Comment> CommentRep { get; private set; }
         public MockRepository<Report> ReportRep { get; private set; }
 
-        public MockUnitOfWork(MockRepository<City> cityRep = null, MockRepository<Customer> customerRep = null,
-            MockRepository<Builder> builderRep = null, MockRepository<Order> orderRep = null,
-            MockRepository<Comment> commentRep = null, MockRepository<Report> reportRep = null)
+        public MockUnitOfWork(MockRepository<City> cityRep = null, MockRepository<Region> regionRep = null, 
+            MockRepository<Customer> customerRep = null, MockRepository<Builder> builderRep = null, 
+            MockRepository<Order> orderRep = null, MockRepository<Comment> commentRep = null, 
+            MockRepository<Report> reportRep = null)
         {
             CityRep = cityRep;
+            RegionRep = regionRep;
             CustomerRep = customerRep;
             BuilderRep = builderRep;
             OrderRep = orderRep;
@@ -33,6 +36,9 @@ namespace ConstructionQualityControl.Data.Mocks
         {
             if (typeof(T) == typeof(City))
                 return CityRep as MockRepository<T>;
+
+            if (typeof(T) == typeof(Region))
+                return RegionRep as MockRepository<T>;
 
             if (typeof(T) == typeof(Customer))
                 return CustomerRep as MockRepository<T>;

@@ -9,6 +9,7 @@ namespace ConstructionQualityControl.Data
         public virtual DbSet<Builder> Builders { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
 

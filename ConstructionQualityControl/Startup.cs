@@ -1,4 +1,5 @@
 using ConstructionQualityControl.Data;
+using ConstructionQualityControl.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,8 @@ namespace ConstructionQualityControl
             services.AddControllers();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IServiceContainer, ServiceContainer>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
