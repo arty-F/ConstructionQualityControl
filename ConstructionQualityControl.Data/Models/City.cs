@@ -7,5 +7,11 @@ namespace ConstructionQualityControl.Data.Models
         public int Id { get; set; }
         [Required, MaxLength(50)]
         public string Name { get; set; }
+        [Required]
+        public Region Region { get; set; }
+        [Required]
+        public int CoordX { get; set; }
+        [Required]
+        public int CoordY { get; set; }
     }
 }

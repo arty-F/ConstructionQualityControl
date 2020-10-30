@@ -15,6 +15,8 @@ namespace ConstructionQualityControl.Data.Models
         public bool IsCompleted { get; set; }
         [NotMapped]
         public bool IsActive { get; set; }
+        [NotMapped]
+        public bool IsRoot { get; set; }
 
         public virtual List<Comment> Comments { get; set; }
         public virtual List<Report> Reports { get; set; }

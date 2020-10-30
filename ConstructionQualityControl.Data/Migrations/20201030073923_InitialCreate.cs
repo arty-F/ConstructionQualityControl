@@ -8,16 +8,38 @@ namespace ConstructionQualityControl.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Region",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Region", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cities",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    RegionId = table.Column<int>(nullable: false),
+                    CoordX = table.Column<int>(nullable: false),
+                    CoordY = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cities_Region_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "Region",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -26,9 +48,8 @@ namespace ConstructionQualityControl.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 25, nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    RegistrationDate = table.Column<DateTime>(nullable: false),
                     CityId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -48,11 +69,10 @@ namespace ConstructionQualityControl.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Patronymic = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(maxLength: 25, nullable: false),
+                    LastName = table.Column<string>(maxLength: 25, nullable: false),
+                    Patronymic = table.Column<string>(maxLength: 25, nullable: true),
                     BirthDate = table.Column<DateTime>(nullable: false),
-                    RegistrationDate = table.Column<DateTime>(nullable: false),
                     CityId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -76,8 +96,6 @@ namespace ConstructionQualityControl.Data.Migrations
                     CustomerId = table.Column<int>(nullable: true),
                     BuilderId = table.Column<int>(nullable: true),
                     Demands = table.Column<string>(nullable: true),
-                    IsCompleted = table.Column<bool>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false),
                     OrderId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -147,7 +165,7 @@ namespace ConstructionQualityControl.Data.Migrations
                     CreationDate = table.Column<DateTime>(nullable: false),
                     BuilderId = table.Column<int>(nullable: true),
                     OrderId = table.Column<int>(nullable: true),
-                    FileExtension = table.Column<string>(nullable: true),
+                    FileExtension = table.Column<string>(maxLength: 5, nullable: true),
                     Data = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
@@ -171,6 +189,11 @@ namespace ConstructionQualityControl.Data.Migrations
                 name: "IX_Builders_CityId",
                 table: "Builders",
                 column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_RegionId",
+                table: "Cities",
+                column: "RegionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_BuilderId",
@@ -237,6 +260,9 @@ namespace ConstructionQualityControl.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cities");
+
+            migrationBuilder.DropTable(
+                name: "Region");
         }
     }
 }

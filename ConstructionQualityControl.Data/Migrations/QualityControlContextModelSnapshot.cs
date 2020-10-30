@@ -51,12 +51,23 @@ namespace ConstructionQualityControl.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CoordX")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CoordY")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RegionId");
 
                     b.ToTable("Cities");
                 });
@@ -161,6 +172,23 @@ namespace ConstructionQualityControl.Data.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("ConstructionQualityControl.Data.Models.Region", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Region");
+                });
+
             modelBuilder.Entity("ConstructionQualityControl.Data.Models.Report", b =>
                 {
                     b.Property<int>("Id")
@@ -198,6 +226,15 @@ namespace ConstructionQualityControl.Data.Migrations
                     b.HasOne("ConstructionQualityControl.Data.Models.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId");
+                });
+
+            modelBuilder.Entity("ConstructionQualityControl.Data.Models.City", b =>
+                {
+                    b.HasOne("ConstructionQualityControl.Data.Models.Region", "Region")
+                        .WithMany("Cities")
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ConstructionQualityControl.Data.Models.Comment", b =>
