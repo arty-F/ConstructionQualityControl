@@ -1,11 +1,13 @@
+using AutoMapper;
 using ConstructionQualityControl.Data;
-using ConstructionQualityControl.Domain.Services;
+using ConstructionQualityControl.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace ConstructionQualityControl
 {
@@ -24,9 +26,9 @@ namespace ConstructionQualityControl
             
             services.AddControllers();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddScoped<IServiceContainer, ServiceContainer>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,7 +1,7 @@
 ﻿using ConstructionQualityControl.Data.Models;
 using System.Threading.Tasks;
 
-namespace ConstructionQualityControl.Data
+namespace ConstructionQualityControl.Domain
 {
     /// <summary>
     /// Provides access to entities repositories and guarantees the use the same DbConext.

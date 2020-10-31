@@ -11,8 +11,6 @@ namespace ConstructionQualityControl.Data.Models
         [Required, MaxLength(25)]
         public string Name { get; set; }
         public string Description { get; set; }
-        [NotMapped]
-        public DateTime RegistrationDate { get; set; }
         public City City { get; set; }
 
         public virtual List<Order> Orders { get; set; }

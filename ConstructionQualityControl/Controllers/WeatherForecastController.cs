@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ConstructionQualityControl.Data;
 using ConstructionQualityControl.Data.Models;
-using ConstructionQualityControl.Domain.Services;
+using ConstructionQualityControl.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -14,23 +11,22 @@ namespace ConstructionQualityControl.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        IServiceContainer services;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly ILogger<WeatherForecastController> logger;
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IServiceContainer services)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IUnitOfWork unitOfWork)
         {
-            _logger = logger;
-            this.services = services;
+            this.logger = logger;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<City>>> Get()
         {
-            var result = await services.Get();
+            //var result = await unitOfWork.Get();
             //var result = await uow.GetRepository<City>().GetAsync();
 
-            return Ok(result);
+            return Ok();
         }
 
         [HttpPost]

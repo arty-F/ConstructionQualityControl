@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace ConstructionQualityControl.Data
+namespace ConstructionQualityControl.Domain
 {
     /// <summary>
     /// Generic repository which provides async access to DbContext.

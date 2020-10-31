@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionQualityControl.Data.Migrations
 {
     [DbContext(typeof(QualityControlContext))]
-    [Migration("20201030073923_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201031112246_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -188,7 +188,7 @@ namespace ConstructionQualityControl.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Region");
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("ConstructionQualityControl.Data.Models.Report", b =>
@@ -221,6 +221,41 @@ namespace ConstructionQualityControl.Data.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("Reports");
+                });
+
+            modelBuilder.Entity("ConstructionQualityControl.Data.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BuilderId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<bool>("isCustomer")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuilderId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ConstructionQualityControl.Data.Models.Builder", b =>
@@ -285,6 +320,17 @@ namespace ConstructionQualityControl.Data.Migrations
                     b.HasOne("ConstructionQualityControl.Data.Models.Order", "Order")
                         .WithMany("Reports")
                         .HasForeignKey("OrderId");
+                });
+
+            modelBuilder.Entity("ConstructionQualityControl.Data.Models.User", b =>
+                {
+                    b.HasOne("ConstructionQualityControl.Data.Models.Builder", "Builder")
+                        .WithMany()
+                        .HasForeignKey("BuilderId");
+
+                    b.HasOne("ConstructionQualityControl.Data.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
                 });
 #pragma warning restore 612, 618
         }

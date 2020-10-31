@@ -1,8 +1,9 @@
-﻿using ConstructionQualityControl.Data.Models;
+﻿using ConstructionQualityControl.Data;
+using ConstructionQualityControl.Data.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace ConstructionQualityControl.Data
+namespace ConstructionQualityControl.Domain
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

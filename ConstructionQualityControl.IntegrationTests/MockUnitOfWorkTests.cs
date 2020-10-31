@@ -1,5 +1,5 @@
-﻿using ConstructionQualityControl.Data.Mocks;
-using ConstructionQualityControl.Data.Models;
+﻿using ConstructionQualityControl.Data.Models;
+using ConstructionQualityControl.Domain.Mocks;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;

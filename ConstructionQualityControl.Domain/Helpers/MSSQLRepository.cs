@@ -1,4 +1,5 @@
-﻿using ConstructionQualityControl.Data.Models;
+﻿using ConstructionQualityControl.Data;
+using ConstructionQualityControl.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace ConstructionQualityControl.Data
+namespace ConstructionQualityControl.Domain
 {
     public class MSSQLRepository<T> : IRepository<T> where T : class, IEntity
     {

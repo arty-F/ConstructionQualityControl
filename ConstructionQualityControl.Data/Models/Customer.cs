@@ -15,8 +15,6 @@ namespace ConstructionQualityControl.Data.Models
         [MaxLength(25)]
         public string Patronymic { get; set; }
         public DateTime BirthDate { get; set; }
-        [NotMapped]
-        public DateTime RegistrationDate { get; set; }
         public City City { get; set; }
 
         public virtual List<Order> Orders { get; set; }

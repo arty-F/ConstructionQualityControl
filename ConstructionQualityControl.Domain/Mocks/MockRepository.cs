@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace ConstructionQualityControl.Data.Mocks
+namespace ConstructionQualityControl.Domain.Mocks
 {
     public class MockRepository<T> : IRepository<T> where T : class, IEntity
     {
