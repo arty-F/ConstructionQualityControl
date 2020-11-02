@@ -1,15 +1,18 @@
 using AutoMapper;
 using ConstructionQualityControl.Data;
 using ConstructionQualityControl.Domain;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Text;
 
-namespace ConstructionQualityControl
+namespace ConstructionQualityControl.Web
 {
     public class Startup
     {
@@ -23,7 +26,24 @@ namespace ConstructionQualityControl
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<QualityControlContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConstructionQualityConnection")));
-            
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = "JwtBearer";
+                opt.DefaultAuthenticateScheme = "JwtBearer";
+            }).AddJwtBearer("JwtBearer", jwtOpt =>
+            {
+                jwtOpt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("CHANGETHIS!CHANGETHIS!CHANGETHIS!")),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(5)
+                };
+            });
+
             services.AddControllers();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -37,7 +57,9 @@ namespace ConstructionQualityControl
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            app.UseAuthentication();
+
             app.UseRouting();
 
             app.UseAuthorization();

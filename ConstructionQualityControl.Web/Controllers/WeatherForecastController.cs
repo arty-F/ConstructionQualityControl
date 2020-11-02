@@ -5,7 +5,7 @@ using ConstructionQualityControl.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace ConstructionQualityControl.Controllers
+namespace ConstructionQualityControl.Controllers.Web
 {
     [ApiController]
     [Route("[controller]")]
@@ -25,7 +25,7 @@ namespace ConstructionQualityControl.Controllers
         {
             //var result = await unitOfWork.Get();
             //var result = await uow.GetRepository<City>().GetAsync();
-
+            
             return Ok();
         }
 

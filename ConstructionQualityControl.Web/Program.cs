@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace ConstructionQualityControl
+namespace ConstructionQualityControl.Web
 {
     public class Program
     {
