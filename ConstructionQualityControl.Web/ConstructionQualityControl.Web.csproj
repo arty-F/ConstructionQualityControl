@@ -19,9 +19,5 @@
     <ProjectReference Include="..\ConstructionQualityControl.Domain\ConstructionQualityControl.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Authentication\" />
-  </ItemGroup>
-
 
 </Project>

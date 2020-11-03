@@ -54,7 +54,10 @@ namespace ConstructionQualityControl.Web.Controllers
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddHours(1)).ToUnixTimeSeconds().ToString()),
             };
 
-            //ROLES??
+            foreach (var role in user.Roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role.Name));
+            }
 
             SigningCredentials credentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("CHANGETHIS!CHANGETHIS!CHANGETHIS!")), SecurityAlgorithms.HmacSha256);
             JwtHeader header = new JwtHeader(credentials);

@@ -8,14 +8,10 @@ namespace ConstructionQualityControl.Data.Models
     {
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }
-        public Customer Customer { get; set; }
-        public Builder Builder { get; set; }
+        public User User { get; set; }
         public string Demands { get; set; }
-        [NotMapped]
         public bool IsCompleted { get; set; }
-        [NotMapped]
         public bool IsActive { get; set; }
-        [NotMapped]
         public bool IsRoot { get; set; }
 
         public virtual List<Comment> Comments { get; set; }
