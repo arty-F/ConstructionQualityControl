@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using ConstructionQualityControl.Controllers.Web;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
+using ConstructionQualityControl.Web.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace ConstructionQualityControl.Web.Controllers
 {
@@ -47,30 +42,7 @@ namespace ConstructionQualityControl.Web.Controllers
                 return BadRequest();
             }
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
-                new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddHours(1)).ToUnixTimeSeconds().ToString()),
-            };
-
-            foreach (var role in user.Roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role.Name));
-            }
-
-            SigningCredentials credentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("CHANGETHIS!CHANGETHIS!CHANGETHIS!")), SecurityAlgorithms.HmacSha256);
-            JwtHeader header = new JwtHeader(credentials);
-            JwtPayload payload = new JwtPayload(claims);
-            var token = new JwtSecurityToken(header, payload);
-
-            var result = new
-            {
-                Access_Token = new JwtSecurityTokenHandler().WriteToken(token),
-                UserName = login
-            };
-
-            return new ObjectResult(result);
+            return new ObjectResult(JWTAuthenticationManager.GetToken(user));
         }
 
         [Authorize]

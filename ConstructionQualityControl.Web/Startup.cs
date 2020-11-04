@@ -1,7 +1,7 @@
 using AutoMapper;
 using ConstructionQualityControl.Data;
 using ConstructionQualityControl.Domain;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ConstructionQualityControl.Web.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +36,7 @@ namespace ConstructionQualityControl.Web
                 jwtOpt.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("CHANGETHIS!CHANGETHIS!CHANGETHIS!")),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTAuthenticationManager.Key)),
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateLifetime = true,

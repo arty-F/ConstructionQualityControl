@@ -11,12 +11,10 @@ namespace ConstructionQualityControl.Domain.Mocks
         public MockRepository<Order> OrderRep { get; private set; }
         public MockRepository<Comment> CommentRep { get; private set; }
         public MockRepository<Report> ReportRep { get; private set; }
-        public MockRepository<Role> RoleRep { get; private set; }
 
         public MockUnitOfWork(MockRepository<City> cityRep = null, MockRepository<Region> regionRep = null, 
             MockRepository<User> userRep = null, MockRepository<Order> orderRep = null, 
-            MockRepository<Comment> commentRep = null, MockRepository<Report> reportRep = null,
-            MockRepository<Role> roleRep = null)
+            MockRepository<Comment> commentRep = null, MockRepository<Report> reportRep = null)
         {
             CityRep = cityRep;
             RegionRep = regionRep;
@@ -24,7 +22,6 @@ namespace ConstructionQualityControl.Domain.Mocks
             OrderRep = orderRep;
             CommentRep = commentRep;
             ReportRep = reportRep;
-            RoleRep = roleRep;
         }
 
         public async Task SaveAsync()
@@ -51,9 +48,6 @@ namespace ConstructionQualityControl.Domain.Mocks
 
             if (typeof(T) == typeof(Report))
                 return ReportRep as MockRepository<T>;
-
-            if (typeof(T) == typeof(Role))
-                return RoleRep as MockRepository<T>;
 
             return null;
         }

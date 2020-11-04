@@ -6,8 +6,8 @@ namespace ConstructionQualityControl.Web.Extensions
 {
     public static class UserExtensions
     {
-        static bool IsCustomer(this User user) => user.Roles.Select(r => r.Name).Contains(RolesManager.Customer);
-        static bool IsBuilder(this User user) => user.Roles.Select(r => r.Name).Contains(RolesManager.Builder);
-        static bool IsAdmin(this User user) => user.Roles.Select(r => r.Name).Contains(RolesManager.Admin);
+        static bool IsCustomer(this User user) => user.Role == RolesManager.Customer;
+        static bool IsBuilder(this User user) => user.Role == RolesManager.Builder;
+        static bool IsAdmin(this User user) => user.Role == RolesManager.Admin;
     }
 }
