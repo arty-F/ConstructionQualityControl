@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ConstructionQualityControl.Controllers.Web;
+using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
 using ConstructionQualityControl.Web.Authentication;
@@ -16,12 +17,12 @@ namespace ConstructionQualityControl.Web.Controllers
     public class AuthenticationController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
-        private readonly ILogger<WeatherForecastController> logger;
+        private readonly IMapper mapper;
 
-        public AuthenticationController(ILogger<WeatherForecastController> logger, IUnitOfWork unitOfWork)
+        public AuthenticationController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this.logger = logger;
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
         [Route("{login}")]
@@ -48,7 +49,7 @@ namespace ConstructionQualityControl.Web.Controllers
         [Authorize]
         [HttpGet]
         public ActionResult<string> Get()
-        {
+        {            
             return Ok(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
         }
     }

@@ -1,7 +1,8 @@
 ﻿namespace ConstructionQualityControl.Domain.Dtos
 {
-    public class ReadCityDto
+    public class RegionReadDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

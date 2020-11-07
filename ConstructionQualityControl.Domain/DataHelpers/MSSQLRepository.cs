@@ -25,6 +25,10 @@ namespace ConstructionQualityControl.Domain
         public async Task DeleteByIdAsync(int id)
         {
             T entityToDelete = await dbSet.FindAsync(id);
+
+            if (entityToDelete == null)
+                return;
+
             Delete(entityToDelete);
         }
 

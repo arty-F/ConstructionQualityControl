@@ -1,6 +1,5 @@
 ﻿using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Web.Authentication;
-using System.Linq;
 
 namespace ConstructionQualityControl.Web.Extensions
 {
