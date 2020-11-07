@@ -26,8 +26,7 @@ namespace ConstructionQualityControl.Web.Controllers
         {
             var regions = await unitOfWork.GetRepository<Region>().GetAsync();
 
-            if (regions == null)
-                return NotFound();
+            if (regions == null) return NotFound();
 
             return Ok(mapper.Map<IEnumerable<RegionReadDto>>(regions));
         }
@@ -37,8 +36,7 @@ namespace ConstructionQualityControl.Web.Controllers
         {
             var region = await unitOfWork.GetRepository<Region>().GetByIdAsync(id);
 
-            if (region == null)
-                return NotFound();
+            if (region == null) return NotFound();
 
             return Ok(mapper.Map<RegionReadDto>(region));
         }
@@ -59,7 +57,7 @@ namespace ConstructionQualityControl.Web.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRegion(int id)
         {
             await unitOfWork.GetRepository<Region>().DeleteByIdAsync(id);

@@ -8,6 +8,6 @@ namespace ConstructionQualityControl.Data.Models
         public int Id { get; set; }
         [Required, MaxLength(50)]
         public string Name { get; set; }
-        public virtual List<City> Cities { get; set; }
+        public virtual List<City> Cities { get; set; } = new List<City>();
     }
 }

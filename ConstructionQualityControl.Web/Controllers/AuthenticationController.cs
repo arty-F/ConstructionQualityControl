@@ -31,19 +31,9 @@ namespace ConstructionQualityControl.Web.Controllers
         {
             var checkUser = await unitOfWork.GetRepository<User>().GetAsync(u => u.Login == login);
 
-            if (checkUser == null)
-            {
-                return BadRequest();
-            }
+            if (checkUser == null || checkUser.FirstOrDefault()?.Password != password) return BadRequest();
 
-            var user = checkUser.First();
-
-            if (user.Password != password)
-            {
-                return BadRequest();
-            }
-
-            return new ObjectResult(JWTAuthenticationManager.GetToken(user));
+            return new ObjectResult(JWTAuthenticationManager.GetToken(checkUser.First()));
         }
 
         [Authorize]

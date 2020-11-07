@@ -22,12 +22,12 @@ namespace ConstructionQualityControl.Data.Models
         public string CompanyName { get; set; }
         public string CompanyDescription { get; set; }
         public DateTime BirthDate { get; set; }
-        public City City { get; set; }
+        public virtual City City { get; set; }
         [MaxLength(10)]
         public string Role { get; set; }
 
-        public virtual List<Order> Orders { get; set; }
-        public virtual List<Comment> Comments { get; set; }
-        public virtual List<Report> Reports { get; set; }
+        public virtual List<Order> Orders { get; set; } = new List<Order>();
+        public virtual List<Comment> Comments { get; set; } = new List<Comment>();
+        public virtual List<Report> Reports { get; set; } = new List<Report>();
     }
 }

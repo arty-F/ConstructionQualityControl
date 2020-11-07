@@ -25,7 +25,11 @@ namespace ConstructionQualityControl.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<QualityControlContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConstructionQualityConnection")));
+            services.AddDbContext<QualityControlContext>(options =>
+            {
+                options.UseLazyLoadingProxies();
+                options.UseSqlServer(Configuration.GetConnectionString("ConstructionQualityConnection"));
+            });
 
             services.AddAuthentication(opt =>
             {

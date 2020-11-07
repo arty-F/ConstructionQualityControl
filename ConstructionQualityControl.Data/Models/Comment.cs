@@ -6,8 +6,8 @@ namespace ConstructionQualityControl.Data.Models
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public User User { get; set; }
-        public Order Order { get; set; }
+        public virtual User User { get; set; }
+        public virtual Order Order { get; set; }
         public string Text { get; set; }
     }
 }
