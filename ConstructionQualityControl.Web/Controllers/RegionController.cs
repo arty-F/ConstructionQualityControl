@@ -25,9 +25,7 @@ namespace ConstructionQualityControl.Web.Controllers
         public async Task<ActionResult<IEnumerable<RegionReadDto>>> GetAllRegions()
         {
             var regions = await unitOfWork.GetRepository<Region>().GetAsync();
-
             if (regions == null) return NotFound();
-
             return Ok(mapper.Map<IEnumerable<RegionReadDto>>(regions));
         }
 
@@ -35,9 +33,7 @@ namespace ConstructionQualityControl.Web.Controllers
         public async Task<ActionResult<RegionReadDto>> GetRegionById(int id)
         {
             var region = await unitOfWork.GetRepository<Region>().GetByIdAsync(id);
-
             if (region == null) return NotFound();
-
             return Ok(mapper.Map<RegionReadDto>(region));
         }
 

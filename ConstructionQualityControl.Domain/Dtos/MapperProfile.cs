@@ -1,11 +1,12 @@
-﻿using ConstructionQualityControl.Data.Models;
+﻿using AutoMapper;
+using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain.Dtos;
 
 namespace ConstructionQualityControl.Domain.MapperProfile
 {
-    public class Profile : AutoMapper.Profile
+    public class MapperProfile : Profile
     {
-        public Profile()
+        public MapperProfile()
         {
             CreateMap<RegionCreateDto, Region>();
             CreateMap<Region, RegionReadDto>();
@@ -13,6 +14,9 @@ namespace ConstructionQualityControl.Domain.MapperProfile
 
             CreateMap<CityCreateDto, City>();
             CreateMap<City, CityReadDto>();
+            CreateMap<CityReadDto, City>();
+
+            CreateMap<UserCreateDto, User>();
         }
     }
 }

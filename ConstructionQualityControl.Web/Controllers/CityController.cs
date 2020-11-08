@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
 using ConstructionQualityControl.Domain.Dtos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionQualityControl.Web.Controllers
@@ -28,22 +25,32 @@ namespace ConstructionQualityControl.Web.Controllers
         public async Task<ActionResult<IEnumerable<CityReadDto>>> GetAllCities()
         {
             var cities = await unitOfWork.GetRepository<City>().GetAsync();
-            var region = cities.FirstOrDefault().Region;
             if (cities == null) return NotFound();
-            var a = mapper.Map<IEnumerable<CityReadDto>>(cities);
-            return Ok(a);
+            return Ok(mapper.Map<IEnumerable<CityReadDto>>(cities));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CityReadDto>> GetCityById(int id)
+        {
+            var city = await unitOfWork.GetRepository<City>().GetByIdAsync(id);
+            if (city == null) return NotFound();
+            return Ok(mapper.Map<CityReadDto>(city));
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateCity(CityCreateDto cityDto)
         {
             var city = mapper.Map<City>(cityDto);
-            //city.Region = await unitOfWork.GetRepository<Region>().GetByIdAsync(city.Region.Id);
-            //await unitOfWork.GetRepository<City>().AddAsync(city);
-            //await unitOfWork.SaveAsync();
+            city.Region = await unitOfWork.GetRepository<Region>().GetByIdAsync(city.Region.Id);
+            await unitOfWork.GetRepository<City>().AddAsync(city);
+            await unitOfWork.SaveAsync();
+            return Ok();
+        }
 
-            var region = await unitOfWork.GetRepository<Region>().GetByIdAsync(city.Region.Id);
-            region.Cities.Add(city);
+        [HttpPut]
+        public async Task<IActionResult> UpdateCity(CityReadDto cityDto)
+        {
+            unitOfWork.GetRepository<City>().Update(mapper.Map<City>(cityDto));
             await unitOfWork.SaveAsync();
             return Ok();
         }

@@ -47,6 +47,8 @@ namespace ConstructionQualityControl.Domain
             if (filter != null)
                 query = query.Where(filter);
 
+            if (query.Count() == 0) return null;
+
             if (orderBy != null)
                 return await Task.Run(() => orderBy(query).ToList());
             else
