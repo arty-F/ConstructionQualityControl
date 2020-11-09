@@ -7,6 +7,10 @@
   <ItemGroup>
     <Compile Remove="Migrations\20201031111829_Initial.cs" />
     <Compile Remove="Migrations\20201031111829_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20201103070356_roles-added.cs" />
+    <Compile Remove="Migrations\20201103070356_roles-added.Designer.cs" />
+    <Compile Remove="Migrations\20201104074917_role-change-to-string.cs" />
+    <Compile Remove="Migrations\20201104074917_role-change-to-string.Designer.cs" />
     <Compile Remove="Migrations\20201107121454_region-changed.cs" />
     <Compile Remove="Migrations\20201107121454_region-changed.Designer.cs" />
     <Compile Remove="Migrations\20201107123615_test.cs" />
@@ -15,6 +19,10 @@
     <Compile Remove="Migrations\20201107125320_test.Designer.cs" />
     <Compile Remove="Migrations\20201107131308_test.cs" />
     <Compile Remove="Migrations\20201107131308_test.Designer.cs" />
+    <Compile Remove="Migrations\20201107131458_Lazy_loading_added.cs" />
+    <Compile Remove="Migrations\20201107131458_Lazy_loading_added.Designer.cs" />
+    <Compile Remove="Migrations\20201109112816_coord-X-Y-changed-by-lat-lng.cs" />
+    <Compile Remove="Migrations\20201109112816_coord-X-Y-changed-by-lat-lng.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

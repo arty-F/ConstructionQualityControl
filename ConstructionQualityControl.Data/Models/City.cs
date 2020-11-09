@@ -9,8 +9,8 @@ namespace ConstructionQualityControl.Data.Models
         public string Name { get; set; }
         public virtual Region Region { get; set; }
         [Required]
-        public int CoordX { get; set; }
+        public double Latitude { get; set; }
         [Required]
-        public int CoordY { get; set; }
+        public double Longitude { get; set; }
     }
 }

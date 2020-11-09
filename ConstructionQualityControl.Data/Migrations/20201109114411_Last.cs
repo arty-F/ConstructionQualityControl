@@ -3,10 +3,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ConstructionQualityControl.Data.Migrations
 {
-    public partial class rolesadded : Migration
+    public partial class Last : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Cities_Regions_RegionId",
+                table: "Cities");
+
             migrationBuilder.DropForeignKey(
                 name: "FK_Comments_Builders_BuilderId",
                 table: "Comments");
@@ -101,6 +105,14 @@ namespace ConstructionQualityControl.Data.Migrations
                 name: "CustomerId",
                 table: "Comments");
 
+            migrationBuilder.DropColumn(
+                name: "CoordX",
+                table: "Cities");
+
+            migrationBuilder.DropColumn(
+                name: "CoordY",
+                table: "Cities");
+
             migrationBuilder.AddColumn<DateTime>(
                 name: "BirthDate",
                 table: "Users",
@@ -149,6 +161,12 @@ namespace ConstructionQualityControl.Data.Migrations
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
+            migrationBuilder.AddColumn<string>(
+                name: "Role",
+                table: "Users",
+                maxLength: 10,
+                nullable: true);
+
             migrationBuilder.AddColumn<int>(
                 name: "UserId",
                 table: "Reports",
@@ -182,25 +200,24 @@ namespace ConstructionQualityControl.Data.Migrations
                 table: "Comments",
                 nullable: true);
 
-            migrationBuilder.CreateTable(
-                name: "Roles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Roles_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
+            migrationBuilder.AlterColumn<int>(
+                name: "RegionId",
+                table: "Cities",
+                nullable: true,
+                oldClrType: typeof(int),
+                oldType: "int");
+
+            migrationBuilder.AddColumn<double>(
+                name: "Latitude",
+                table: "Cities",
+                nullable: false,
+                defaultValue: 0.0);
+
+            migrationBuilder.AddColumn<double>(
+                name: "Longitude",
+                table: "Cities",
+                nullable: false,
+                defaultValue: 0.0);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_CityId",
@@ -222,10 +239,13 @@ namespace ConstructionQualityControl.Data.Migrations
                 table: "Comments",
                 column: "UserId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Roles_UserId",
-                table: "Roles",
-                column: "UserId");
+            migrationBuilder.AddForeignKey(
+                name: "FK_Cities_Regions_RegionId",
+                table: "Cities",
+                column: "RegionId",
+                principalTable: "Regions",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Comments_Users_UserId",
@@ -263,6 +283,10 @@ namespace ConstructionQualityControl.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
+                name: "FK_Cities_Regions_RegionId",
+                table: "Cities");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_Comments_Users_UserId",
                 table: "Comments");
 
@@ -277,9 +301,6 @@ namespace ConstructionQualityControl.Data.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Users_Cities_CityId",
                 table: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
 
             migrationBuilder.DropIndex(
                 name: "IX_Users_CityId",
@@ -330,6 +351,10 @@ namespace ConstructionQualityControl.Data.Migrations
                 table: "Users");
 
             migrationBuilder.DropColumn(
+                name: "Role",
+                table: "Users");
+
+            migrationBuilder.DropColumn(
                 name: "UserId",
                 table: "Reports");
 
@@ -352,6 +377,14 @@ namespace ConstructionQualityControl.Data.Migrations
             migrationBuilder.DropColumn(
                 name: "UserId",
                 table: "Comments");
+
+            migrationBuilder.DropColumn(
+                name: "Latitude",
+                table: "Cities");
+
+            migrationBuilder.DropColumn(
+                name: "Longitude",
+                table: "Cities");
 
             migrationBuilder.AddColumn<int>(
                 name: "BuilderId",
@@ -401,6 +434,28 @@ namespace ConstructionQualityControl.Data.Migrations
                 table: "Comments",
                 type: "int",
                 nullable: true);
+
+            migrationBuilder.AlterColumn<int>(
+                name: "RegionId",
+                table: "Cities",
+                type: "int",
+                nullable: false,
+                oldClrType: typeof(int),
+                oldNullable: true);
+
+            migrationBuilder.AddColumn<int>(
+                name: "CoordX",
+                table: "Cities",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AddColumn<int>(
+                name: "CoordY",
+                table: "Cities",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
 
             migrationBuilder.CreateTable(
                 name: "Builders",
@@ -490,6 +545,14 @@ namespace ConstructionQualityControl.Data.Migrations
                 name: "IX_Customers_CityId",
                 table: "Customers",
                 column: "CityId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Cities_Regions_RegionId",
+                table: "Cities",
+                column: "RegionId",
+                principalTable: "Regions",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Comments_Builders_BuilderId",

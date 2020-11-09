@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionQualityControl.Data.Migrations
 {
     [DbContext(typeof(QualityControlContext))]
-    [Migration("20201103070356_roles-added")]
-    partial class rolesadded
+    [Migration("20201109114411_Last")]
+    partial class Last
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,18 +28,18 @@ namespace ConstructionQualityControl.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CoordX")
-                        .HasColumnType("int");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
 
-                    b.Property<int>("CoordY")
-                        .HasColumnType("int");
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int>("RegionId")
+                    b.Property<int?>("RegionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -163,26 +163,6 @@ namespace ConstructionQualityControl.Data.Migrations
                     b.ToTable("Reports");
                 });
 
-            modelBuilder.Entity("ConstructionQualityControl.Data.Models.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("ConstructionQualityControl.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -230,6 +210,10 @@ namespace ConstructionQualityControl.Data.Migrations
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
@@ -241,9 +225,7 @@ namespace ConstructionQualityControl.Data.Migrations
                 {
                     b.HasOne("ConstructionQualityControl.Data.Models.Region", "Region")
                         .WithMany("Cities")
-                        .HasForeignKey("RegionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RegionId");
                 });
 
             modelBuilder.Entity("ConstructionQualityControl.Data.Models.Comment", b =>
@@ -276,13 +258,6 @@ namespace ConstructionQualityControl.Data.Migrations
 
                     b.HasOne("ConstructionQualityControl.Data.Models.User", "User")
                         .WithMany("Reports")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ConstructionQualityControl.Data.Models.Role", b =>
-                {
-                    b.HasOne("ConstructionQualityControl.Data.Models.User", null)
-                        .WithMany("Roles")
                         .HasForeignKey("UserId");
                 });
 

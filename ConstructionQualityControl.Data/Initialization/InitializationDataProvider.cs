@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace ConstructionQualityControl.Data.Initialization
 {
-    public class InitializationDataProvider
+    internal class InitializationDataProvider
     {
-        private readonly string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Russia_cities.txt");
+        private readonly string path = Path.Combine(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName, "Initialization", "Russia_cities.txt");
+        private readonly string regionPattern = @"(?<=\s)(.*?)(?=\d)";   //All between the first space and the first digit
+        private readonly string cityPattern = @"^\S*";                   //All before space
+        private readonly string valuePattern = @"[0-9]*\.?[0-9]+";       //Numbers with point
 
-        public void GetRegions()
+        /// <summary>
+        /// Return tupple of (city, region, lat, lng).
+        /// </summary>
+        internal List<(string city, string region, double latitude, double longitude)> GetData()
         {
-            var data = new List<(string city, string region, double latitude, double longitude)>();
-
             IEnumerable<string> lines;
 
             try
@@ -25,9 +31,7 @@ namespace ConstructionQualityControl.Data.Initialization
                 throw new Exception($"Error on reading file: {path}.");
             }
 
-            string regionPattern = @"(?<=\s)(.*?)(?=\d)";   //All between the first space and the first digit
-            string cityPattern = @"^\S*";                   //All before space
-            string valuePattern = @"[0-9]*\.?[0-9]+";       //Numbers with point
+            var data = new List<(string city, string region, double latitude, double longitude)>(lines.Count());
 
             foreach (var line in lines)
             {
@@ -39,8 +43,8 @@ namespace ConstructionQualityControl.Data.Initialization
                     region = Regex.Match(line, regionPattern).Value.Trim();
                     city = Regex.Match(line, cityPattern).Value;
                     var values = Regex.Matches(line, valuePattern);
-                    latitude = double.Parse(values[0].Value);
-                    longitude = double.Parse(values[1].Value);
+                    latitude = double.Parse(values[0].Value, CultureInfo.InvariantCulture);
+                    longitude = double.Parse(values[1].Value, CultureInfo.InvariantCulture);
                 }
                 catch (Exception)
                 {
@@ -49,6 +53,8 @@ namespace ConstructionQualityControl.Data.Initialization
 
                 data.Add((city, region, latitude, longitude));
             }
+
+            return data;
         }
     }
 }
