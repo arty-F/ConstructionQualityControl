@@ -15,11 +15,6 @@ namespace ConstructionQualityControl.Domain
 
         public async Task SaveAsync() => await context.SaveChangesAsync();
 
-        private void GG()
-        {
-            context.Database.EnsureCreated();
-        }
-
         #region IDisposable
         private bool disposed = false;
 

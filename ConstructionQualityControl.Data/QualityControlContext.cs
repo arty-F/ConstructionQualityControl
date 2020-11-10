@@ -1,4 +1,5 @@
-﻿using ConstructionQualityControl.Data.Models;
+﻿using ConstructionQualityControl.Data.Initialization;
+using ConstructionQualityControl.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConstructionQualityControl.Data
@@ -14,5 +15,14 @@ namespace ConstructionQualityControl.Data
 
         public QualityControlContext(DbContextOptions<QualityControlContext> options) : base(options) { }
         public QualityControlContext() { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            ContextInitializer initializer = new ContextInitializer();
+
+            modelBuilder.Entity<Region>().HasData(initializer.GetRegions());
+
+            modelBuilder.Entity<City>().HasData(initializer.GetCitiesAsAnonObj());
+        }
     }
 }

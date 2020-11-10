@@ -23,6 +23,8 @@
     <Compile Remove="Migrations\20201107131458_Lazy_loading_added.Designer.cs" />
     <Compile Remove="Migrations\20201109112816_coord-X-Y-changed-by-lat-lng.cs" />
     <Compile Remove="Migrations\20201109112816_coord-X-Y-changed-by-lat-lng.Designer.cs" />
+    <Compile Remove="Migrations\20201109114411_Last.cs" />
+    <Compile Remove="Migrations\20201109114411_Last.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
