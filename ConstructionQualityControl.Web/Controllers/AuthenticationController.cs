@@ -1,14 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
 using ConstructionQualityControl.Web.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace ConstructionQualityControl.Web.Controllers
 {
@@ -34,13 +30,6 @@ namespace ConstructionQualityControl.Web.Controllers
             if (checkUser == null || checkUser.FirstOrDefault()?.Password != password) return BadRequest();
 
             return new ObjectResult(JWTAuthenticationManager.GetToken(checkUser.First()));
-        }
-
-        [Authorize]
-        [HttpGet]
-        public ActionResult<string> Get()
-        {            
-            return Ok(HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
         }
     }
 }

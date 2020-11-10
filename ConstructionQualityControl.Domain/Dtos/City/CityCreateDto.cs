@@ -3,8 +3,8 @@
     public class CityCreateDto
     {
         public string Name { get; set; }
-        public int CoordX { get; set; }
-        public int CoordY { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public RegionReadDto Region { get; set; }
     }
 }

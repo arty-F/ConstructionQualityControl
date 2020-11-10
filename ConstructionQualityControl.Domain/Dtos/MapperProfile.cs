@@ -17,6 +17,7 @@ namespace ConstructionQualityControl.Domain.MapperProfile
             CreateMap<CityReadDto, City>();
 
             CreateMap<UserCreateDto, User>();
+            CreateMap<User, UserReadDto>();
         }
     }
 }

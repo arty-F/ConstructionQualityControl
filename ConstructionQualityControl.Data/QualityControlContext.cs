@@ -21,7 +21,6 @@ namespace ConstructionQualityControl.Data
             ContextInitializer initializer = new ContextInitializer();
 
             modelBuilder.Entity<Region>().HasData(initializer.GetRegions());
-
             modelBuilder.Entity<City>().HasData(initializer.GetCitiesAsAnonObj());
         }
     }
