@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
 using ConstructionQualityControl.Web.Authentication;
@@ -13,12 +12,10 @@ namespace ConstructionQualityControl.Web.Controllers
     public class AuthenticationController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
 
-        public AuthenticationController(IUnitOfWork unitOfWork, IMapper mapper)
+        public AuthenticationController(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
         }
 
         [Route("{login}")]
