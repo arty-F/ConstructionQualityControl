@@ -1,0 +1,15 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>CityId</th>
+            <th>CityName</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of cityList">
+            <td>{{dataItem.id}}</td>
+            <td>{{dataItem.name}}</td>
+        </tr>
+    </tbody>
+
+</table>
