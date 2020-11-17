@@ -31,6 +31,8 @@ namespace ConstructionQualityControl.Web
                 options.UseSqlServer(Configuration.GetConnectionString("ConstructionQualityConnection"));
             });
 
+            services.AddCors();
+
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = "JwtBearer";
@@ -61,6 +63,8 @@ namespace ConstructionQualityControl.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseAuthentication();
 

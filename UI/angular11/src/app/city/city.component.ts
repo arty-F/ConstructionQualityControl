@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { from } from 'rxjs';
+import { SharedService } from '../shared.service';
+import { CityReadDto } from '../dtos/city/city-read-dto';
+import { RegionReadDto } from '../dtos/region/region-read-dto';
 
 @Component({
   selector: 'app-city',
@@ -7,9 +11,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CityComponent implements OnInit {
 
-  constructor() { }
+  displayedColumns: string[] = ['Id', 'Name'/*, 'Region.Id', 'Region.Name'*/];
+  data: CityReadDto[] = [];
+  isLoadingResults = true;
+
+  constructor(private shared: SharedService) { }
 
   ngOnInit(): void {
+    this.shared.GetCityList().subscribe(
+      res => {
+        this.data = res;
+      },
+      err => {
+        console.log(err);
+        this.isLoadingResults = false;
+      });
   }
-
 }

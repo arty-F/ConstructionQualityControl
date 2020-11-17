@@ -1,29 +1,46 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, tap, map } from 'rxjs/operators';
+import { CityReadDto } from './dtos/city/city-read-dto';
+import { RegionReadDto } from './dtos/region/region-read-dto';
+
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
+const apiUrl = 'http://localhost:50970';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
 
-  readonly ApiUrl = "http://localhost:50970/";
-
   constructor(private http: HttpClient) { }
 
-  GetCityList(): Observable<any[]> {
-    return this.http.get<any>(this.ApiUrl + 'City');
+  GetCityList(): Observable<CityReadDto[]> {
+    return this.http.get<CityReadDto[]>(apiUrl + '/City').pipe(
+      tap(s => console.log('fetched cities')),
+      catchError(this.handleError('GetCityList', []))
+    );
   }
 
   AddCity(item: any) {
-    return this.http.post(this.ApiUrl+'City', item);
+    return this.http.post(apiUrl + 'City', item);
   }
 
   UpdateCity(item: any) {
-    return this.http.put(this.ApiUrl+'City', item);
+    return this.http.put(apiUrl + 'City', item);
   }
 
   DeleteCity(item: any) {
-    return this.http.delete(this.ApiUrl+'City', item)
+    return this.http.delete(apiUrl + 'City', item)
+  }
+
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
   }
 }
