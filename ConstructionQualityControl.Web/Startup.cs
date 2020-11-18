@@ -33,11 +33,7 @@ namespace ConstructionQualityControl.Web
 
             services.AddCors();
 
-            services.AddAuthentication(opt =>
-            {
-                opt.DefaultAuthenticateScheme = "JwtBearer";
-                opt.DefaultAuthenticateScheme = "JwtBearer";
-            }).AddJwtBearer("JwtBearer", jwtOpt =>
+            services.AddAuthentication(opt => opt.DefaultAuthenticateScheme = "JwtBearer").AddJwtBearer("JwtBearer", jwtOpt =>
             {
                 jwtOpt.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -45,8 +41,7 @@ namespace ConstructionQualityControl.Web
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTAuthenticationManager.Key)),
                     ValidateIssuer = false,
                     ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromMinutes(5)
+                    ValidateLifetime = true
                 };
             });
 
@@ -59,10 +54,7 @@ namespace ConstructionQualityControl.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
@@ -72,10 +64,7 @@ namespace ConstructionQualityControl.Web
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
