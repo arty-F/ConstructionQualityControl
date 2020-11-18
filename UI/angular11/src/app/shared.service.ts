@@ -19,10 +19,7 @@ export class SharedService {
   constructor(private http: HttpClient) { }
 
   GetCityList(): Observable<CityReadDto[]> {
-    return this.http.get<CityReadDto[]>(apiUrl + '/City').pipe(
-      tap(s => console.log('fetched cities')),
-      catchError(this.handleError('GetCityList', []))
-    );
+    return this.http.get<CityReadDto[]>(apiUrl + '/City');
   }
 
   AddCity(item: any) {
@@ -35,12 +32,5 @@ export class SharedService {
 
   DeleteCity(item: any) {
     return this.http.delete(apiUrl + 'City', item)
-  }
-
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
   }
 }

@@ -11,7 +11,7 @@ import { RegionReadDto } from '../dtos/region/region-read-dto';
 })
 export class CityComponent implements OnInit {
 
-  displayedColumns: string[] = ['Id', 'Name'/*, 'Region.Id', 'Region.Name'*/];
+  displayedColumns: string[] = ['id', 'name', 'region.id', 'region.name'];
   data: CityReadDto[] = [];
   isLoadingResults = true;
 
@@ -21,10 +21,6 @@ export class CityComponent implements OnInit {
     this.shared.GetCityList().subscribe(
       res => {
         this.data = res;
-      },
-      err => {
-        console.log(err);
-        this.isLoadingResults = false;
       });
   }
 }
