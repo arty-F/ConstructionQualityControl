@@ -1,2 +1,74 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+* {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: black;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    text-decoration: none;
+}
+
+html {
+    height: 100%;
+}
+
+/*-----HEADER-----*/
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 5%;
+    margin: 10px 0;
+    background-color: #060147;
+}
+
+header * {
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+header h1 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: auto;
+}
+
+header ul {
+    list-style: none;
+}
+
+header ul li {
+    display: inline-block;
+    padding: 0px 15px;
+}
+
+header ul li a {
+    transition: all 0.3s ease 0s;
+}
+
+header ul li a:hover {
+    color: #b3bb00;
+}
+
+.a_auth {
+    margin-left: auto;
+}
+
+header button {
+    padding: 25px 25px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    outline:none;
+    transition: all 0.3s ease 0s;
+}
+
+header button:hover {
+    background-color: rgba(0, 0, 0, 1);
+    color: #b3bb00;
+}
