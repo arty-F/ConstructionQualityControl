@@ -10,6 +10,7 @@ import { CityComponent } from './city/city.component';
 import { ShowCityComponent } from './city/show-city/show-city.component';
 import { AddEditCityComponent } from './city/add-edit-city/add-edit-city.component';
 import { SharedService } from './shared.service';
+import { StartedComponent } from './started/started.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SharedService } from './shared.service';
     AppComponent,
     CityComponent,
     ShowCityComponent,
-    AddEditCityComponent
+    AddEditCityComponent,
+    StartedComponent
   ],
   imports: [
     BrowserModule,

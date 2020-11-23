@@ -22,8 +22,7 @@ header {
     justify-content: flex-end;
     align-items: center;
     padding: 10px 5%;
-    margin: 10px 0;
-    background-color: #060147;
+    background-color: #4226e2;
 }
 
 header * {
@@ -33,6 +32,7 @@ header * {
 
 header h1 {
     font-size: 22px;
+    text-transform: uppercase;
     font-weight: bold;
     margin-right: auto;
 }
@@ -72,3 +72,6 @@ header button:hover {
     background-color: rgba(0, 0, 0, 1);
     color: #b3bb00;
 }
+
+/*-----FOOTER-----*/
+

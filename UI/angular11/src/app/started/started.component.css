@@ -1,0 +1,38 @@
+p {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.container-item {
+    display: flex;
+    background: rgba(46, 1, 248, 0.25);
+    margin-top: 10px;
+    padding: 10 px;
+    transition: all 0.3s ease 0s;
+}
+
+.container-item * {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.item-column{
+    display: inline-block;
+    margin-right: auto;
+    max-width: 45%;
+}
+
+.item-column img {
+    height: auto;
+    max-width: 100%;
+    padding-top: 10px;
+    margin: 0 0 10px 10px;
+}
+
+.item-column h2 {
+    text-align: center;
+    vertical-align: text-top;
+    color: #4226e2;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
