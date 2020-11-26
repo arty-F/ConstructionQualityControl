@@ -5,7 +5,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 10px 5%;
-    background-color: #4226e2;
+    background-color: #35383a;
 }
 
 header * {
@@ -28,28 +28,58 @@ header ul li {
     padding: 0px 15px;
 }
 
-header ul li a {
+header ul li a, footer ul li a {
     transition: all 0.3s ease 0s;
 }
 
-header ul li a:hover {
+header ul li a:hover, footer ul li a:hover {
     color: #b3bb00;
 }
 
 header .a_auth button {
     padding: 25px 25px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #282a2b;
     border: none;
     cursor: pointer;
     border-radius: 50px;
-    outline:none;
+    outline: none;
     transition: all 0.3s ease 0s;
 }
 
 header .a_auth button:hover {
     background-color: rgb(255, 255, 255);
-    color: #4226e2;
+    color: #35383a;
+    font-weight: bold;
 }
 
 /*-----FOOTER-----*/
 
+footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding: 10px 5%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+footer * {
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+footer ul {
+    margin-top: 15px;
+    list-style: none;
+}
+
+footer ul li {
+    text-align: center;
+    padding: 5px 0;
+}
+
+footer p {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    max-width: 50%;
+}
