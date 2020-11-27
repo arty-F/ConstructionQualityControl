@@ -2,52 +2,65 @@
 
     <h2>Регистрация новой учетной записи</h2>
 
-    <div class="user-type">
+    <div class="user-type-header">Тип учетной записи</div>
+    <div class="user-type" name="user-type">
         <div class="user-radiobtn">
             <input id="radio-1" type="radio" name="radio" value="1">
-            <label for="radio-1">Клиент</label>
-            <p>Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее
-                осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в
-                домашних условиях. При создании генератора мы использовали небезизвестный универсальный код речей. Текст
-                генерируется абзацами случайным образом от двух до десяти предложений в абзаце, что позволяет сделать
-                текст более привлекательным и живым для визуально-слухового восприятия.
+            <label for="radio-1">Заказчик</label>
+            <p>Вы сможете размещать заказы на выполнение работ и осуществлять поиск исполнителей по необходимым
+                критериям.
             </p>
         </div>
 
         <div class="user-radiobtn">
             <input id="radio-2" type="radio" name="radio" value="2">
-            <label for="radio-2">Строитель</label>
-            <p>Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее
-                осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в
-                домашних условиях. При создании генератора мы использовали небезизвестный универсальный код речей. Текст
-                генерируется абзацами случайным образом от двух до десяти предложений в абзаце, что позволяет сделать
-                текст более привлекательным и живым для визуально-слухового восприятия.</p>
+            <label for="radio-2">Исполнитель</label>
+            <p>Вы сможете предоставлять строительные услуги заказчикам и осуществлять поиск интересующих заказов.</p>
         </div>
     </div>
 
-
-
-
-    <div class="item-forms">
-        <label for="email"><b>Адрес эл. почты</b></label>
-        <input type="text" placeholder="Введите адрес эл. почты" name="email" required>
-
-        <label for="pas"><b>Пароль</b></label>
-        <input type="password" placeholder="Введите пароль" name="pas" required>
-
-        <button type="submit">Войти</button>
-        <label>
-            <input type="checkbox" checked="checked" name="remember">Запомнить
-        </label>
+    <div class="input-container">
+        <input type="text" placeholder="Адрес эл. почты" required>
     </div>
 
-    <div class="item-additional">
-        <button type="button" class="cancelbtn" routerLink="/">Отмена</button>
-        <span class="pas">Забыли <a href="#">пароль?</a></span>
+    <div class="input-container">
+        <input type="text" placeholder="Фамилия" required>
+    </div>
+
+    <div class="input-container">
+        <input type="text" placeholder="Имя" required>
+    </div>
+
+    <div class="input-container">
+        <input type="text" placeholder="Отчество" required>
+    </div>
+
+    <div class="input-container">
+        <input type="text" placeholder="Город" required>
+    </div>
+
+    <div class="input-container">
+        <input type="text" placeholder="Название компании" required>
+    </div>
+
+    <div class="input-container">
+        <textarea rows="4" placeholder="Описание компании"></textarea>
+    </div>
+
+    <div class="input-container">
+        <label for="dateofbirth">Дата рождения</label>
+        <input type="date" name="dateofbirth">
+    </div>
+
+    <div class="input-container">
+        <input type="text" placeholder="Пароль" required>
+    </div>
+
+    <div class="input-container">
+        <input type="text" placeholder="Повторите пароль" required>
     </div>
 
     <div class="registration">
-        <p>Нет своего аккаунта?</p>
-        <button type="button" class="registerbtn" routerLink="/Registration">Регистрация</button>
+        <button type="button" class="registerbtn" routerLink="/Registration">Зарегистрировать</button>
     </div>
 </div>
