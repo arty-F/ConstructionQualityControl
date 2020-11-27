@@ -12,6 +12,7 @@ import { AddEditCityComponent } from './city/add-edit-city/add-edit-city.compone
 import { SharedService } from './shared.service';
 import { StartedComponent } from './started/started.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     ShowCityComponent,
     AddEditCityComponent,
     StartedComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

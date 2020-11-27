@@ -1,0 +1,79 @@
+.container {
+    max-width: 45%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.item-forms {
+    margin-top: 16%;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid rgb(181, 205, 207);
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #44484b;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.75;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.item-additional {
+    padding: 16px 0;
+}
+
+.pas a {
+    color: blue;
+    text-decoration: underline;
+}
+
+span.pas {
+    float: right;
+    padding-top: 16px;
+}
+
+.registration {
+    margin: 12% 0;
+}
+
+.registration p {
+    text-align: center;
+}
+
+.registerbtn{
+    background-color: #f44336;
+}
+
+@media screen and (max-width: 900px) {
+    span.pas {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+    .container {
+        max-width: 90%;
+        margin-left: auto;
+    }
+}
