@@ -10,11 +10,6 @@ h2 {
     margin: 5% 0;
 }
 
-.user-type-header {
-    text-align: center;
-    margin-bottom: 5px;
-}
-
 /*-----RADIO-BUTTON-----*/
 
 .user-type {
@@ -49,6 +44,13 @@ h2 {
     text-align: justify;
 }
 
+.user-type-label {
+    color: rgba(0, 0, 0, 0.6);
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
 /* Checked */
 
 .user-radiobtn input[type=radio]:checked+label {
@@ -76,11 +78,11 @@ input[type=text], input[type=password], textarea {
 input[type=date] {
     border: 1px solid rgb(181, 205, 207);
     background-color: #fff;
-    padding: 3px 5px;
+    padding: 3px 20px;
   }
 
 
-button {
+  input[type=submit] {
     background-color: #44484b;
     color: white;
     padding: 14px 20px;
@@ -90,6 +92,11 @@ button {
     cursor: pointer;
     outline: none;
     width: 100%;
+}
+
+input[type=submit]:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
 }
 
 button:hover {
@@ -108,6 +115,21 @@ button:hover {
     margin-top: 20px;
 }
 
+.input-container label {
+    color: rgba(0, 0, 0, 0.6);
+    margin-left: 20px;
+}
+
 textarea {
     resize: none;
+}
+
+.validation-error * {
+    color: red;
+}
+
+@media screen and (max-width: 900px) {
+    .container {
+        max-width: 90%;
+    }
 }

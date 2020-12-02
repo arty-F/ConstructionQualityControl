@@ -2,65 +2,104 @@
 
     <h2>Регистрация новой учетной записи</h2>
 
-    <div class="user-type-header">Тип учетной записи</div>
-    <div class="user-type" name="user-type">
-        <div class="user-radiobtn">
-            <input id="radio-1" type="radio" name="radio" value="1">
-            <label for="radio-1">Заказчик</label>
-            <p>Вы сможете размещать заказы на выполнение работ и осуществлять поиск исполнителей по необходимым
-                критериям.
-            </p>
+    <form novalidate [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
+
+        <label class="user-type-label" for="user-type">Тип учетной записи</label>
+        <div class="user-type" name="user-type">
+            <div class="user-radiobtn">
+                <input id="radio-1" type="radio" name="radio" value="1">
+                <label for="radio-1">Заказчик</label>
+                <p>Вы сможете размещать заказы на выполнение работ и осуществлять поиск исполнителей по необходимым
+                    критериям.
+                </p>
+            </div>
+
+            <div class="user-radiobtn">
+                <input id="radio-2" type="radio" name="radio" value="2">
+                <label for="radio-2">Исполнитель</label>
+                <p>Вы сможете предоставлять строительные услуги заказчикам и осуществлять поиск интересующих заказов.
+                </p>
+            </div>
         </div>
 
-        <div class="user-radiobtn">
-            <input id="radio-2" type="radio" name="radio" value="2">
-            <label for="radio-2">Исполнитель</label>
-            <p>Вы сможете предоставлять строительные услуги заказчикам и осуществлять поиск интересующих заказов.</p>
+        <div class="input-container">
+            <input id="email" formControlName="email" type="text" placeholder="Адрес эл. почты">
+
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="validation-error">
+                <div *ngIf="email.errors.required">
+                    Это поле обязательное.
+                </div>
+                <div *ngIf="email.errors.email">
+                    Не верный формат электронного адреса.
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="input-container">
-        <input type="text" placeholder="Адрес эл. почты" required>
-    </div>
+        <div class="input-container">
+            <input id="lname" formControlName="lname" type="text" placeholder="Фамилия">
 
-    <div class="input-container">
-        <input type="text" placeholder="Фамилия" required>
-    </div>
+            <div *ngIf="lname.invalid && (lname.dirty || lname.touched)" class="validation-error">
+                <div *ngIf="lname.errors.required">
+                    Это поле обязательное.
+                </div>
+            </div>
+        </div>
 
-    <div class="input-container">
-        <input type="text" placeholder="Имя" required>
-    </div>
+        <div class="input-container">
+            <input id="fname" formControlName="fname" type="text" placeholder="Имя" required>
 
-    <div class="input-container">
-        <input type="text" placeholder="Отчество" required>
-    </div>
+            <div *ngIf="fname.invalid && (fname.dirty || fname.touched)" class="validation-error">
+                <div *ngIf="fname.errors.required">
+                    Это поле обязательное.
+                </div>
+            </div>
+        </div>
 
-    <div class="input-container">
-        <input type="text" placeholder="Город" required>
-    </div>
+        <div class="input-container">
+            <input id="patronymic" formControlName="patronymic" type="text" placeholder="Отчество" required>
 
-    <div class="input-container">
-        <input type="text" placeholder="Название компании" required>
-    </div>
+            <div *ngIf="patronymic.invalid && (patronymic.dirty || patronymic.touched)" class="validation-error">
+                <div *ngIf="patronymic.errors.required">
+                    Это поле обязательное.
+                </div>
+            </div>
+        </div>
 
-    <div class="input-container">
-        <textarea rows="4" placeholder="Описание компании"></textarea>
-    </div>
+        <div class="input-container">
+            <input id="city" formControlName="city" type="text" placeholder="Город" required>
 
-    <div class="input-container">
-        <label for="dateofbirth">Дата рождения</label>
-        <input type="date" name="dateofbirth">
-    </div>
+            <div *ngIf="city.invalid && (city.dirty || city.touched)" class="validation-error">
+                <div *ngIf="city.errors.required">
+                    Это поле обязательное.
+                </div>
+            </div>
+        </div>
 
-    <div class="input-container">
-        <input type="text" placeholder="Пароль" required>
-    </div>
+        <div class="input-container">
+            <input type="text" placeholder="Название компании" required>
+        </div>
 
-    <div class="input-container">
-        <input type="text" placeholder="Повторите пароль" required>
-    </div>
+        <div class="input-container">
+            <textarea rows="4" placeholder="Описание компании"></textarea>
+        </div>
 
-    <div class="registration">
-        <button type="button" class="registerbtn" routerLink="/Registration">Зарегистрировать</button>
-    </div>
+        <div class="input-container">
+            <label for="dateofbirth">Дата рождения</label>
+            <input type="date" name="dateofbirth">
+        </div>
+
+        <div class="input-container">
+            <input type="text" placeholder="Пароль" required>
+        </div>
+
+        <div class="input-container">
+            <input type="text" placeholder="Повторите пароль" required>
+        </div>
+
+        <div class="registration">
+            <input type="submit" [disabled]="registerForm.invalid" value="Зарегистрировать">
+        </div>
+
+    </form>
+
 </div>
