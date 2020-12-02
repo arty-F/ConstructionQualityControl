@@ -14,7 +14,7 @@ export class RegistrationComponent implements OnInit {
 
   registerForm: FormGroup
   userDto: UserCreateDto = new UserCreateDto()
-  cities: string[] = ['aaa', 'bbb', 'ccc', 'abb', 'acc']
+  cities: CityReadDto[]
 
   constructor(private fb: FormBuilder, private service: SharedService) { }
 
@@ -25,19 +25,26 @@ export class RegistrationComponent implements OnInit {
   get city() { return this.registerForm.get('city') }
 
   ngOnInit(): void {
-    //this.service.GetCityList().subscribe(data => { this.cities = data })
+    this.service.GetCityList().subscribe(data => { this.cities = data })
 
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       lname: ['', Validators.required],
       fname: ['', Validators.required],
       patronymic: ['', Validators.required],
+      city: ['', Validators.required],
     })
   }
 
   onSubmit(form): void {
     this.userDto.login = this.registerForm.get('email').value
+    this.userDto.lastName = this.registerForm.get('lname').value
+    this.userDto.firstName = this.registerForm.get('fname').value
+    this.userDto.patronymic = this.registerForm.get('patronymic').value
+    let currentCity = this.registerForm.get('city').value.split(", ")
+    this.userDto.city = this.cities.filter(c => c.name == currentCity[0] && c.region.name == currentCity[1])[0]
+    
 
-    console.log(this.userDto.login)
+    console.log(this.userDto.city.name)
   }
 }

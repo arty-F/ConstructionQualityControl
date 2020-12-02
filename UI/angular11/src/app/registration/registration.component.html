@@ -46,7 +46,7 @@
         </div>
 
         <div class="input-container">
-            <input id="fname" formControlName="fname" type="text" placeholder="Имя" required>
+            <input id="fname" formControlName="fname" type="text" placeholder="Имя">
 
             <div *ngIf="fname.invalid && (fname.dirty || fname.touched)" class="validation-error">
                 <div *ngIf="fname.errors.required">
@@ -56,7 +56,7 @@
         </div>
 
         <div class="input-container">
-            <input id="patronymic" formControlName="patronymic" type="text" placeholder="Отчество" required>
+            <input id="patronymic" formControlName="patronymic" type="text" placeholder="Отчество">
 
             <div *ngIf="patronymic.invalid && (patronymic.dirty || patronymic.touched)" class="validation-error">
                 <div *ngIf="patronymic.errors.required">
@@ -66,7 +66,10 @@
         </div>
 
         <div class="input-container">
-            <input id="city" formControlName="city" type="text" placeholder="Город" required>
+            <input id="city" list="cities" formControlName="city" type="text" placeholder="Город">
+            <datalist id="cities">
+                <option *ngFor="let c of cities" [value]="c.name + ', ' + c.region.name"></option>
+            </datalist>
 
             <div *ngIf="city.invalid && (city.dirty || city.touched)" class="validation-error">
                 <div *ngIf="city.errors.required">
