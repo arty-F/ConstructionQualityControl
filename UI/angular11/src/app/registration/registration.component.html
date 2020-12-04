@@ -7,7 +7,7 @@
         <label class="user-type-label" for="user-type">Тип учетной записи</label>
         <div class="user-type" name="user-type">
             <div class="user-radiobtn">
-                <input id="radio-1" type="radio" name="radio" value="1">
+                <input id="radio-1" type="radio" name="user" value="Customer" formControlName="user" (change)="onUserChanged($event)">
                 <label for="radio-1">Заказчик</label>
                 <p>Вы сможете размещать заказы на выполнение работ и осуществлять поиск исполнителей по необходимым
                     критериям.
@@ -15,7 +15,7 @@
             </div>
 
             <div class="user-radiobtn">
-                <input id="radio-2" type="radio" name="radio" value="2">
+                <input id="radio-2" type="radio" name="user" value="Builder" formControlName="user" (change)="onUserChanged($event)">
                 <label for="radio-2">Исполнитель</label>
                 <p>Вы сможете предоставлять строительные услуги заказчикам и осуществлять поиск интересующих заказов.
                 </p>
@@ -66,37 +66,50 @@
         </div>
 
         <div class="input-container">
-            <input id="city" list="cities" formControlName="city" type="text" placeholder="Город">
-            <datalist id="cities">
-                <option *ngFor="let c of cities" [value]="c.name + ', ' + c.region.name"></option>
+            <input id="city" list="citiesReadable" formControlName="city" type="text" placeholder="Город">
+            <datalist id="citiesReadable">
+                <option *ngFor="let c of citiesReadable" [value]="c"></option>
             </datalist>
 
             <div *ngIf="city.invalid && (city.dirty || city.touched)" class="validation-error">
                 <div *ngIf="city.errors.required">
                     Это поле обязательное.
                 </div>
+
+                <div *ngIf="city.errors.wrongCity">
+                    Выберите город из списка.
+                </div>
             </div>
         </div>
 
-        <div class="input-container">
-            <input type="text" placeholder="Название компании" required>
+        <div class="input-container" *ngIf="userType === 'Builder'">
+            <input id="companyName" formControlName="companyName" type="text" placeholder="Название компании">
         </div>
 
-        <div class="input-container">
-            <textarea rows="4" placeholder="Описание компании"></textarea>
+        <div class="input-container" *ngIf="userType === 'Builder'">
+            <textarea id="companyDescription" formControlName="companyDescription" rows="4" placeholder="Описание компании"></textarea>
         </div>
 
         <div class="input-container">
             <label for="dateofbirth">Дата рождения</label>
-            <input type="date" name="dateofbirth">
+            <input id="birthDate" formControlName="birthDate" type="date" name="dateofbirth">
+
+            <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)" class="validation-error">
+                <div *ngIf="birthDate.errors.required">
+                    Это поле обязательное.
+                </div>
+                <div *ngIf="birthDate.errors.wrongDate">
+                    Неверное значение даты.
+                </div>
+            </div>
         </div>
 
         <div class="input-container">
-            <input type="text" placeholder="Пароль" required>
+            <input id="password" formControlName="password" type="text" placeholder="Пароль" required>
         </div>
 
         <div class="input-container">
-            <input type="text" placeholder="Повторите пароль" required>
+            <input id="confirmedPassword" formControlName="confirmedPassword" type="text" placeholder="Повторите пароль" required>
         </div>
 
         <div class="registration">
