@@ -106,10 +106,28 @@
 
         <div class="input-container">
             <input id="password" formControlName="password" type="text" placeholder="Пароль" required>
+
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="validation-error">
+                <div *ngIf="password.errors.required">
+                    Это поле обязательное.
+                </div>
+                <div *ngIf="password.errors.minlength">
+                    Минимальная длина - 6 символов.
+                </div>
+            </div>
         </div>
 
         <div class="input-container">
             <input id="confirmedPassword" formControlName="confirmedPassword" type="text" placeholder="Повторите пароль" required>
+
+            <div *ngIf="confirmedPassword.invalid && (birthDate.dirty || confirmedPassword.touched)" class="validation-error">
+                <div *ngIf="confirmedPassword.errors.required">
+                    Это поле обязательное.
+                </div>
+                <div *ngIf="confirmedPassword.errors.valuesMissmatch">
+                    Пароли не совпадают.
+                </div>
+            </div>
         </div>
 
         <div class="registration">

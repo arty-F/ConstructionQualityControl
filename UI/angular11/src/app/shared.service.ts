@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'
-import { Observable, of, throwError } from 'rxjs'
+import { from, Observable, of, throwError } from 'rxjs'
 import { CityReadDto } from './dtos/city/city-read-dto'
+import { UserCreateDto } from './dtos/user/user-create-dto'
 
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 const apiUrl = 'http://localhost:50970'
 
@@ -21,14 +22,18 @@ export class SharedService {
   }
 
   AddCity(item: any) {
-    return this.http.post(apiUrl + 'City', item)
+    return this.http.post(apiUrl + '/City', item)
   }
 
   UpdateCity(item: any) {
-    return this.http.put(apiUrl + 'City', item)
+    return this.http.put(apiUrl + '/City', item)
   }
 
   DeleteCity(item: any) {
-    return this.http.delete(apiUrl + 'City', item)
+    return this.http.delete(apiUrl + '/City', item)
+  }
+
+  AddUser(user: UserCreateDto): Observable<UserCreateDto> {
+    return this.http.post<UserCreateDto>(apiUrl + '/User', user)
   }
 }

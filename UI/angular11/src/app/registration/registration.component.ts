@@ -14,7 +14,6 @@ import { CustomValidators } from '../validation/custom-validators'
 export class RegistrationComponent implements OnInit {
 
   registerForm: FormGroup
-  userDto: UserCreateDto = new UserCreateDto()
   cities: CityReadDto[]
   citiesReadable: string[]
   userType: string
@@ -28,16 +27,16 @@ export class RegistrationComponent implements OnInit {
   get patronymic() { return this.registerForm.get('patronymic') }
   get city() { return this.registerForm.get('city') }
   get companyName() { return this.registerForm.get('companyName') }
-  get companyDescription() {return this.registerForm.get('companyDescription')}
-  get birthDate() {return this.registerForm.get('birthDate')}
-  get password() {return this.registerForm.get('password')}
-  get confirmedPassword() {return this.registerForm.get('confirmedPassword')}
+  get companyDescription() { return this.registerForm.get('companyDescription') }
+  get birthDate() { return this.registerForm.get('birthDate') }
+  get password() { return this.registerForm.get('password') }
+  get confirmedPassword() { return this.registerForm.get('confirmedPassword') }
 
   ngOnInit(): void {
     this.service.GetCityList().subscribe(data => {
       this.cities = data
       this.citiesReadable = this.cities.map(c => c.name + ', ' + c.region.name)
-      this.registerForm.controls["city"].setValidators([Validators.required, CustomValidators.containInList(this.citiesReadable)])
+      this.city.setValidators([Validators.required, CustomValidators.containInList(this.citiesReadable)])
     })
 
     this.registerForm = this.fb.group({
@@ -49,10 +48,12 @@ export class RegistrationComponent implements OnInit {
       city: ['', Validators.required],
       companyName: [''],
       companyDescription: [''],
-      birthDate: ['', [Validators.required, CustomValidators.dateIsOk()]],
+      birthDate: ['', [Validators.required, CustomValidators.dateIsMore17AndLess100()]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmedPassword: ['', [Validators.required, CustomValidators.passwordsMatch(this.password.value, this.confirmedPassword.value).bind(this)]]
+      confirmedPassword: ['']
     })
+
+    this.confirmedPassword.setValidators([Validators.required, CustomValidators.matchValueWith('password')])
   }
 
   onUserChanged(e): void {
@@ -60,16 +61,20 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(form): void {
-    this.userDto.role = this.registerForm.get('user').value
-    this.userDto.login = this.registerForm.get('email').value
-    this.userDto.lastName = this.registerForm.get('lname').value
-    this.userDto.firstName = this.registerForm.get('fname').value
-    this.userDto.patronymic = this.registerForm.get('patronymic').value
-    let currentCity = this.registerForm.get('city').value.split(", ")
-    this.userDto.city = this.cities.filter(c => c.name == currentCity[0] && c.region.name == currentCity[1])[0]
-    this.userDto.companyName = this.registerForm.get('patronymic').value
-    this.userDto.companyDescription = this.registerForm.get('companyDescription').value
+    let userDto = new UserCreateDto()
+    userDto.role = this.user.value
+    userDto.login = this.email.value
+    userDto.lastName = this.lname.value
+    userDto.firstName = this.fname.value
+    userDto.patronymic = this.patronymic.value
+    let currentCity = this.city.value.split(", ")
+    userDto.city = this.cities.filter(c => c.name == currentCity[0] && c.region.name == currentCity[1])[0]
+    if (userDto.role === 'Builder') {
+      userDto.companyName = this.companyName.value
+      userDto.companyDescription = this.companyDescription.value
+    }
+    userDto.password = this.password.value
 
-    console.log(this.userDto)
+    this.service.AddUser(userDto).subscribe(user => console.log(user));
   }
 }

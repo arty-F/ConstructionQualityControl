@@ -15,7 +15,6 @@ namespace ConstructionQualityControl.Web.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUnitOfWork unitOfWork;
