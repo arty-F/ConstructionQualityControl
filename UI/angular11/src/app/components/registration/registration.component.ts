@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, Validators, FormBuilder } from '@angular/forms'
-import { UserCreateDto } from '../dtos/user/user-create-dto'
-import { Observable } from 'rxjs'
-import { SharedService } from '../shared.service'
-import { CityReadDto } from '../dtos/city/city-read-dto'
-import { CustomValidators } from '../validation/custom-validators'
+import { UserCreateDto } from 'src/app/dtos/user/user-create-dto'
+import { SharedService } from 'src/app/shared.service'
+import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
+import { CustomValidators } from 'src/app/data_validation/custom-validators'
 
 @Component({
   selector: 'app-registration',
@@ -75,6 +74,6 @@ export class RegistrationComponent implements OnInit {
     }
     userDto.password = this.password.value
 
-    this.service.AddUser(userDto).subscribe(user => console.log(user));
+    this.service.AddUser(userDto).subscribe(user => console.log(user))
   }
 }

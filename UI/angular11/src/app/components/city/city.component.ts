@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { from } from 'rxjs';
-import { SharedService } from '../shared.service';
-import { CityReadDto } from '../dtos/city/city-read-dto';
-import { RegionReadDto } from '../dtos/region/region-read-dto';
+import { Component, OnInit } from '@angular/core'
+import { SharedService } from 'src/app/shared.service'
+import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
 
 @Component({
   selector: 'app-city',

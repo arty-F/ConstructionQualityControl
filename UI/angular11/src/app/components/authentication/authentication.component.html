@@ -1,0 +1,28 @@
+<div class="container">
+  <form novalidate [formGroup]="authenticateForm" (ngSubmit)="onSubmit(authenticateForm)">
+
+    <div class="item-forms">
+      <label for="email">Адрес эл. почты</label>
+      <input id="email" formControlName="email" type="text" placeholder="Введите адрес эл. почты" name="email">
+
+      <label for="pas">Пароль</label>
+      <input id="password" formControlName="password" type="password" placeholder="Введите пароль" name="pas">
+
+      <input type="submit" [disabled]="authenticateForm.invalid" value="Войти">
+      <label>
+        <input type="checkbox" checked="checked" name="remember">Запомнить
+      </label>
+    </div>
+
+    <div class="item-additional">
+      <button type="button" class="cancelbtn" routerLink="/">Отмена</button>
+      <span class="pas">Забыли <a href="#">пароль?</a></span>
+    </div>
+
+    <div class="registration">
+      <p>Нет учетной записи?</p>
+      <button type="button" class="registerbtn" routerLink="/Registration">Регистрация</button>
+    </div>
+
+  </form>
+</div>
