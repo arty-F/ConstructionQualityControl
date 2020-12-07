@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'
 import { from, Observable, of, throwError } from 'rxjs'
-import { CityReadDto } from './dtos/city/city-read-dto'
-import { UserCreateDto } from './dtos/user/user-create-dto'
+import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
+import { UserCreateDto } from 'src/app/dtos/user/user-create-dto'
+import { JSONwebToken } from 'src/app/dtos/jwt/jwt'
 
 
 const httpOptions = {
@@ -35,5 +36,9 @@ export class SharedService {
 
   AddUser(user: UserCreateDto): Observable<UserCreateDto> {
     return this.http.post<UserCreateDto>(apiUrl + '/User', user)
+  }
+
+  Authenticate(login: string, password: string): any {
+    return this.http.post(apiUrl + '/Authentication/' + login, password)
   }
 }

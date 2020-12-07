@@ -24,8 +24,6 @@ export class AuthenticationComponent implements OnInit {
   }
 
   onSubmit(form): void {
-
-
-    //this.service.AddUser(userDto).subscribe(user => console.log(user))
+    this.service.Authenticate(this.email.value, this.password.value).subscribe(t => console.log(t.access_Token))
   }
 }
