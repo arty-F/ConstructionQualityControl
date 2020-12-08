@@ -9,7 +9,7 @@ namespace ConstructionQualityControl.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuthenticationController : Controller
+    public class AuthenticationController : ControllerBase
     {
         private readonly IUnitOfWork unitOfWork;
 
@@ -18,7 +18,6 @@ namespace ConstructionQualityControl.Web.Controllers
             this.unitOfWork = unitOfWork;
         }
 
-        [Route("{login}")]
         [HttpPost]
         public async Task<IActionResult> Create(string login, [FromBody]string password)
         {
@@ -26,7 +25,7 @@ namespace ConstructionQualityControl.Web.Controllers
 
             if (checkUser == null || checkUser.FirstOrDefault()?.Password != password) return BadRequest();
 
-            return new ObjectResult(JWTAuthenticationManager.GetToken(checkUser.First()));
+            return Ok(JWTAuthenticationManager.GetToken(checkUser.First()));
         }
     }
 }

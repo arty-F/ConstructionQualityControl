@@ -38,7 +38,7 @@ export class SharedService {
     return this.http.post<UserCreateDto>(apiUrl + '/User', user)
   }
 
-  Authenticate(login: string, password: string): any {
-    return this.http.post(apiUrl + '/Authentication/' + login, password)
+  Authenticate(login: string, password: string): Observable<JSONwebToken> {
+    return this.http.post<JSONwebToken>(apiUrl + '/Authentication?login=' + login, JSON.stringify(password), httpOptions)
   }
 }
