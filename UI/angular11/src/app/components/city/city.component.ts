@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { SharedService } from 'src/app/shared.service'
+import { SharedService } from 'src/app/services/shared.service'
 import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
 
 @Component({
