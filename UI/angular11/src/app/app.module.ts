@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+import { ErrorInterceptor } from 'src/app/helpers/error.interceptor'
+import { JwtInterceptor } from 'src/app/helpers/jwt.interceptor'
 import { AppComponent } from './components/app.component'
 import { CityComponent } from 'src/app/components/city/city.component'
 import { ShowCityComponent } from 'src/app/components/city/show-city/show-city.component'
@@ -32,7 +34,11 @@ import { SharedService } from 'src/app/services/shared.service'
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [SharedService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    SharedService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

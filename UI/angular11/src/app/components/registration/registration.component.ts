@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { UserCreateDto } from 'src/app/dtos/user/user-create-dto'
 import { SharedService } from 'src/app/services/shared.service'
 import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
-import { CustomValidators } from 'src/app/data-validation/custom-validators'
+import { CustomValidators } from 'src/app/helpers/custom-validators'
 
 @Component({
   selector: 'app-registration',

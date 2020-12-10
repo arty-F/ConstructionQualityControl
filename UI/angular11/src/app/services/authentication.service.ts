@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { JSONwebToken } from 'src/app/dtos/jwt/jwt'
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-const apiUrl = 'http://localhost:50970/Authentication?login='
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,11 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) { }
 
-  login(login: string, password: string): Observable<boolean> {
-    const resp = this.http.post<JSONwebToken>(apiUrl + login, JSON.stringify(password), httpOptions).subscribe(resp => {
+  login(login: string, password: string) {
+    const url = environment.apiUrl + '/Authentication?login=' + login
+    return this.http.post<JSONwebToken>(url, JSON.stringify(password), httpOptions).pipe(map(resp => {
       localStorage.setItem('access_Token', resp.access_Token)
-      return of(true)
-    })
-
-    return of(false)
+    }))
   }
 
   logout() {

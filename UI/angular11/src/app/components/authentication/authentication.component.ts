@@ -25,11 +25,11 @@ export class AuthenticationComponent implements OnInit {
   }
 
   onSubmit(form): void {
-    this.service.login(this.email.value, this.password.value).subscribe(resp => {
+    this.service.login(this.email.value, this.password.value).subscribe(() => {
       //this.router.navigate(['profile'])
-      console.log(resp)
+      console.log(localStorage.getItem('access_Token'))
     })
-      
+
 
   }
 }
