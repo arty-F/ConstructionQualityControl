@@ -69,6 +69,12 @@ span.pas {
     background-color: #f44336;
 }
 
+.auth-error {
+    font-weight: bold;
+    text-align: center;
+    color: red;
+}
+
 @media screen and (max-width: 900px) {
     span.pas {
         display: block;

@@ -27,8 +27,9 @@ namespace ConstructionQualityControl.Web.Authentication
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Login.ToString()),
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
-                new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddHours(1)).ToUnixTimeSeconds().ToString()),
+                new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddMinutes(1)).ToUnixTimeSeconds().ToString()),
                 new Claim(ClaimTypes.Role, user.Role)
             };
 
@@ -39,7 +40,8 @@ namespace ConstructionQualityControl.Web.Authentication
 
             return new
             {
-                Access_Token = new JwtSecurityTokenHandler().WriteToken(token)
+                Access_Token = new JwtSecurityTokenHandler().WriteToken(token),
+                UserName = user.Login
             };
         }
 

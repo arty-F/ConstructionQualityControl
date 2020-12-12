@@ -8,6 +8,10 @@
       <label for="pas">Пароль</label>
       <input id="password" formControlName="password" type="password" placeholder="Введите пароль" name="pas">
 
+      <div *ngIf="authError" class="auth-error">
+        Не верное имя пользователя или пароль
+      </div>
+
       <input type="submit" [disabled]="authenticateForm.invalid" value="Войти">
       <label>
         <input type="checkbox" checked="checked" name="remember">Запомнить

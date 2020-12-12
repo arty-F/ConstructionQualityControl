@@ -12,13 +12,27 @@ export class AppComponent {
 
   constructor(private authService: AuthenticationService) { }
 
+  ngOnInit(): void {
+    this.authService.checkTokenExpiration()
+      .subscribe(
+        res => {
+          if (res) {
+            console.log('true')
+          }
+          else {
+            console.log('false')
+          }
+        }
+      )
+  }
+
   /*@HostListener('window:unload', [ '$event' ])
   unloadHandler(event) {
     // ...
   }*/
 
-  @HostListener('window:beforeunload', [ '$event' ])
+  /*@HostListener('window:beforeunload', [ '$event' ])
   beforeUnloadHandler(event) {
     this.authService.logout()
-  }
+  }*/
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Observable, throwError } from 'rxjs'
 import { catchError, first } from 'rxjs/operators'
-import { jwtClaim } from 'src/app/models/jwt-claims'
+import { personalData } from 'src/app/models/personal-data'
 import { AuthenticationService } from 'src/app/services/authentication.service'
 
 @Component({
@@ -13,6 +13,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service'
 export class AuthenticationComponent implements OnInit {
 
   authenticateForm: FormGroup
+  authError: boolean
 
   constructor(private fb: FormBuilder, private authService: AuthenticationService) { }
 
@@ -30,10 +31,10 @@ export class AuthenticationComponent implements OnInit {
     this.authService.login(this.email.value, this.password.value)
       .subscribe(
         res => {
-          console.log(localStorage.getItem(jwtClaim.AccessToken))
+          this.authError = false
         },
         err => {
-          console.log('err')
+          this.authError = true
         }
       )
   }
