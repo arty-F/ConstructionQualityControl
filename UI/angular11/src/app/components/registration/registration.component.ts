@@ -4,6 +4,7 @@ import { UserCreateDto } from 'src/app/dtos/user/user-create-dto'
 import { SharedService } from 'src/app/services/shared.service'
 import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
 import { CustomValidators } from 'src/app/helpers/custom-validators'
+import { userRole } from 'src/app/models/user-roles'
 
 @Component({
   selector: 'app-registration',
@@ -68,7 +69,7 @@ export class RegistrationComponent implements OnInit {
     userDto.patronymic = this.patronymic.value
     let currentCity = this.city.value.split(", ")
     userDto.city = this.cities.filter(c => c.name == currentCity[0] && c.region.name == currentCity[1])[0]
-    if (userDto.role === 'Builder') {
+    if (userDto.role === userRole.Builder) {
       userDto.companyName = this.companyName.value
       userDto.companyDescription = this.companyDescription.value
     }

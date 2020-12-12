@@ -15,6 +15,7 @@ import { StartedComponent } from 'src/app/components/started/started.component'
 import { AuthenticationComponent } from 'src/app/components/authentication/authentication.component'
 import { RegistrationComponent } from 'src/app/components/registration/registration.component'
 import { SharedService } from 'src/app/services/shared.service'
+import { AuthenticationService } from './services/authentication.service'
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SharedService } from 'src/app/services/shared.service'
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    SharedService
+    SharedService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
