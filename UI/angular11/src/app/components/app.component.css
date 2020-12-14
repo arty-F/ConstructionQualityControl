@@ -32,6 +32,11 @@ header ul li a, footer ul li a {
     transition: all 0.3s ease 0s;
 }
 
+.logout-container {
+    display: flex;
+    flex-direction: column;
+}
+
 header ul li a:hover, footer ul li a:hover {
     color: #b3bb00;
 }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core'
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { JSONwebToken } from 'src/app/dtos/jwt/jwt'
 import { environment } from 'src/environments/environment';
@@ -15,6 +15,9 @@ const httpOptions = {
 })
 export class AuthenticationService {
 
+  private _userName = new Subject<string>()
+  private _token = new Subject<string>()
+
   constructor(private http: HttpClient) { }
 
   login(login: string, password: string) {
@@ -24,35 +27,24 @@ export class AuthenticationService {
         map(resp => {
           localStorage.setItem(personalData.AccessToken, resp.access_Token)
           localStorage.setItem(personalData.UserName, resp.userName)
+          this._userName.next(resp.userName)
+          this._token.next(resp.access_Token)
         })
-      )
-  }
-
-  // !!!!! TODO returns correct bool value !!!!!
-  checkTokenExpiration() {
-    const url = environment.apiUrl + '/Authentication'
-    return this.http.get(url, httpOptions)
-      .pipe(() => {
-        catchError(err => {
-          console.log('ret false')
-          return of(false)
-        })
-        console.log('ret true')
-        return of(true)
-      }
       )
   }
 
   logout() {
     localStorage.removeItem(personalData.AccessToken);
     localStorage.removeItem(personalData.UserName);
+    this._userName.next()
+    this._token.next()
   }
 
-  getToken(): string {
-    return localStorage.getItem(personalData.AccessToken)
+  getToken(): Observable<string> {
+    return this._token.asObservable()
   }
 
-  getUserName(): string {
-    return localStorage.getItem(personalData.UserName)
+  getUserName(): Observable<string> {
+    return this._userName.asObservable()
   }
 }

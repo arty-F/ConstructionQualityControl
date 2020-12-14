@@ -4,6 +4,7 @@ using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
 using ConstructionQualityControl.Domain.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionQualityControl.Web.Controllers

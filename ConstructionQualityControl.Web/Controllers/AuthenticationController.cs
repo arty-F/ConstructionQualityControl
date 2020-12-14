@@ -31,13 +31,5 @@ namespace ConstructionQualityControl.Web.Controllers
 
             return Ok(JWTAuthenticationManager.GetToken(checkUser.First()));
         }
-
-        
-        [HttpGet]
-        [Authorize]
-        public IActionResult CheckToken()
-        {
-            return  Ok();
-        }
     }
 }

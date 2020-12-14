@@ -5,13 +5,12 @@ import { AuthenticationService } from 'src/app/services/authentication.service'
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-    
-    constructor( private router: Router, private authenticationService: AuthenticationService) { }
+
+    constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const token = this.authenticationService.getToken()
         if (token) {
-            console.log(token)
             return true;
         }
 

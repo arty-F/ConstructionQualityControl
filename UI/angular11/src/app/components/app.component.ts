@@ -1,5 +1,6 @@
-import { HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { Component } from '@angular/core'
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -8,31 +9,21 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular11';
 
-  constructor(private authService: AuthenticationService) { }
+  appForm: FormGroup
+  title = 'angular11'
+  isAuthenticated: boolean
+  userName: string
 
-  ngOnInit(): void {
-    this.authService.checkTokenExpiration()
-      .subscribe(
-        res => {
-          if (res) {
-            console.log('true')
-          }
-          else {
-            console.log('false')
-          }
-        }
-      )
+  constructor(private authService: AuthenticationService) {
+    authService.getUserName()
+      .subscribe(res => this.userName = res)
   }
 
-  /*@HostListener('window:unload', [ '$event' ])
-  unloadHandler(event) {
-    // ...
-  }*/
+  ngOnInit(): void {
+  }
 
-  /*@HostListener('window:beforeunload', [ '$event' ])
-  beforeUnloadHandler(event) {
+  logout() {
     this.authService.logout()
-  }*/
+  }
 }

@@ -13,7 +13,13 @@
         <li><a routerLink="City">Contacts</a></li>
       </ul>
     </nav>
+
     <a routerLink="/Auth" class="a_auth"><button>Войти</button></a>
+    <div class="logout-container">
+      <p>{{userName}}</p>
+      <button (click)="logout()">Выйти</button>
+    </div>
+    
   </header>
 
   <router-outlet></router-outlet>
