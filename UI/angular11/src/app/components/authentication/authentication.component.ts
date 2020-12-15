@@ -20,14 +20,14 @@ export class AuthenticationComponent implements OnInit {
   get email() { return this.authenticateForm.get('email') }
   get password() { return this.authenticateForm.get('password') }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.authenticateForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     })
   }
 
-  onSubmit(form): void {
+  onSubmit(form) {
     this.authService.login(this.email.value, this.password.value)
       .subscribe(
         res => {

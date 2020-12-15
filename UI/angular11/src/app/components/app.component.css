@@ -37,6 +37,16 @@ header ul li a, footer ul li a {
     flex-direction: column;
 }
 
+.logout-container button {
+    border-radius: 25px;
+    background-color: #282a2b;
+    border: none;
+    cursor: pointer;
+    margin: 0 25px;
+    outline: none;
+    transition: all 0.3s ease 0s;
+}
+
 header ul li a:hover, footer ul li a:hover {
     color: #b3bb00;
 }
@@ -51,7 +61,7 @@ header .a_auth button {
     transition: all 0.3s ease 0s;
 }
 
-header .a_auth button:hover {
+header .a_auth button:hover, .logout-container button:hover{
     background-color: rgb(255, 255, 255);
     color: #35383a;
     font-weight: bold;

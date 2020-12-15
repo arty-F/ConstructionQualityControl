@@ -20,9 +20,6 @@ export class AppComponent {
       .subscribe(res => this.userName = res)
   }
 
-  ngOnInit(): void {
-  }
-
   logout() {
     this.authService.logout()
   }

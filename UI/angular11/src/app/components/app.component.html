@@ -14,8 +14,8 @@
       </ul>
     </nav>
 
-    <a routerLink="/Auth" class="a_auth"><button>Войти</button></a>
-    <div class="logout-container">
+    <a routerLink="/Auth" class="a_auth" *ngIf="userName == undefined"><button>Войти</button></a>
+    <div class="logout-container" *ngIf="userName">
       <p>{{userName}}</p>
       <button (click)="logout()">Выйти</button>
     </div>

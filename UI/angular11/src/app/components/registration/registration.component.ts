@@ -32,7 +32,7 @@ export class RegistrationComponent implements OnInit {
   get password() { return this.registerForm.get('password') }
   get confirmedPassword() { return this.registerForm.get('confirmedPassword') }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.service.GetCityList().subscribe(data => {
       this.cities = data
       this.citiesReadable = this.cities.map(c => c.name + ', ' + c.region.name)
@@ -56,11 +56,11 @@ export class RegistrationComponent implements OnInit {
     this.confirmedPassword.setValidators([Validators.required, CustomValidators.matchValueWith('password')])
   }
 
-  onUserChanged(e): void {
+  onUserChanged(e) {
     this.userType = e.target.value
   }
 
-  onSubmit(form): void {
+  onSubmit(form) {
     let userDto = new UserCreateDto()
     userDto.role = this.user.value
     userDto.login = this.email.value
