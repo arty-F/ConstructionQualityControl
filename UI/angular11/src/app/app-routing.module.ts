@@ -4,13 +4,17 @@ import { AuthenticationComponent } from 'src/app/components/authentication/authe
 import { CityComponent } from 'src/app/components/city/city.component'
 import { RegistrationComponent } from 'src/app/components/registration/registration.component'
 import { StartedComponent } from 'src/app/components/started/started.component'
-import { AuthGuard } from './helpers/auth.guard'
+import { OrdersPreviewComponent } from 'src/app/components/orders-preview/orders-preview.component'
+import { AuthGuard } from 'src/app/helpers/auth.guard'
+import { UserGuard } from 'src/app/helpers/user.guard'
+import { userRole } from 'src/app/models/user-roles'
 
 const routes: Routes = [
   { path: 'Auth', component: AuthenticationComponent },
   { path: 'Registration', component: RegistrationComponent },
   { path: '', component: StartedComponent },
-  { path: 'City', component: CityComponent, canActivate: [AuthGuard] }
+  { path: 'City', component: CityComponent, canActivate: [AuthGuard] },
+  { path: 'Orders', component: OrdersPreviewComponent, canActivate: [UserGuard], data: {roles: [userRole.Customer]} }
 ]
 
 @NgModule({

@@ -63,9 +63,10 @@
 }
 
 .container-text {
+    margin: 0 5%;
     margin-top: 5%;
     background-color: rgba(129, 179, 255, 0.21);
-    box-shadow: 2px 2px 3px 4px #ccc;
+    box-shadow: 1px 1px 2px 2px #ccc;
 }
 
 .container-text-header {

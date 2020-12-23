@@ -7,7 +7,7 @@
 
     <nav>
       <ul>
-        <li><a routerLink="City">City</a></li>
+        <li *ngIf="IsUserCustomer()"><a routerLink="Orders">Мои заказы</a></li>
         <li><a routerLink="City">About</a></li>
         <li><a routerLink="City">Company</a></li>
         <li><a routerLink="City">Contacts</a></li>

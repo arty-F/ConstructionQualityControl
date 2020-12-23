@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, HostListener } from '@angular/core'
 import { Component } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthenticationService } from '../services/authentication.service';
+import { FormBuilder, FormGroup } from '@angular/forms'
+import { Router } from '@angular/router'
+import { AuthenticationService } from 'src/app/services/authentication.service'
+import { userRole } from '../models/user-roles'
 
 @Component({
   selector: 'app-root',
@@ -11,16 +13,31 @@ import { AuthenticationService } from '../services/authentication.service';
 export class AppComponent {
 
   appForm: FormGroup
-  title = 'angular11'
   isAuthenticated: boolean
   userName: string
+  userRole: string
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private router: Router, private authService: AuthenticationService) {
     authService.getUserName()
-      .subscribe(res => this.userName = res)
+      .subscribe(res =>
+        this.userName = res
+      )
+    authService.getUserRole()
+      .subscribe(res =>
+        this.userRole = res
+      )
   }
 
   logout() {
     this.authService.logout()
+    this.router.navigate(['Auth'])
+  }
+
+  IsUserCustomer(): boolean {
+    return this.userRole === userRole.Customer
+  }
+
+  IsUserBuilder(): boolean {
+    return this.userRole === userRole.Builder
   }
 }

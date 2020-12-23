@@ -41,7 +41,8 @@ namespace ConstructionQualityControl.Web.Authentication
             return new
             {
                 Access_Token = new JwtSecurityTokenHandler().WriteToken(token),
-                UserName = user.Login
+                UserName = user.Login,
+                UserRole = user.Role
             };
         }
 

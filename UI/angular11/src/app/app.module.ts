@@ -15,7 +15,8 @@ import { StartedComponent } from 'src/app/components/started/started.component'
 import { AuthenticationComponent } from 'src/app/components/authentication/authentication.component'
 import { RegistrationComponent } from 'src/app/components/registration/registration.component'
 import { SharedService } from 'src/app/services/shared.service'
-import { AuthenticationService } from './services/authentication.service'
+import { AuthenticationService } from './services/authentication.service';
+import { OrdersPreviewComponent } from './components/orders-preview/orders-preview.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AuthenticationService } from './services/authentication.service'
     AddEditCityComponent,
     StartedComponent,
     AuthenticationComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    OrdersPreviewComponent
   ],
   imports: [
     BrowserModule,

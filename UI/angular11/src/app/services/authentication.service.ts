@@ -15,8 +15,9 @@ const httpOptions = {
 })
 export class AuthenticationService {
 
-  private _userName = new Subject<string>()
   private _token = new Subject<string>()
+  private _name = new Subject<string>()
+  private _role = new Subject<string>()
 
   constructor(private http: HttpClient) { }
 
@@ -27,17 +28,21 @@ export class AuthenticationService {
         map(resp => {
           localStorage.setItem(personalData.AccessToken, resp.access_Token)
           localStorage.setItem(personalData.UserName, resp.userName)
-          this._userName.next(resp.userName)
+          localStorage.setItem(personalData.UserRole, resp.userRole)
           this._token.next(resp.access_Token)
+          this._name.next(resp.userName)
+          this._role.next(resp.userRole)
         })
       )
   }
 
   logout() {
-    localStorage.removeItem(personalData.AccessToken);
-    localStorage.removeItem(personalData.UserName);
-    this._userName.next()
+    localStorage.removeItem(personalData.AccessToken)
+    localStorage.removeItem(personalData.UserName)
+    localStorage.removeItem(personalData.UserRole)
     this._token.next()
+    this._name.next()
+    this._role.next()
   }
 
   getToken(): Observable<string> {
@@ -45,6 +50,10 @@ export class AuthenticationService {
   }
 
   getUserName(): Observable<string> {
-    return this._userName.asObservable()
+    return this._name.asObservable()
+  }
+
+  getUserRole(): Observable<string> {
+    return this._role.asObservable()
   }
 }
