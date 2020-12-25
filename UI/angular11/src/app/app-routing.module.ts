@@ -8,13 +8,15 @@ import { OrdersPreviewComponent } from 'src/app/components/orders-preview/orders
 import { AuthGuard } from 'src/app/helpers/auth.guard'
 import { UserGuard } from 'src/app/helpers/user.guard'
 import { userRole } from 'src/app/models/user-roles'
+import { OrdersNewComponent } from './components/orders-preview/orders-new/orders-new.component'
 
 const routes: Routes = [
   { path: 'Auth', component: AuthenticationComponent },
   { path: 'Registration', component: RegistrationComponent },
   { path: '', component: StartedComponent },
   { path: 'City', component: CityComponent, canActivate: [AuthGuard] },
-  { path: 'Orders', component: OrdersPreviewComponent, canActivate: [UserGuard], data: {roles: [userRole.Customer]} }
+  { path: 'Orders', component: OrdersPreviewComponent, canActivate: [UserGuard], data: {roles: [userRole.Customer]} },
+  { path: 'Orders/NewOrder', component: OrdersNewComponent }
 ]
 
 @NgModule({

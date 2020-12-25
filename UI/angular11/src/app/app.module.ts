@@ -17,6 +17,7 @@ import { RegistrationComponent } from 'src/app/components/registration/registrat
 import { SharedService } from 'src/app/services/shared.service'
 import { AuthenticationService } from './services/authentication.service';
 import { OrdersPreviewComponent } from './components/orders-preview/orders-preview.component';
+import { OrdersNewComponent } from './components/orders-preview/orders-new/orders-new.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { OrdersPreviewComponent } from './components/orders-preview/orders-previ
     StartedComponent,
     AuthenticationComponent,
     RegistrationComponent,
-    OrdersPreviewComponent
+    OrdersPreviewComponent,
+    OrdersNewComponent
   ],
   imports: [
     BrowserModule,

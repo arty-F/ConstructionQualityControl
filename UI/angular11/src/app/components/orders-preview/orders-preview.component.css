@@ -1,0 +1,25 @@
+.container {
+    max-width: 90%;
+    margin: 10px auto;
+}
+
+.panel {
+    display: flex;
+    padding: 1%;
+}
+
+.panel button {
+    color: white;
+    background-color: #35383a;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    outline: none;
+}
+
+.panel button:hover {
+    background-color: rgb(255, 255, 255);
+    color: #35383a;
+    font-weight: bold;
+}

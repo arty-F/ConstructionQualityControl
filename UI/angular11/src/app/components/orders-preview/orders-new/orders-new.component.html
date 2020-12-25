@@ -1,0 +1,22 @@
+<div class="container">
+
+    <h2>Создание нового заказа</h2>
+
+    <form novalidate [formGroup]="newOrderForm" (ngSubmit)="onSubmit(newOrderForm)">
+
+        <div class="input-container">
+            <input id="name" formControlName="name" type="text" placeholder="Название заказа">
+
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="validation-error">
+                <div *ngIf="name.errors.required">
+                    Это поле обязательное.
+                </div>
+            </div>
+        </div>
+
+        <div class="creating">
+            <input type="submit" [disabled]="newOrderForm.invalid" value="Создать заказ">
+        </div>
+    </form>
+
+</div>

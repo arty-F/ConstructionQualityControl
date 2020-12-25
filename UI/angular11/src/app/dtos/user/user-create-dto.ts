@@ -1,4 +1,3 @@
-import { CityComponent } from 'src/app/components/city/city.component';
 import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
 
 export class UserCreateDto {
