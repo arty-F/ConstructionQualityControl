@@ -18,6 +18,7 @@ import { SharedService } from 'src/app/services/shared.service'
 import { AuthenticationService } from './services/authentication.service';
 import { OrdersPreviewComponent } from './components/orders-preview/orders-preview.component';
 import { OrdersNewComponent } from './components/orders-preview/orders-new/orders-new.component';
+import { OrderTreeComponent } from './components/orders-preview/orders-new/order-tree/order-tree.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { OrdersNewComponent } from './components/orders-preview/orders-new/order
     AuthenticationComponent,
     RegistrationComponent,
     OrdersPreviewComponent,
-    OrdersNewComponent
+    OrdersNewComponent,
+    OrderTreeComponent
   ],
   imports: [
     BrowserModule,

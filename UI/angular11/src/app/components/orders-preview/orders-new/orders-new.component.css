@@ -6,3 +6,7 @@
 .validation-error {
     color: red;
 }
+
+.tree-container {
+    margin-left: 5%;
+}

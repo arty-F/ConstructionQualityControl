@@ -5,13 +5,20 @@
     <form novalidate [formGroup]="newOrderForm" (ngSubmit)="onSubmit(newOrderForm)">
 
         <div class="input-container">
-            <input id="name" formControlName="name" type="text" placeholder="Название заказа">
+            <input id="title" formControlName="title" type="text" placeholder="Название заказа">
 
-            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="validation-error">
-                <div *ngIf="name.errors.required">
+            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="validation-error">
+                <div *ngIf="title.errors.required">
                     Это поле обязательное.
                 </div>
             </div>
+        </div>
+
+        <div class="tree-container">
+
+            <app-order-tree *ngFor="let item of rootOrder.subOrders" [subRootOrder]="lastSubOrder()"></app-order-tree>
+
+            <button (click)="onSubOrderAdded()">Добавить</button>
         </div>
 
         <div class="creating">
