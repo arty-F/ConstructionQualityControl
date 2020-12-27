@@ -85,3 +85,19 @@ input[type=submit]:disabled {
     margin-left: 20px;
 }
 
+.simple-button {
+    color: white;
+    background-color: #35383a;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    outline: none;
+}
+
+.simple-button:hover {
+    background-color: rgb(255, 255, 255);
+    color: #35383a;
+    font-weight: bold;
+}
+

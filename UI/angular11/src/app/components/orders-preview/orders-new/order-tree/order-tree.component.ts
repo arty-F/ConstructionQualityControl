@@ -8,14 +8,20 @@ import { OrdersNewComponent } from '../orders-new.component';
   styleUrls: ['./order-tree.component.css']
 })
 export class OrderTreeComponent {
-  
+
   @Input()
   subRootOrder: OrderCreateDto
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     console.log(this.subRootOrder.user)
   }
 
+  onSubOrderAdded() {
+    let subOrder = new OrderCreateDto()
+    subOrder.user = this.subRootOrder.user
+    this.subRootOrder.subOrders.push(subOrder)
+    console.log(this.subRootOrder.subOrders.length)
+  }
 }

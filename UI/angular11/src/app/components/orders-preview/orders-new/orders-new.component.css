@@ -10,3 +10,7 @@
 .tree-container {
     margin-left: 5%;
 }
+
+ol {
+    list-style-type: upper-roman;
+}

@@ -31,15 +31,11 @@ export class OrdersNewComponent implements OnInit {
 
   onSubOrderAdded() {
     let subOrder = new OrderCreateDto()
+    subOrder.subOrders = []
     subOrder.user = this.rootOrder.user
     this.rootOrder.subOrders.push(subOrder)
   }
 
-  lastSubOrder() {
-    return this.rootOrder.subOrders[this.rootOrder.subOrders.length - 1]
-  }
-
   onSubmit(form) {
-
   }
 }

@@ -15,10 +15,12 @@
         </div>
 
         <div class="tree-container">
+            <ol>
+                <li *ngFor="let order of rootOrder.subOrders" ><app-order-tree [subRootOrder]="order"></app-order-tree></li>
+            </ol>
+            
 
-            <app-order-tree *ngFor="let item of rootOrder.subOrders" [subRootOrder]="lastSubOrder()"></app-order-tree>
-
-            <button (click)="onSubOrderAdded()">Добавить</button>
+            <button (click)="onSubOrderAdded()" class="simple-button">Добавить</button>
         </div>
 
         <div class="creating">
