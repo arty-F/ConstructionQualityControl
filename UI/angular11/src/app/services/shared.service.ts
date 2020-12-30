@@ -4,6 +4,7 @@ import { from, Observable, of, throwError } from 'rxjs'
 import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
 import { UserCreateDto } from 'src/app/dtos/user/user-create-dto'
 import { environment } from 'src/environments/environment'
+import { OrderCreateDto } from '../dtos/order/order-create-dto'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -22,5 +23,9 @@ export class SharedService {
 
   AddUser(user: UserCreateDto): Observable<UserCreateDto> {
     return this.http.post<UserCreateDto>(environment.apiUrl + '/User', user)
+  }
+
+  AddOrder(order: OrderCreateDto): Observable<OrderCreateDto> {
+    return this.http.post<OrderCreateDto>(environment.apiUrl + '/Order', order)
   }
 }

@@ -15,13 +15,13 @@ export class OrderTreeComponent {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.subRootOrder.user)
+    
   }
 
   onSubOrderAdded() {
     let subOrder = new OrderCreateDto()
     subOrder.user = this.subRootOrder.user
+    subOrder.isRoot = false
     this.subRootOrder.subOrders.push(subOrder)
-    console.log(this.subRootOrder.subOrders.length)
   }
 }

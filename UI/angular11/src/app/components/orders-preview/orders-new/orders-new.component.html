@@ -2,7 +2,7 @@
 
     <h2>Создание нового заказа</h2>
 
-    <form novalidate [formGroup]="newOrderForm" (ngSubmit)="onSubmit(newOrderForm)">
+    <form novalidate [formGroup]="newOrderForm" (ngSubmit)="onSubmit(newOrderForm )">
 
         <div class="input-container">
             <input id="title" formControlName="title" type="text" placeholder="Название заказа">
@@ -20,7 +20,7 @@
             </ol>
             
 
-            <button (click)="onSubOrderAdded()" class="simple-button">Добавить</button>
+            <button type="button" (click)="onSubOrderAdded()" class="simple-button">Добавить</button>
         </div>
 
         <div class="creating">

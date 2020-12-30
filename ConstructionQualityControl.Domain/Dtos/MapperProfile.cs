@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain.Dtos;
+using System.Collections.Generic;
 
 namespace ConstructionQualityControl.Domain.MapperProfile
 {
@@ -18,6 +19,9 @@ namespace ConstructionQualityControl.Domain.MapperProfile
 
             CreateMap<UserCreateDto, User>();
             CreateMap<User, UserReadDto>();
+
+            //CreateMap<OrderCreateDto, Order>();
+            //CreateMap<List<OrderCreateDto>, List<Order>>();
         }
     }
 }

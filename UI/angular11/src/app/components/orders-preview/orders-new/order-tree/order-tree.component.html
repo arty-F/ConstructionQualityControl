@@ -1,12 +1,12 @@
 <div class="sub-orders">
-    <input type="text" placeholder="Детали подзаказа">
+    <input type="text" [(ngModel)]="subRootOrder.demands" placeholder="Детали подзаказа">
 
     <div class="sub-tree">
         <ol>
-            <li *ngFor="let item of subRootOrder.subOrders"><input  type="text" placeholder="Часть подзаказа"></li>
+            <li *ngFor="let subOrd of subRootOrder.subOrders"><input type="text" [(ngModel)]="subOrd.demands" placeholder="Часть подзаказа"></li>
         </ol>
         
-        <button (click)="onSubOrderAdded()" class="simple-button">Добавить</button>
+        <button type="button" (click)="onSubOrderAdded()" class="simple-button">Добавить</button>
     </div>
     
 </div>
