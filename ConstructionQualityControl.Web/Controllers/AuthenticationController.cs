@@ -23,13 +23,22 @@ namespace ConstructionQualityControl.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string login, [FromBody]string password)
+        public async Task<IActionResult> Login(string login, [FromBody]string password)
         {
             var checkUser = await unitOfWork.GetRepository<User>().GetAsync(u => u.Login == login);
 
             if (checkUser == null || checkUser.FirstOrDefault()?.Password != password) return Unauthorized();
 
             return Ok(JWTAuthenticationManager.GetToken(checkUser.First()));
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetUserData()
+        {
+            var b = HttpContext.User;
+
+            return Ok();
         }
     }
 }

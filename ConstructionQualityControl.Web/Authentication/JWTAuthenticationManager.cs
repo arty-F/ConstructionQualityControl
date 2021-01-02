@@ -5,18 +5,41 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using ConstructionQualityControl.Data.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
+using Microsoft.Extensions.Hosting;
+using System.Linq;
 
 namespace ConstructionQualityControl.Web.Authentication
 {
     internal static class JWTAuthenticationManager
     {
-        internal static string Key { get; }
+        private static readonly int keyLength = 32;
 
-        static JWTAuthenticationManager()
+        private static string key = "";
+        internal static string Key
         {
-            Key = GenerateKey(32);
+            get
+            {
+                if (key == null || key == "")
+                    throw new NullReferenceException(nameof(Key));
+                return key;
+            }
+            private set { key = value; }
+        }
+
+        private static IWebHostEnvironment env;
+
+        internal static void Initialize(IWebHostEnvironment env)
+        {
+            JWTAuthenticationManager.env = env;
+
+            if (env.IsDevelopment())
+                Key = string.Join("", Enumerable.Repeat("a", keyLength));
+
+            if (env.IsProduction())
+                Key = GenerateKey(keyLength);
         }
 
         /// <summary>
@@ -28,10 +51,14 @@ namespace ConstructionQualityControl.Web.Authentication
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Login.ToString()),
-                new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
-                new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddMinutes(1)).ToUnixTimeSeconds().ToString()),
                 new Claim(ClaimTypes.Role, user.Role)
             };
+
+            if (JWTAuthenticationManager.env.IsProduction())
+            {
+                claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()));
+                claims.Add(new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddMinutes(1)).ToUnixTimeSeconds().ToString()));
+            }
 
             SigningCredentials credentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key)), SecurityAlgorithms.HmacSha256);
             JwtHeader header = new JwtHeader(credentials);
