@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
+using ConstructionQualityControl.Domain.Dtos;
 using ConstructionQualityControl.Web.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,27 +18,30 @@ namespace ConstructionQualityControl.Web.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
 
-        public AuthenticationController(IUnitOfWork unitOfWork)
+        public AuthenticationController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(string login, [FromBody]string password)
         {
-            var checkUser = await unitOfWork.GetRepository<User>().GetAsync(u => u.Login == login);
+            var user = await unitOfWork.GetRepository<User>().GetFirstOrDefaultAsync(u => u.Login == login);
 
-            if (checkUser == null || checkUser.FirstOrDefault()?.Password != password) return Unauthorized();
+            if (user == null || user?.Password != password) return Unauthorized();
 
-            return Ok(JWTAuthenticationManager.GetToken(checkUser.First()));
+            return Ok(JWTAuthenticationManager.GetToken(mapper.Map<UserReadDto>(user)));
         }
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetUserData()
+        public async Task<IActionResult> GetCurrentUserData()
         {
-            var b = HttpContext.User;
+            var userName = HttpContext.User.Identity.Name;
+            var user = await unitOfWork.GetRepository<User>().GetFirstOrDefaultAsync(u => u.Login == userName);
 
             return Ok();
         }

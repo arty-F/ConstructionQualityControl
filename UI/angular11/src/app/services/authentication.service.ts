@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core'
-import { Observable, of, Subject } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { JSONwebToken } from 'src/app/dtos/jwt/jwt'
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthResult } from 'src/app/dtos/jwt/auth-result'
 import { environment } from 'src/environments/environment';
+import { UserReadDto } from '../dtos/user/user-read-dto';
 import { personalData } from '../models/personal-data';
 
 const httpOptions = {
@@ -19,24 +20,30 @@ export class AuthenticationService {
   private _name = new Subject<string>()
   private _role = new Subject<string>()
 
+  public user: UserReadDto
+
   constructor(private http: HttpClient) { }
 
   login(login: string, password: string) {
     const url = environment.apiUrl + '/Authentication?login=' + login
-    return this.http.post<JSONwebToken>(url, JSON.stringify(password), httpOptions)
+    return this.http.post<AuthResult>(url, JSON.stringify(password), httpOptions)
       .pipe(
         map(resp => {
+          this.user = resp.user
           localStorage.setItem(personalData.AccessToken, resp.access_Token)
-          localStorage.setItem(personalData.UserName, resp.userName)
-          localStorage.setItem(personalData.UserRole, resp.userRole)
+          localStorage.setItem(personalData.UserName, resp.user.login)
+          localStorage.setItem(personalData.UserRole, resp.user.role)
           this._token.next(resp.access_Token)
-          this._name.next(resp.userName)
-          this._role.next(resp.userRole)
+          this._name.next(resp.user.login)
+          this._role.next(resp.user.role)
+
+          console.log(this.user)
         })
       )
   }
 
   logout() {
+    this.user = null
     localStorage.removeItem(personalData.AccessToken)
     localStorage.removeItem(personalData.UserName)
     localStorage.removeItem(personalData.UserRole)

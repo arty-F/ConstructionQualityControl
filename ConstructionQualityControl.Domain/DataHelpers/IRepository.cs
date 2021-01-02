@@ -21,6 +21,14 @@ namespace ConstructionQualityControl.Domain
         Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null);
 
         /// <summary>
+        /// Returns first entity in entities collection which meet requirements of the "filter" lambda expression parameter and ordered by "orderBy" predicate parameter.
+        /// </summary>
+        /// <param name="filter">Lambda expression.</param>
+        /// <param name="orderBy">Sort order.</param>
+        /// <returns>IEnumerable of finded enities or null.</returns>
+        Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null);
+
+        /// <summary>
         /// Return an entity with the given id value.
         /// </summary>
         /// <param name="id">Primary key of entity.</param>

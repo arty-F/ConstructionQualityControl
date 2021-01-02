@@ -16,7 +16,7 @@
 
         <div class="tree-container">
             <ol>
-                <li *ngFor="let order of rootOrder.subOrders" ><app-order-tree [subRootOrder]="order"></app-order-tree></li>
+                <li *ngFor="let order of rootOrder.subOrders"><app-order-new-child [subRootOrder]="order"></app-order-new-child></li>
             </ol>
             
 

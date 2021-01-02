@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using ConstructionQualityControl.Domain.Dtos;
 
 namespace ConstructionQualityControl.Web.Authentication
 {
@@ -45,7 +46,7 @@ namespace ConstructionQualityControl.Web.Authentication
         /// <summary>
         /// Returns generated JSON Web Token for current user.
         /// </summary>
-        internal static object GetToken(User user)
+        internal static object GetToken(UserReadDto user)
         {
             var claims = new List<Claim>
             {
@@ -68,8 +69,7 @@ namespace ConstructionQualityControl.Web.Authentication
             return new
             {
                 Access_Token = new JwtSecurityTokenHandler().WriteToken(token),
-                UserName = user.Login,
-                UserRole = user.Role
+                User = user
             };
         }
 

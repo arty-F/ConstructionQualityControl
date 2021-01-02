@@ -19,9 +19,7 @@ namespace ConstructionQualityControl.Domain.MapperProfile
 
             CreateMap<UserCreateDto, User>();
             CreateMap<User, UserReadDto>();
-
-            //CreateMap<OrderCreateDto, Order>();
-            //CreateMap<List<OrderCreateDto>, List<Order>>();
+            CreateMap<UserReadDto, User>();
         }
     }
 }

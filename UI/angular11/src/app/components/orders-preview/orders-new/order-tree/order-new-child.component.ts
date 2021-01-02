@@ -1,13 +1,13 @@
 import { Component, Inject, Input } from '@angular/core'
 import { OrderCreateDto } from 'src/app/dtos/order/order-create-dto';
-import { OrdersNewComponent } from '../orders-new.component';
+import { OrdersNewRootComponent } from '../orders-new-root.component';
 
 @Component({
-  selector: 'app-order-tree',
-  templateUrl: './order-tree.component.html',
-  styleUrls: ['./order-tree.component.css']
+  selector: 'app-order-new-child',
+  templateUrl: './order-new-child.component.html',
+  styleUrls: ['./order-new-child.component.css']
 })
-export class OrderTreeComponent {
+export class OrdersNewChildComponent {
 
   @Input()
   subRootOrder: OrderCreateDto

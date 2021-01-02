@@ -2,22 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderCreateDto } from 'src/app/dtos/order/order-create-dto';
 import { personalData } from 'src/app/models/personal-data';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
-  selector: 'app-orders-new',
-  templateUrl: './orders-new.component.html',
-  styleUrls: ['./orders-new.component.css']
+  selector: 'app-orders-new-root',
+  templateUrl: './orders-new-root.component.html',
+  styleUrls: ['./orders-new-root.component.css']
 })
-export class OrdersNewComponent implements OnInit {
+export class OrdersNewRootComponent implements OnInit {
 
   newOrderForm: FormGroup
   rootOrder: OrderCreateDto
 
-  constructor(private fb: FormBuilder, private service: SharedService) {
+  constructor(private fb: FormBuilder, private sharedService: SharedService, private authService: AuthenticationService) {
     this.rootOrder = new OrderCreateDto()
     this.rootOrder.isRoot = true
-    this.rootOrder.user = localStorage.getItem(personalData.UserName)
+    this.rootOrder.user = authService.user
     this.rootOrder.subOrders = []
   }
 
@@ -39,7 +40,7 @@ export class OrdersNewComponent implements OnInit {
 
   onSubmit(form) {
     this.rootOrder.demands = this.title.value;
-    this.service.AddOrder(this.rootOrder).subscribe(res =>
+    this.sharedService.AddOrder(this.rootOrder).subscribe(res =>
       console.log('ok')
     )
   }

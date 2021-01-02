@@ -17,8 +17,8 @@ import { RegistrationComponent } from 'src/app/components/registration/registrat
 import { SharedService } from 'src/app/services/shared.service'
 import { AuthenticationService } from './services/authentication.service';
 import { OrdersPreviewComponent } from './components/orders-preview/orders-preview.component';
-import { OrdersNewComponent } from './components/orders-preview/orders-new/orders-new.component';
-import { OrderTreeComponent } from './components/orders-preview/orders-new/order-tree/order-tree.component';
+import { OrdersNewRootComponent } from './components/orders-preview/orders-new/orders-new-root.component';
+import { OrdersNewChildComponent } from './components/orders-preview/orders-new/order-tree/order-new-child.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +30,8 @@ import { OrderTreeComponent } from './components/orders-preview/orders-new/order
     AuthenticationComponent,
     RegistrationComponent,
     OrdersPreviewComponent,
-    OrdersNewComponent,
-    OrderTreeComponent
+    OrdersNewRootComponent,
+    OrdersNewChildComponent
   ],
   imports: [
     BrowserModule,

@@ -55,6 +55,12 @@ namespace ConstructionQualityControl.Domain
                 return await Task.Run(() => query.ToList());
         }
 
+        public async Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
+        {
+            var result = await GetAsync(filter, orderBy);
+            return result.FirstOrDefault();
+        }
+
         public async Task<T> GetByIdAsync(int id) => await dbSet.FindAsync(id);
 
         public void Update(T entity)

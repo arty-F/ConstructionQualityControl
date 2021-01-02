@@ -6,11 +6,13 @@ using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
 using ConstructionQualityControl.Domain.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionQualityControl.Web.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
@@ -28,8 +30,8 @@ namespace ConstructionQualityControl.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder(OrderCreateDto orderDto)
         {
-            //var order = mapper.Map<Order>(orderDto);
-            //var order = MapperHelper.MapRecursiveToNewOrder(orderDto);
+            var user = await unitOfWork.GetRepository<User>().GetByIdAsync(orderDto.User.Id);
+            var order = MapperHelper.MapRecursiveToNewOrder(orderDto, user);
 
             /*foreach (var subOrd in order.SubOrders)
             {
