@@ -36,8 +36,6 @@ export class AuthenticationService {
           this._token.next(resp.access_Token)
           this._name.next(resp.user.login)
           this._role.next(resp.user.role)
-
-          console.log(this.user)
         })
       )
   }

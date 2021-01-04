@@ -5,3 +5,32 @@
 .sub-tree {
     margin-left: 5%;
 }
+
+.input-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.price {
+    max-width: 20%;
+    margin-left: 15px;
+    border-style: solid;
+    -moz-appearance: textfield;
+    border-width: 1px;
+    text-align: center;
+}
+.price::-webkit-inner-spin-button { 
+    display: none;
+  }
+
+@media screen and (max-width: 900px) {
+    .input-container {
+        flex-direction: column;
+    }
+    .price {
+        margin-left: auto;
+        max-width: 40%;
+    }
+}

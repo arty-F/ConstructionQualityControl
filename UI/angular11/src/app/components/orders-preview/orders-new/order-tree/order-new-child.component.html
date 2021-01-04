@@ -1,9 +1,17 @@
 <div class="sub-orders">
-    <input type="text" [(ngModel)]="subRootOrder.demands" placeholder="Детали подзаказа">
+    <div class="input-container">
+        <input type="text" [(ngModel)]="subRootOrder.demands" placeholder="Детали подзаказа">
+        <input class="price" [(ngModel)]="subRootOrder.price" type="number" placeholder="Цена (руб.)">
+    </div>
 
     <div class="sub-tree">
         <ol>
-            <li *ngFor="let subOrd of subRootOrder.subOrders"><input type="text" [(ngModel)]="subOrd.demands" placeholder="Часть подзаказа"></li>
+            <li *ngFor="let subOrd of subRootOrder.subOrders">
+                <div class="input-container">
+                    <input type="text" [(ngModel)]="subOrd.demands" placeholder="Часть подзаказа">
+                    <input class="price" [(ngModel)]="subOrd.price" type="number" min=0 placeholder="Цена (руб.)">
+                </div>
+            </li>
         </ol>
         
         <button type="button" (click)="onSubOrderAdded()" class="simple-button">Добавить</button>

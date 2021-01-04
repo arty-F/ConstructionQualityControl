@@ -11,6 +11,7 @@ namespace ConstructionQualityControl.Domain.Dtos
             order.CreationDate = DateTime.Now;
             order.IsRoot = dto.IsRoot;
             order.User = user;
+            //order.Price = dto.Price;
             order.IsActive = true;
             order.Demands = dto.Demands;
 

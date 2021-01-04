@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionQualityControl.Data.Migrations
 {
     [DbContext(typeof(QualityControlContext))]
-    [Migration("20201110085503_Last")]
-    partial class Last
+    [Migration("20210104091428_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -8759,6 +8759,9 @@ namespace ConstructionQualityControl.Data.Migrations
 
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");

@@ -8,6 +8,8 @@ namespace ConstructionQualityControl.Data.Models
     {
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal Price { get; set; }
         public virtual User User { get; set; }
         public string Demands { get; set; }
         public bool IsCompleted { get; set; }
