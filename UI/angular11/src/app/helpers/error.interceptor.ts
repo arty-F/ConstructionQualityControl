@@ -9,14 +9,13 @@ import { environment } from 'src/environments/environment'
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private authService: AuthenticationService, private router: Router) { }
+    constructor(private router: Router) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request)
             .pipe(
                 catchError(err => {
                     if (err.status === 401) {
-                        this.authService.logout()
                         if (this.router.url !== environment.apiUrl + '/Auth') {
                             this.router.navigate(['Auth'])
                         }

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core'
+import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthResult } from 'src/app/dtos/jwt/auth-result'
@@ -22,7 +23,17 @@ export class AuthenticationService {
 
   public user: UserReadDto
 
-  constructor(private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) {
+    let token = localStorage.getItem(personalData.AccessToken)
+    if (token != null) {
+      this._token.next(token)
+      const url = environment.apiUrl + '/Authentication'
+      this.http.get<UserReadDto>(url, httpOptions).subscribe(resp => {
+        this.setUserData(resp)
+        this.router.navigate(['Orders'])
+      })
+    }
+  }
 
   login(login: string, password: string) {
     const url = environment.apiUrl + '/Authentication?login=' + login
@@ -31,11 +42,8 @@ export class AuthenticationService {
         map(resp => {
           this.user = resp.user
           localStorage.setItem(personalData.AccessToken, resp.access_Token)
-          localStorage.setItem(personalData.UserName, resp.user.login)
-          localStorage.setItem(personalData.UserRole, resp.user.role)
           this._token.next(resp.access_Token)
-          this._name.next(resp.user.login)
-          this._role.next(resp.user.role)
+          this.setUserData(resp.user)
         })
       )
   }
@@ -60,5 +68,12 @@ export class AuthenticationService {
 
   getUserRole(): Observable<string> {
     return this._role.asObservable()
+  }
+
+  private setUserData(user: UserReadDto) {
+    localStorage.setItem(personalData.UserName, user.login)
+    localStorage.setItem(personalData.UserRole, user.role)
+    this._name.next(user.login)
+    this._role.next(user.role)
   }
 }

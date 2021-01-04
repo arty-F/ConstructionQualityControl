@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { OrderCreateDto } from 'src/app/dtos/order/order-create-dto';
 import { personalData } from 'src/app/models/personal-data';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -15,7 +16,7 @@ export class OrdersNewRootComponent implements OnInit {
   newOrderForm: FormGroup
   rootOrder: OrderCreateDto
 
-  constructor(private fb: FormBuilder, private sharedService: SharedService, private authService: AuthenticationService) {
+  constructor(private router: Router, private fb: FormBuilder, private sharedService: SharedService, private authService: AuthenticationService) {
     this.rootOrder = new OrderCreateDto()
     this.rootOrder.isRoot = true
     this.rootOrder.user = authService.user
@@ -41,7 +42,7 @@ export class OrdersNewRootComponent implements OnInit {
   onSubmit(form) {
     this.rootOrder.demands = this.title.value;
     this.sharedService.AddOrder(this.rootOrder).subscribe(res =>
-      console.log('ok')
+      this.router.navigate(['Orders'])
     )
   }
 }

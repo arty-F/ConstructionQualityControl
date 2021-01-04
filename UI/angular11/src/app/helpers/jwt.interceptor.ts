@@ -3,19 +3,20 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable } from 'rxjs'
 
 import { AuthenticationService } from 'src/app/services/authentication.service'
+import { personalData } from '../models/personal-data'
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
     private _token: string
 
-    constructor(private authService: AuthenticationService) {
-        authService.getToken().subscribe(res =>
-            this._token = res
-        )
-    }
+    constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (this._token == null) {
+            this._token = localStorage.getItem(personalData.AccessToken)
+        }
+
         if (this._token) {
             request = request.clone({
                 setHeaders: {

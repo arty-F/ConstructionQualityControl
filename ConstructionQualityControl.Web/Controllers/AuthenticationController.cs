@@ -43,7 +43,7 @@ namespace ConstructionQualityControl.Web.Controllers
             var userName = HttpContext.User.Identity.Name;
             var user = await unitOfWork.GetRepository<User>().GetFirstOrDefaultAsync(u => u.Login == userName);
 
-            return Ok();
+            return Ok(mapper.Map<UserReadDto>(user));
         }
     }
 }

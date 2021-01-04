@@ -5,6 +5,7 @@ import { SharedService } from 'src/app/services/shared.service'
 import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
 import { CustomValidators } from 'src/app/helpers/custom-validators'
 import { userRole } from 'src/app/models/user-roles'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-registration',
@@ -18,7 +19,7 @@ export class RegistrationComponent implements OnInit {
   citiesReadable: string[]
   userType: string
 
-  constructor(private fb: FormBuilder, private service: SharedService) { }
+  constructor(private router: Router, private fb: FormBuilder, private service: SharedService) { }
 
   get user() { return this.registerForm.get('user') }
   get email() { return this.registerForm.get('email') }
@@ -75,6 +76,9 @@ export class RegistrationComponent implements OnInit {
     }
     userDto.password = this.password.value
 
-    this.service.AddUser(userDto).subscribe(user => console.log(user))
+    this.service.AddUser(userDto).subscribe(res => 
+      {
+        this.router.navigate(['Auth'])
+      })
   }
 }

@@ -33,17 +33,16 @@ namespace ConstructionQualityControl.Web.Controllers
             var user = await unitOfWork.GetRepository<User>().GetByIdAsync(orderDto.User.Id);
             var order = MapperHelper.MapRecursiveToNewOrder(orderDto, user);
 
-            /*foreach (var subOrd in order.SubOrders)
+            try
             {
-                subOrd.CreationDate = DateTime.Now;
-                subOrd.IsActive = true;
-                foreach (var o in subOrd.SubOrders)
-                {
-                    o.CreationDate = DateTime.Now;
-                    o.IsActive = true;
-                }
-            }*/
-
+                await unitOfWork.GetRepository<Order>().AddAsync(order);
+                await unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            
             return Ok();
         }
     }
