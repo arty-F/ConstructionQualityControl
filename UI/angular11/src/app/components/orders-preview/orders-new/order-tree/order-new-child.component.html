@@ -1,12 +1,10 @@
 <div class="sub-orders">
     <div class="input-container">
         <textarea [(ngModel)]="subRootOrder.demands" rows="4" placeholder="Детали заказа"></textarea>
-        <!--<input type="text" [(ngModel)]="subRootOrder.demands" placeholder="Детали подзаказа">-->
         <div class="price-container">
             <input class="price" [(ngModel)]="subRootOrder.prePaid" type="number" placeholder="Предоплата (руб.)">
             <input class="price" [(ngModel)]="subRootOrder.postPaid" type="number" placeholder="Осн. выплата (руб.)">
-        </div>
-        
+        </div> 
     </div>
 
     <div class="sub-tree">
@@ -14,7 +12,6 @@
             <li *ngFor="let subOrd of subRootOrder.subOrders">
                 <div class="input-container">
                     <textarea [(ngModel)]="subOrd.demands" rows="4" placeholder="Детали подзаказа"></textarea>
-                    <!--<input type="text" [(ngModel)]="subOrd.demands" placeholder="Часть подзаказа">-->
                     <div class="price-container">
                         <input class="price" [(ngModel)]="subOrd.prePaid" type="number" min=0 placeholder="Предоплата (руб.)">
                         <input class="price" [(ngModel)]="subOrd.postPaid" type="number" min=0 placeholder="Осн. выплата (руб.)">

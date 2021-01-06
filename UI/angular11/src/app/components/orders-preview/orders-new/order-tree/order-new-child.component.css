@@ -1,6 +1,6 @@
 li::marker {
     font-weight: bold;
-    color: black;
+    color: #485258;
 }
 
 .sub-orders {
@@ -15,11 +15,19 @@ textarea {
     margin-left: 5%;
 }
 
+.sub-tree input, .sub-tree textarea {
+    border: 1px solid rgb(223, 234, 235);
+}
+
 .input-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+.sub-tree .input-container {
+    width: 98.75%;
 }
 
 .price-container {
@@ -42,6 +50,7 @@ textarea {
         max-width: 100%;
     }
     .input-container {
+        width: 100%;
         flex-direction: column;
     }
     .price-container {

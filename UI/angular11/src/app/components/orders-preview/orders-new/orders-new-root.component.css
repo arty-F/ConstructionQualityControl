@@ -9,7 +9,7 @@ ol li {
 
 ol li::before {
     content: counter(steps);
-    background: #35383a;
+    background: #485258;
     font-weight: bold;
     width: 2rem;
     height: 2rem;

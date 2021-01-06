@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable, of, Subject } from 'rxjs';
 import { OrderCreateDto } from 'src/app/dtos/order/order-create-dto';
 import { personalData } from 'src/app/models/personal-data';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -15,6 +16,7 @@ export class OrdersNewRootComponent implements OnInit {
 
   newOrderForm: FormGroup
   rootOrder: OrderCreateDto
+  summary: string
 
   constructor(private router: Router, private fb: FormBuilder, private sharedService: SharedService, private authService: AuthenticationService) {
     this.rootOrder = new OrderCreateDto()
@@ -27,8 +29,12 @@ export class OrdersNewRootComponent implements OnInit {
 
   ngOnInit() {
     this.newOrderForm = this.fb.group({
-      title: ['', Validators.required]
+      title: ['', Validators.required],
     })
+  }
+
+  ngOnChanges() {
+      this.summary = this.rootOrder.demands
   }
 
   onSubOrderAdded() {
