@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ConstructionQualityControl.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -78,11 +78,12 @@ namespace ConstructionQualityControl.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreationDate = table.Column<DateTime>(nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    PrePaid = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    PostPaid = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     UserId = table.Column<int>(nullable: true),
                     Demands = table.Column<string>(nullable: true),
                     IsCompleted = table.Column<bool>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false),
+                    IsStarted = table.Column<bool>(nullable: false),
                     IsRoot = table.Column<bool>(nullable: false),
                     OrderId = table.Column<int>(nullable: true)
                 },

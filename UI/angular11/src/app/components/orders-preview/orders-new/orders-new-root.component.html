@@ -2,7 +2,7 @@
 
     <h2>Создание нового заказа</h2>
 
-    <form novalidate [formGroup]="newOrderForm" (ngSubmit)="onSubmit(newOrderForm )">
+    <form novalidate [formGroup]="newOrderForm" (ngSubmit)="onSubmit(newOrderForm)">
 
         <div class="input-container">
             <input id="title" formControlName="title" type="text" placeholder="Название заказа">
@@ -16,11 +16,10 @@
 
         <div class="tree-container">
             <ol>
-                <li *ngFor="let order of rootOrder.subOrders"><app-order-new-child [subRootOrder]="order"></app-order-new-child></li>
+                <li class="tree-root-element" *ngFor="let order of rootOrder.subOrders"><app-order-new-child [subRootOrder]="order"></app-order-new-child></li>
             </ol>
             
-
-            <button type="button" (click)="onSubOrderAdded()" class="simple-button">Добавить</button>
+            <button type="button" (click)="onSubOrderAdded()" class="simple-button">Добавить заказ</button>
         </div>
 
         <div class="creating">

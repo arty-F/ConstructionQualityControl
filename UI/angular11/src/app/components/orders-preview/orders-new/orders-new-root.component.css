@@ -1,3 +1,26 @@
+ol {
+    list-style: none;
+    counter-reset: steps;
+}
+
+ol li {
+    counter-increment: steps;
+}
+
+ol li::before {
+    content: counter(steps);
+    background: #35383a;
+    font-weight: bold;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: block;
+    line-height: 2rem;
+    color: white;
+    text-align: center;
+    margin: 5px auto 0px auto;
+}
+
 .container {
     max-width: 90%;
     margin: 10px auto;
@@ -7,10 +30,12 @@
     color: red;
 }
 
-.tree-container {
-    margin-left: 5%;
+.tree-root-element {
+    border-bottom: 2px solid rgb(181, 205, 207);
+    padding: 5px;
+    margin-bottom: 10px;
 }
 
 ol {
-    list-style-type: upper-roman;
+    font-weight: bold;
 }

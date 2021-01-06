@@ -8746,19 +8746,22 @@ namespace ConstructionQualityControl.Data.Migrations
                     b.Property<string>("Demands")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsRoot")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsStarted")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("PostPaid")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("PrePaid")
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<int?>("UserId")

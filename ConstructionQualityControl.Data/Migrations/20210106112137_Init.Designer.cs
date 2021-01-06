@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionQualityControl.Data.Migrations
 {
     [DbContext(typeof(QualityControlContext))]
-    [Migration("20210104091428_Initial")]
-    partial class Initial
+    [Migration("20210106112137_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -8748,19 +8748,22 @@ namespace ConstructionQualityControl.Data.Migrations
                     b.Property<string>("Demands")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsRoot")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsStarted")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("PostPaid")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("PrePaid")
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<int?>("UserId")

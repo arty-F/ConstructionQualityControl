@@ -1,5 +1,14 @@
+li::marker {
+    font-weight: bold;
+    color: black;
+}
+
 .sub-orders {
-    margin: 2% 0px;
+    margin-bottom: 5px;
+}
+
+textarea {
+    max-width: 80%;
 }
 
 .sub-tree {
@@ -13,9 +22,12 @@
     align-items: center;
 }
 
-.price {
-    max-width: 20%;
+.price-container {
+    width: 20%;
     margin-left: 15px;
+}
+
+.price {
     border-style: solid;
     -moz-appearance: textfield;
     border-width: 1px;
@@ -26,11 +38,19 @@
   }
 
 @media screen and (max-width: 900px) {
+    textarea {
+        max-width: 100%;
+    }
     .input-container {
         flex-direction: column;
     }
+    .price-container {
+        margin-left: 0px;
+        width: 100%;
+        display: flex;
+    }
     .price {
-        margin-left: auto;
-        max-width: 40%;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 }

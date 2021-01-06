@@ -11,8 +11,9 @@ namespace ConstructionQualityControl.Domain.Dtos
             order.CreationDate = DateTime.Now;
             order.IsRoot = dto.IsRoot;
             order.User = user;
-            order.Price = dto.Price;
-            order.IsActive = true;
+            order.PrePaid = dto.PrePaid;
+            order.PostPaid = dto.PostPaid;
+            order.IsStarted = false;
             order.Demands = dto.Demands;
 
             if (dto.SubOrders?.Count > 0)
