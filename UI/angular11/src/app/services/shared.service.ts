@@ -15,6 +15,8 @@ const httpOptions = {
 })
 export class SharedService {
 
+  creatingOrder: OrderCreateDto
+
   constructor(private http: HttpClient) { }
 
   GetCityList(): Observable<CityReadDto[]> {

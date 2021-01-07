@@ -6,6 +6,7 @@
             <input class="price" [(ngModel)]="subRootOrder.postPaid" type="number" placeholder="Осн. выплата (руб.)">
         </div> 
     </div>
+    <button type="button" class="simple-button destroy-button" (click)="destroyRoot()">Удалить</button>
 
     <div class="sub-tree">
         <ol>
@@ -17,6 +18,7 @@
                         <input class="price" [(ngModel)]="subOrd.postPaid" type="number" min=0 placeholder="Осн. выплата (руб.)">
                     </div>
                 </div>
+                <button type="button" class="simple-button destroy-button" (click)="destroyChild(subOrd)">Удалить</button>
             </li>
         </ol>
         

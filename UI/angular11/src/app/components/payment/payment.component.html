@@ -1,0 +1,20 @@
+<form novalidate [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+        <h2>Оплата нового заказа</h2>
+
+        <div class="summary">
+            <p>Всего к оплате:</p>
+            <hr>
+            <p>500 рублей</p>
+        </div>
+
+        <div class="payments-type">
+            <p>Выберите способ оплаты:</p>
+            <div class="payments-table">
+                <p><input name="payment" type="radio" value="test" formControlName="payment"
+                        (change)="onPaymentChange($event)">Тестовый способ</p>
+                <input value="Оплатить" type="submit" class="payment-submit" [disabled]="paymentForm.invalid">
+            </div>
+        </div>
+    </div>
+</form>

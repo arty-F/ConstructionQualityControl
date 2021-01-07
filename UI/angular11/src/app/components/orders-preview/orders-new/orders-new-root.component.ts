@@ -23,6 +23,7 @@ export class OrdersNewRootComponent implements OnInit {
     this.rootOrder.isRoot = true
     this.rootOrder.user = authService.user
     this.rootOrder.subOrders = []
+    sharedService.creatingOrder = this.rootOrder
   }
 
   get title() { return this.newOrderForm.get('title') }
@@ -47,8 +48,6 @@ export class OrdersNewRootComponent implements OnInit {
 
   onSubmit(form) {
     this.rootOrder.demands = this.title.value;
-    this.sharedService.AddOrder(this.rootOrder).subscribe(res =>
-      this.router.navigate(['Orders'])
-    )
+    this.router.navigate(['Payment'])
   }
 }

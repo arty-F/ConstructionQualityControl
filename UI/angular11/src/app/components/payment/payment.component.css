@@ -1,0 +1,46 @@
+.container {
+    max-width: 45%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.summary {
+    margin: 20% 0px;
+}
+
+hr {
+    border: none;
+    color: white;
+    border-bottom: 2px solid #48525870;
+    width: 100%;
+    margin: 15px auto;
+}
+
+.payments-type {
+    margin: 0 auto;
+}
+
+.payments-type p {
+    margin: 5% 5px;
+    text-align: center;
+}
+
+.payments-table {
+    margin: 25px 0;
+    border: 2px solid #48525870;
+}
+
+.payment-submit{
+    width: 98%;
+    margin: 10% 1%;
+}
+
+input[type='radio']{
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 900px) {
+    .container {
+        max-width: 90%;
+    }
+}

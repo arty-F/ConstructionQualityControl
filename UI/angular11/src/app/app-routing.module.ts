@@ -9,6 +9,7 @@ import { AuthGuard } from 'src/app/helpers/auth.guard'
 import { UserGuard } from 'src/app/helpers/user.guard'
 import { userRole } from 'src/app/models/user-roles'
 import { OrdersNewRootComponent } from './components/orders-preview/orders-new/orders-new-root.component'
+import { PaymentComponent } from './components/payment/payment.component'
 
 const routes: Routes = [
   { path: 'Auth', component: AuthenticationComponent },
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: '', component: StartedComponent },
   { path: 'City', component: CityComponent, canActivate: [AuthGuard] },
   { path: 'Orders', component: OrdersPreviewComponent, canActivate: [UserGuard], data: {roles: [userRole.Customer]} },
-  { path: 'Orders/NewOrder', component: OrdersNewRootComponent }
+  { path: 'Orders/NewOrder', component: OrdersNewRootComponent },
+  { path: 'Payment', component: PaymentComponent}
 ]
 
 @NgModule({

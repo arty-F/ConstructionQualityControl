@@ -19,6 +19,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { OrdersPreviewComponent } from './components/orders-preview/orders-preview.component';
 import { OrdersNewRootComponent } from './components/orders-preview/orders-new/orders-new-root.component';
 import { OrdersNewChildComponent } from './components/orders-preview/orders-new/order-tree/order-new-child.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { OrdersNewChildComponent } from './components/orders-preview/orders-new/
     RegistrationComponent,
     OrdersPreviewComponent,
     OrdersNewRootComponent,
-    OrdersNewChildComponent
+    OrdersNewChildComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
