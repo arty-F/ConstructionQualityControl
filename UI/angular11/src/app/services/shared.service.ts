@@ -5,6 +5,7 @@ import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
 import { UserCreateDto } from 'src/app/dtos/user/user-create-dto'
 import { environment } from 'src/environments/environment'
 import { OrderCreateDto } from '../dtos/order/order-create-dto'
+import { OrderRootReadDto } from '../dtos/order/order-root-read-dto'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -29,5 +30,9 @@ export class SharedService {
 
   AddOrder(): Observable<OrderCreateDto> {
     return this.http.post<OrderCreateDto>(environment.apiUrl + '/Order', this.creatingOrder)
+  }
+
+  GetOrders(): Observable<OrderRootReadDto[]> {
+    return this.http.get<OrderRootReadDto[]>(environment.apiUrl + '/Order')
   }
 }

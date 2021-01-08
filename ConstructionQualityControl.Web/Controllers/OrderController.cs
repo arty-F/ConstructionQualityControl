@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using ConstructionQualityControl.Data.Models;
@@ -44,6 +45,15 @@ namespace ConstructionQualityControl.Web.Controllers
             }
             
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<OrderRootReadDto>>> GetOrders()
+        {
+            var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            var orders = await unitOfWork.GetRepository<Order>().GetAsync(o => o.User.Id == userId && o.IsRoot == true);
+            var a = mapper.Map<List<OrderRootReadDto>>(orders);
+            return Ok(a);
         }
     }
 }
