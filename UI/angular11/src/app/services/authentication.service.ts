@@ -71,6 +71,7 @@ export class AuthenticationService {
   }
 
   private setUserData(user: UserReadDto) {
+    this.user = user
     localStorage.setItem(personalData.UserName, user.login)
     localStorage.setItem(personalData.UserRole, user.role)
     this._name.next(user.login)

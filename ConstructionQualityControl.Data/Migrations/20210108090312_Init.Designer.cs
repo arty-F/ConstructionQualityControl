@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionQualityControl.Data.Migrations
 {
     [DbContext(typeof(QualityControlContext))]
-    [Migration("20210106112137_Init")]
+    [Migration("20210108090312_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -27,7 +27,7 @@ export class SharedService {
     return this.http.post<UserCreateDto>(environment.apiUrl + '/User', user)
   }
 
-  AddOrder(order: OrderCreateDto): Observable<OrderCreateDto> {
-    return this.http.post<OrderCreateDto>(environment.apiUrl + '/Order', order)
+  AddOrder(): Observable<OrderCreateDto> {
+    return this.http.post<OrderCreateDto>(environment.apiUrl + '/Order', this.creatingOrder)
   }
 }

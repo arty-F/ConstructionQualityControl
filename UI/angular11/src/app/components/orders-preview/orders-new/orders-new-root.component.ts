@@ -22,6 +22,7 @@ export class OrdersNewRootComponent implements OnInit {
     this.rootOrder = new OrderCreateDto()
     this.rootOrder.isRoot = true
     this.rootOrder.user = authService.user
+    console.log(authService.user)
     this.rootOrder.subOrders = []
     sharedService.creatingOrder = this.rootOrder
   }
