@@ -6,5 +6,5 @@ export class OrderRootReadDto {
     user: UserReadDto
     demands: string
     isCompleted: boolean
-    isActive: boolean
+    isStarted: boolean
 }

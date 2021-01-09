@@ -53,11 +53,6 @@
     font-size: 22px;
 }
 
-.column-header h2, .column-content p {
-    background-color: rgba(226, 226, 226, 0.253);
-    
-}
-
 .container-text * {
     background-color: rgba(0, 0, 0, 0);
 }
@@ -65,8 +60,7 @@
 .container-text {
     margin: 0 5%;
     margin-top: 5%;
-    background-color: rgba(129, 179, 255, 0.21);
-    box-shadow: 1px 1px 2px 2px #ccc;
+    background-color: rgba(129, 179, 255, 0.065);
 }
 
 .container-text-header {

@@ -10,7 +10,14 @@
     </div>
 
     <div class="orders-container">
-        <p>orders-preview works!</p>
+        <div *ngFor="let order of orders" class="order">
+            <div class="order-name">
+                {{order.demands}}
+            </div>
+            <div class="order-date">
+                {{getFormatedDate(order.creationDate)}}
+            </div>
+        </div> 
     </div>
 
 </div>
