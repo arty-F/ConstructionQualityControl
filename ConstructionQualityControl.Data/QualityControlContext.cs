@@ -12,6 +12,7 @@ namespace ConstructionQualityControl.Data
         public DbSet<Region> Regions { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<WorkOffer> WorkOffers { get; set; }
 
         public QualityControlContext(DbContextOptions<QualityControlContext> options) : base(options) { }
         public QualityControlContext() { }

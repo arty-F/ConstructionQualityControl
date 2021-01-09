@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ConstructionQualityControl.Domain.Dtos
 {
@@ -10,5 +11,6 @@ namespace ConstructionQualityControl.Domain.Dtos
         public string Demands { get; set; }
         public bool IsCompleted { get; set; }
         public bool IsStarted { get; set; }
+        public List<WorkOfferReadDto> WorkOffers { get; set; }
     }
 }
