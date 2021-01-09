@@ -8,5 +8,5 @@ export class OrderRootReadDto {
     demands: string
     isCompleted: boolean
     isStarted: boolean
-    workOffers: WorkOfferReadDto
+    workOffers: WorkOfferReadDto[]
 }

@@ -15,6 +15,7 @@ export class OrdersPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.sharedService.GetOrders().subscribe(res => {
+      console.log(res)
       this.orders = res
     })
   }
@@ -33,4 +34,29 @@ export class OrdersPreviewComponent implements OnInit {
     return day + '.' + month + '.' + year
   }
 
+  getOrderStatus(order: OrderRootReadDto): string {
+    if (order.isCompleted) {
+      return "завершен"
+    }
+    else if (order.isStarted) {
+      return "активен"
+    }
+    else {
+      return "еще не начат"
+    }
+  }
+
+  getWorker(order: OrderRootReadDto): string {
+    if (order.isStarted || order.isCompleted) {
+      return order.workOffers[0].worker.companyName
+    }
+    else {
+      if (order.workOffers.length > 0) {
+        return "выберите одного из " + order.workOffers.length.toString() + " исполнителя"
+      }
+      else {
+        return "иполнитель не назначен"
+      }
+    }
+  }
 }

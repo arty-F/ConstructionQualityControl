@@ -14,6 +14,17 @@
             <div class="order-name">
                 {{order.demands}}
             </div>
+
+            <div class="order-status">
+                <div class="order-status-item">{{getWorker(order)}}</div>
+                <div class="order-status-item">{{getOrderStatus(order)}}</div>
+            </div>
+
+            <div class="order-buttons-container">
+                <button class="simple-button">Подробнее</button>
+                <button class="simple-button">Удалить</button>
+            </div>
+
             <div class="order-date">
                 {{getFormatedDate(order.creationDate)}}
             </div>

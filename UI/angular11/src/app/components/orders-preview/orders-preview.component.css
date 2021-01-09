@@ -6,10 +6,49 @@
 .panel {
     display: flex;
     padding: 1%;
+    margin-bottom: 2%;
+    border-bottom: 2px solid rgba(181, 205, 207, 0.5);
 }
 
 .order {
-    background-color: rgba(129, 179, 255, 0.1);
-    max-width: 60%;
+    max-width: 70%;
     margin: 0px auto;
+    border: 2px solid #485258;
+    border-radius: 2px;
+    padding: 15px;
+}
+
+.order-name {
+    font-size: 18px;
+    border-bottom: 1px solid rgb(181, 205, 207);
+}
+
+.order-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 10px auto;
+}
+
+.order-buttons-container button {
+    padding: 1px 10px;
+    margin: 0 5px;
+}
+
+.order-status {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-status-item {
+    margin: 5px 10px;
+    color: black;
+    opacity: 0.4;
+    font-weight: bold;
+}
+
+.order-date {
+    font-size: 10px;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.5);
 }
