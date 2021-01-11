@@ -31,8 +31,9 @@ namespace ConstructionQualityControl.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder(OrderCreateDto orderDto)
         {
+            var city = await unitOfWork.GetRepository<City>().GetByIdAsync(orderDto.City.Id);
             var user = await unitOfWork.GetRepository<User>().GetByIdAsync(orderDto.User.Id);
-            var order = MapperHelper.MapRecursiveToNewOrder(orderDto, user);
+            var order = MapperHelper.MapRecursiveToNewOrder(orderDto, user, city);
 
             try
             {

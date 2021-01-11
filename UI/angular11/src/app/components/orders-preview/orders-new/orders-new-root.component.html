@@ -14,6 +14,23 @@
             </div>
         </div>
 
+        <div class="input-container">
+            <input id="city" list="citiesReadable" formControlName="city" type="text" placeholder="Город">
+            <datalist id="citiesReadable">
+                <option *ngFor="let c of citiesReadable" [value]="c"></option>
+            </datalist>
+
+            <div *ngIf="city.invalid && (city.dirty || city.touched)" class="validation-error">
+                <div *ngIf="city.errors.required">
+                    Это поле обязательное.
+                </div>
+
+                <div *ngIf="city.errors.wrongCity">
+                    Выберите город из списка.
+                </div>
+            </div>
+        </div>
+
         <div class="tree-container">
             <ol>
                 <li class="tree-root-element" *ngFor="let order of rootOrder.subOrders"><app-order-new-child [subRootOrder]="order"></app-order-new-child></li>

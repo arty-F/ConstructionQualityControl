@@ -12,7 +12,12 @@
     <div class="orders-container">
         <div *ngFor="let order of orders" class="order">
             <div class="order-name">
-                {{order.demands}}
+                <div class="name-container">
+                    {{order.demands}}
+                </div>
+                <div class="city-container">
+                    {{order.city.name}}, {{order.city.region.name}}
+                </div>
             </div>
 
             <div class="order-status">

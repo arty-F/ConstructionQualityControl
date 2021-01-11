@@ -19,10 +19,12 @@
       <p>{{userName}}</p>
       <button (click)="logout()">Выйти</button>
     </div>
-    
+
   </header>
 
-  <router-outlet></router-outlet>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 
   <footer>
     <ul>

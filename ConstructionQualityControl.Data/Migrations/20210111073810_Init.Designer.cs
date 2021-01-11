@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionQualityControl.Data.Migrations
 {
     [DbContext(typeof(QualityControlContext))]
-    [Migration("20210109080941_Init")]
+    [Migration("20210111073810_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -8742,6 +8742,9 @@ namespace ConstructionQualityControl.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CityId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -8770,6 +8773,8 @@ namespace ConstructionQualityControl.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("OrderId");
 
@@ -9355,6 +9360,10 @@ namespace ConstructionQualityControl.Data.Migrations
 
             modelBuilder.Entity("ConstructionQualityControl.Data.Models.Order", b =>
                 {
+                    b.HasOne("ConstructionQualityControl.Data.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+
                     b.HasOne("ConstructionQualityControl.Data.Models.Order", null)
                         .WithMany("SubOrders")
                         .HasForeignKey("OrderId");

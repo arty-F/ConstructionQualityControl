@@ -19,8 +19,18 @@
 }
 
 .order-name {
-    font-size: 18px;
     border-bottom: 1px solid rgb(181, 205, 207);
+    display: flex;
+    justify-content: space-between;
+}
+
+.name-container {
+    font-size: 18px;
+}
+
+.city-container {
+    opacity: 0.5;
+    margin-right: 10px;
 }
 
 .order-buttons-container {
@@ -43,8 +53,7 @@
 .order-status-item {
     margin: 5px 10px;
     color: black;
-    opacity: 0.4;
-    font-weight: bold;
+    opacity: 0.5;
 }
 
 .order-date {

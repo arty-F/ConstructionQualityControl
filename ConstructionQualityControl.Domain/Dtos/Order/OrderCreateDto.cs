@@ -9,6 +9,7 @@ namespace ConstructionQualityControl.Domain.Dtos
         public decimal PostPaid { get; set; }
         public string Demands { get; set; }
         public bool IsRoot { get; set; }
+        public CityReadDto City { get; set; }
         public List<OrderCreateDto> SubOrders { get; set; }
     }
 }

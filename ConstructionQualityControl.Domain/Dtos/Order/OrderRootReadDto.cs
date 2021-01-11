@@ -11,6 +11,7 @@ namespace ConstructionQualityControl.Domain.Dtos
         public string Demands { get; set; }
         public bool IsCompleted { get; set; }
         public bool IsStarted { get; set; }
+        public CityReadDto City { get; set; }
         public List<WorkOfferReadDto> WorkOffers { get; set; }
     }
 }

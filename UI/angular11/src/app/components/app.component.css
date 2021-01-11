@@ -24,6 +24,10 @@ header ul li {
     padding: 0px 15px;
 }
 
+.content {
+    min-height: 80vh;
+}
+
 .logout-container {
     display: flex;
     flex-direction: column;
