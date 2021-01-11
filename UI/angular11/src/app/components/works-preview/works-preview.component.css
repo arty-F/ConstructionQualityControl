@@ -1,0 +1,11 @@
+.container {
+    max-width: 90%;
+    margin: 10px auto;
+}
+
+.panel {
+    display: flex;
+    padding: 1%;
+    margin-bottom: 2%;
+    border-bottom: 2px solid rgba(181, 205, 207, 0.5);
+}

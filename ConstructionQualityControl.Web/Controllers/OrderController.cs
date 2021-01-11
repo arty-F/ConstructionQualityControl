@@ -8,7 +8,6 @@ using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
 using ConstructionQualityControl.Domain.Dtos;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionQualityControl.Web.Controllers
@@ -26,7 +25,6 @@ namespace ConstructionQualityControl.Web.Controllers
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
-
 
         [HttpPost]
         public async Task<IActionResult> CreateOrder(OrderCreateDto orderDto)

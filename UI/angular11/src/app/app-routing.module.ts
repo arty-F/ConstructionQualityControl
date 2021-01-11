@@ -10,6 +10,8 @@ import { UserGuard } from 'src/app/helpers/user.guard'
 import { userRole } from 'src/app/models/user-roles'
 import { OrdersNewRootComponent } from './components/orders-preview/orders-new/orders-new-root.component'
 import { PaymentComponent } from './components/payment/payment.component'
+import { WorksPreviewComponent } from './components/works-preview/works-preview.component'
+import { WorkFindComponent } from './components/works-preview/work-find/work-find.component'
 
 const routes: Routes = [
   { path: 'Auth', component: AuthenticationComponent },
@@ -18,7 +20,9 @@ const routes: Routes = [
   { path: 'City', component: CityComponent, canActivate: [AuthGuard] },
   { path: 'Orders', component: OrdersPreviewComponent, canActivate: [UserGuard], data: {roles: [userRole.Customer]} },
   { path: 'Orders/NewOrder', component: OrdersNewRootComponent },
-  { path: 'Payment', component: PaymentComponent}
+  { path: 'Payment', component: PaymentComponent},
+  { path: 'Works', component: WorksPreviewComponent},
+  { path: 'Works/Find', component: WorkFindComponent}
 ]
 
 @NgModule({

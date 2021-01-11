@@ -20,6 +20,8 @@ import { OrdersPreviewComponent } from './components/orders-preview/orders-previ
 import { OrdersNewRootComponent } from './components/orders-preview/orders-new/orders-new-root.component';
 import { OrdersNewChildComponent } from './components/orders-preview/orders-new/order-tree/order-new-child.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { WorksPreviewComponent } from './components/works-preview/works-preview.component';
+import { WorkFindComponent } from './components/works-preview/work-find/work-find.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { PaymentComponent } from './components/payment/payment.component';
     OrdersPreviewComponent,
     OrdersNewRootComponent,
     OrdersNewChildComponent,
-    PaymentComponent
+    PaymentComponent,
+    WorksPreviewComponent,
+    WorkFindComponent
   ],
   imports: [
     BrowserModule,

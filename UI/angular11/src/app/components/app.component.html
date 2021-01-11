@@ -8,9 +8,7 @@
     <nav>
       <ul>
         <li *ngIf="IsUserCustomer()"><a routerLink="Orders">Мои заказы</a></li>
-        <li><a routerLink="City">About</a></li>
-        <li><a routerLink="City">Company</a></li>
-        <li><a routerLink="City">Contacts</a></li>
+        <li *ngIf="IsUserBuilder()"><a routerLink="Works">Мои работы</a></li>
       </ul>
     </nav>
 

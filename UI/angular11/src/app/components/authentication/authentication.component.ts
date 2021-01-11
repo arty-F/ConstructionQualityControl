@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { Observable, throwError } from 'rxjs'
 import { catchError, first } from 'rxjs/operators'
 import { personalData } from 'src/app/models/personal-data'
+import { userRole } from 'src/app/models/user-roles'
 import { AuthenticationService } from 'src/app/services/authentication.service'
 
 @Component({
@@ -33,7 +34,12 @@ export class AuthenticationComponent implements OnInit {
       .subscribe(
         res => {
           this.authError = false
-          this.router.navigate(['Orders'])
+          if (this.authService.user.role === userRole.Customer) {
+            this.router.navigate(['Orders'])
+          }
+          else if (this.authService.user.role === userRole.Builder) {
+            this.router.navigate(['Works'])
+          }
         },
         err => {
           this.authError = true
