@@ -1,1 +1,31 @@
-<p>work-find works!</p>
+<div class="container">
+
+    <form novalidate [formGroup]="worksForm">
+        <div class="panel">
+
+            <div class="input-container">
+                <input id="city" list="citiesReadable" formControlName="city" type="text" placeholder="Город">
+                <datalist id="citiesReadable">
+                    <option *ngFor="let c of citiesReadable" [value]="c"></option>
+                </datalist>
+
+                <div *ngIf="city.invalid && (city.dirty || city.touched)" class="validation-error">
+                    <div *ngIf="city.errors.required">
+                        Это поле обязательное.
+                    </div>
+
+                    <div *ngIf="city.errors.wrongCity">
+                        Выберите город из списка.
+                    </div>
+                </div>
+            </div>
+
+            <button (click)="onCityRefreshed()" class="simple-button" [disabled]="worksForm.invalid">Обновить</button>
+
+        </div>
+
+        <p *ngFor="let work of works">
+            {{work.demands}}
+        </p>
+    </form>
+</div>

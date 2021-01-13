@@ -7,6 +7,7 @@ using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
 using ConstructionQualityControl.Domain.Dtos;
+using ConstructionQualityControl.Web.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,17 +43,42 @@ namespace ConstructionQualityControl.Web.Controllers
             {
                 return BadRequest();
             }
-            
+
             return Ok();
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderRootReadDto>>> GetOrders()
         {
+            var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
             var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-            var orders = await unitOfWork.GetRepository<Order>().GetAsync(o => o.User.Id == userId && o.IsRoot == true);
-            var a = mapper.Map<List<OrderRootReadDto>>(orders);
-            return Ok(a);
+
+            IEnumerable<Order> orders = role.Value switch
+            {
+                "Customer" => await GetCustomerOrders(userId),
+                "Builder" => await GetAllUnstartedOrders(),
+                _ => throw new Exception("Unsupported user role.")
+            };
+
+            var ordersDto = mapper.Map<List<OrderRootReadDto>>(orders);
+            return Ok(ordersDto);
+        }
+
+        private async Task<IEnumerable<Order>> GetCustomerOrders(int customerId)
+        {
+            return await unitOfWork.GetRepository<Order>().GetAsync(o => o.User.Id == customerId && o.IsRoot == true);
+        }
+
+        private async Task<IEnumerable<Order>> GetAllUnstartedOrders()
+        {
+            return await unitOfWork.GetRepository<Order>().GetAsync(o => o.IsRoot && !o.IsStarted);
+        }
+
+        [HttpGet("City/{id}")]
+        public async Task<ActionResult<IEnumerable<OrderRootReadDto>>> GetOrders(int id)
+        {
+            var orders = await unitOfWork.GetRepository<Order>().GetAsync(o => o.IsRoot && o.City.Id == id);
+            return Ok(mapper.Map<List<OrderRootReadDto>>(orders));
         }
     }
 }

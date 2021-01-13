@@ -21,18 +21,22 @@ export class SharedService {
   constructor(private http: HttpClient) { }
 
   GetCityList(): Observable<CityReadDto[]> {
-    return this.http.get<CityReadDto[]>(environment.apiUrl + '/City')
+    return this.http.get<CityReadDto[]>(environment.apiUrl + '/City', httpOptions)
   }
 
   AddUser(user: UserCreateDto): Observable<UserCreateDto> {
-    return this.http.post<UserCreateDto>(environment.apiUrl + '/User', user)
+    return this.http.post<UserCreateDto>(environment.apiUrl + '/User', user, httpOptions)
   }
 
   AddOrder(): Observable<OrderCreateDto> {
-    return this.http.post<OrderCreateDto>(environment.apiUrl + '/Order', this.creatingOrder)
+    return this.http.post<OrderCreateDto>(environment.apiUrl + '/Order', this.creatingOrder, httpOptions)
   }
 
   GetOrders(): Observable<OrderRootReadDto[]> {
-    return this.http.get<OrderRootReadDto[]>(environment.apiUrl + '/Order')
+    return this.http.get<OrderRootReadDto[]>(environment.apiUrl + '/Order', httpOptions)
+  }
+
+  GetOrdersOfCity(city: CityReadDto): Observable<OrderRootReadDto[]> {
+    return this.http.get<OrderRootReadDto[]>(environment.apiUrl + '/Order/City/' + city.id, httpOptions)
   }
 }
