@@ -12,7 +12,7 @@
 
 .order {
     max-width: 70%;
-    margin: 0px auto;
+    margin: 10px auto;
     border: 2px solid #485258;
     border-radius: 2px;
     padding: 15px;
@@ -60,4 +60,16 @@
     font-size: 10px;
     text-align: right;
     color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 900px) {
+    .order-status, .order-name {
+        flex-direction: column;
+    }
+    .order-buttons-container {
+        justify-content: center;
+    }
+    .order-buttons-container button {
+        min-width: 45%;
+    }
 }

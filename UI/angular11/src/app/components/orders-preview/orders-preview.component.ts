@@ -15,7 +15,6 @@ export class OrdersPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.sharedService.GetOrders().subscribe(res => {
-      console.log(res)
       this.orders = res
     })
   }

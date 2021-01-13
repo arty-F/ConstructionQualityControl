@@ -8,9 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ErrorInterceptor } from 'src/app/helpers/error.interceptor'
 import { JwtInterceptor } from 'src/app/helpers/jwt.interceptor'
 import { AppComponent } from './components/app.component'
-import { CityComponent } from 'src/app/components/city/city.component'
-import { ShowCityComponent } from 'src/app/components/city/show-city/show-city.component'
-import { AddEditCityComponent } from 'src/app/components/city/add-edit-city/add-edit-city.component'
 import { StartedComponent } from 'src/app/components/started/started.component'
 import { AuthenticationComponent } from 'src/app/components/authentication/authentication.component'
 import { RegistrationComponent } from 'src/app/components/registration/registration.component'
@@ -22,13 +19,11 @@ import { OrdersNewChildComponent } from './components/orders-preview/orders-new/
 import { PaymentComponent } from './components/payment/payment.component';
 import { WorksPreviewComponent } from './components/works-preview/works-preview.component';
 import { WorkFindComponent } from './components/works-preview/work-find/work-find.component';
+import { CityService } from './services/city.service'
 
 @NgModule({
   declarations: [
     AppComponent,
-    CityComponent,
-    ShowCityComponent,
-    AddEditCityComponent,
     StartedComponent,
     AuthenticationComponent,
     RegistrationComponent,
@@ -51,7 +46,8 @@ import { WorkFindComponent } from './components/works-preview/work-find/work-fin
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     SharedService,
-    AuthenticationService
+    AuthenticationService,
+    CityService
   ],
   bootstrap: [AppComponent]
 })

@@ -6,6 +6,7 @@ import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
 import { CustomValidators } from 'src/app/helpers/custom-validators'
 import { userRole } from 'src/app/models/user-roles'
 import { Router } from '@angular/router'
+import { CityService } from 'src/app/services/city.service'
 
 @Component({
   selector: 'app-registration',
@@ -15,11 +16,10 @@ import { Router } from '@angular/router'
 export class RegistrationComponent implements OnInit {
 
   registerForm: FormGroup
-  cities: CityReadDto[]
-  citiesReadable: string[]
   userType: string
+  //citiesReadable: string[]
 
-  constructor(private router: Router, private fb: FormBuilder, private service: SharedService) { }
+  constructor(private router: Router, private fb: FormBuilder, public cityService: CityService, private sharedService: SharedService) { }
 
   get user() { return this.registerForm.get('user') }
   get email() { return this.registerForm.get('email') }
@@ -34,10 +34,9 @@ export class RegistrationComponent implements OnInit {
   get confirmedPassword() { return this.registerForm.get('confirmedPassword') }
 
   ngOnInit() {
-    this.service.GetCityList().subscribe(data => {
-      this.cities = data
-      this.citiesReadable = this.cities.map(c => c.name + ', ' + c.region.name)
-      this.city.setValidators([Validators.required, CustomValidators.containInList(this.citiesReadable)])
+    this.cityService.GetObs().subscribe(res => {
+      //this.citiesReadable = res
+      //this.city.setValidators([Validators.required, CustomValidators.containInList(res)])
     })
 
     this.registerForm = this.fb.group({
@@ -68,17 +67,15 @@ export class RegistrationComponent implements OnInit {
     userDto.lastName = this.lname.value
     userDto.firstName = this.fname.value
     userDto.patronymic = this.patronymic.value
-    let currentCity = this.city.value.split(", ")
-    userDto.city = this.cities.filter(c => c.name == currentCity[0] && c.region.name == currentCity[1])[0]
+    userDto.city = this.cityService.ConvertStrToCityDto(this.city.value)
     if (userDto.role === userRole.Builder) {
       userDto.companyName = this.companyName.value
       userDto.companyDescription = this.companyDescription.value
     }
     userDto.password = this.password.value
 
-    this.service.AddUser(userDto).subscribe(res => 
-      {
-        this.router.navigate(['Auth'])
-      })
+    this.sharedService.AddUser(userDto).subscribe(res => {
+      this.router.navigate(['Auth'])
+    })
   }
 }

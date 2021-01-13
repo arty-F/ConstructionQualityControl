@@ -20,10 +20,6 @@ export class SharedService {
 
   constructor(private http: HttpClient) { }
 
-  GetCityList(): Observable<CityReadDto[]> {
-    return this.http.get<CityReadDto[]>(environment.apiUrl + '/City', httpOptions)
-  }
-
   AddUser(user: UserCreateDto): Observable<UserCreateDto> {
     return this.http.post<UserCreateDto>(environment.apiUrl + '/User', user, httpOptions)
   }

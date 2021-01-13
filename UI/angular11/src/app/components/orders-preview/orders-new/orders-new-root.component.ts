@@ -7,6 +7,7 @@ import { OrderCreateDto } from 'src/app/dtos/order/order-create-dto';
 import { CustomValidators } from 'src/app/helpers/custom-validators';
 import { personalData } from 'src/app/models/personal-data';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { CityService } from 'src/app/services/city.service';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
@@ -18,11 +19,10 @@ export class OrdersNewRootComponent implements OnInit {
 
   newOrderForm: FormGroup
   rootOrder: OrderCreateDto
-  cities: CityReadDto[]
-  citiesReadable: string[]
   summary: string
 
-  constructor(private router: Router, private fb: FormBuilder, private sharedService: SharedService, private authService: AuthenticationService) {
+  constructor(private router: Router, private fb: FormBuilder, public cityService: CityService, private sharedService: SharedService, private authService: AuthenticationService) {
+    this.cityService = cityService
     this.rootOrder = new OrderCreateDto()
     this.rootOrder.isRoot = true
     this.rootOrder.user = authService.user
@@ -34,21 +34,14 @@ export class OrdersNewRootComponent implements OnInit {
   get city() { return this.newOrderForm.get('city') }
 
   ngOnInit() {
-    this.sharedService.GetCityList().subscribe(data => {
-      this.cities = data
-      this.citiesReadable = this.cities.map(c => c.name + ', ' + c.region.name)
-      this.city.setValidators([Validators.required, CustomValidators.containInList(this.citiesReadable)])
-      this.city.setValue(this.authService.user.city.name + ', ' + this.authService.user.city.region.name)
-    })
-
     this.newOrderForm = this.fb.group({
       title: ['', Validators.required],
-      city: ['', Validators.required]
+      city: [this.authService.user.city.name + ', ' + this.authService.user.city.region.name, [Validators.required, CustomValidators.containInList(this.cityService.citiesReadable)]]
     })
   }
 
   ngOnChanges() {
-      this.summary = this.rootOrder.demands
+    this.summary = this.rootOrder.demands
   }
 
   onSubOrderAdded() {
@@ -60,8 +53,7 @@ export class OrdersNewRootComponent implements OnInit {
   }
 
   onSubmit(form) {
-    let currentCity = this.city.value.split(", ")
-    this.rootOrder.city = this.cities.filter(c => c.name == currentCity[0] && c.region.name == currentCity[1])[0]
+    this.rootOrder.city = this.cityService.ConvertStrToCityDto(this.city.value)
     this.rootOrder.demands = this.title.value;
     this.router.navigate(['Payment'])
   }

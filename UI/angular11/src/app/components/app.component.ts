@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
 import { AuthenticationService } from 'src/app/services/authentication.service'
 import { userRole } from '../models/user-roles'
+import { CityService } from '../services/city.service'
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent {
   userName: string
   userRole: string
 
-  constructor(private router: Router, private authService: AuthenticationService) {
+  constructor(private router: Router, private authService: AuthenticationService, private cityService: CityService) {
     authService.getUserName()
       .subscribe(res =>
         this.userName = res
