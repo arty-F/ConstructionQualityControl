@@ -7,7 +7,6 @@ using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
 using ConstructionQualityControl.Domain.Dtos;
-using ConstructionQualityControl.Web.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -75,7 +74,7 @@ namespace ConstructionQualityControl.Web.Controllers
         }
 
         [HttpGet("City/{id}")]
-        public async Task<ActionResult<IEnumerable<OrderRootReadDto>>> GetOrders(int id)
+        public async Task<ActionResult<IEnumerable<OrderRootReadDto>>> GetOrdersByCityId(int id)
         {
             var orders = await unitOfWork.GetRepository<Order>().GetAsync(o => o.IsRoot && o.City.Id == id);
             return Ok(mapper.Map<List<OrderRootReadDto>>(orders));

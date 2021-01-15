@@ -20,6 +20,7 @@ export class OrdersNewRootComponent implements OnInit {
   newOrderForm: FormGroup
   rootOrder: OrderCreateDto
   summary: string
+  cities: string[]
 
   constructor(private router: Router, private fb: FormBuilder, public cityService: CityService, private sharedService: SharedService, private authService: AuthenticationService) {
     this.cityService = cityService
@@ -36,7 +37,13 @@ export class OrdersNewRootComponent implements OnInit {
   ngOnInit() {
     this.newOrderForm = this.fb.group({
       title: ['', Validators.required],
-      city: [this.authService.user.city.name + ', ' + this.authService.user.city.region.name, [Validators.required, CustomValidators.containInList(this.cityService.citiesReadable)]]
+      city: ['', Validators.required]
+    })
+
+    this.cityService.GetCityList().subscribe(res => {
+      this.cities = res
+      this.city.setValidators([Validators.required, CustomValidators.containInList(res)])
+      this.city.setValue(this.authService.user.city.name + ', ' + this.authService.user.city.region.name)
     })
   }
 

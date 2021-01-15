@@ -16,6 +16,7 @@ export class WorkFindComponent implements OnInit {
 
   worksForm: FormGroup
   works: OrderRootReadDto[]
+  cities: string[]
 
   constructor(private fb: FormBuilder, public cityService: CityService, private sharedService: SharedService, private authService: AuthenticationService) { }
 
@@ -23,7 +24,13 @@ export class WorkFindComponent implements OnInit {
 
   ngOnInit(): void {
     this.worksForm = this.fb.group({
-      city: [this.authService.user.city.name + ', ' + this.authService.user.city.region.name, [Validators.required, CustomValidators.containInList(this.cityService.citiesReadable)]]
+      city: ['', Validators.required]
+    })
+
+    this.cityService.GetCityList().subscribe(res => {
+      this.cities = res
+      this.city.setValidators([Validators.required, CustomValidators.containInList(res)])
+      this.city.setValue(this.authService.user.city.name + ', ' + this.authService.user.city.region.name)
     })
 
     this.city.valueChanges.subscribe(val => {

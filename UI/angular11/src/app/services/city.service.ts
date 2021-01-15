@@ -1,10 +1,8 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { CityReadDto } from "../dtos/city/city-read-dto";
-
-
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,8 +13,7 @@ const httpOptions = {
 })
 export class CityService {
 
-    private _cities = new Subject<string[]>()
-
+    private _cities = new BehaviorSubject<string[]>(null)
     cities: CityReadDto[]
     citiesReadable: string[]
 
@@ -28,11 +25,7 @@ export class CityService {
         })
     }
 
-    GetCityList(): string[] {
-        return this.citiesReadable
-    }
-
-    GetObs(): Observable<string[]> {
+    GetCityList(): Observable<string[]> {
         return this._cities.asObservable()
     }
 

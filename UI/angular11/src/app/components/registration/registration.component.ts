@@ -17,7 +17,7 @@ export class RegistrationComponent implements OnInit {
 
   registerForm: FormGroup
   userType: string
-  //citiesReadable: string[]
+  cities: string[]
 
   constructor(private router: Router, private fb: FormBuilder, public cityService: CityService, private sharedService: SharedService) { }
 
@@ -34,11 +34,6 @@ export class RegistrationComponent implements OnInit {
   get confirmedPassword() { return this.registerForm.get('confirmedPassword') }
 
   ngOnInit() {
-    this.cityService.GetObs().subscribe(res => {
-      //this.citiesReadable = res
-      //this.city.setValidators([Validators.required, CustomValidators.containInList(res)])
-    })
-
     this.registerForm = this.fb.group({
       user: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -51,6 +46,11 @@ export class RegistrationComponent implements OnInit {
       birthDate: ['', [Validators.required, CustomValidators.dateIsMore17AndLess100()]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmedPassword: ['']
+    })
+
+    this.cityService.GetCityList().subscribe(res => {
+      this.cities = res
+      this.city.setValidators([Validators.required, CustomValidators.containInList(res)])
     })
 
     this.confirmedPassword.setValidators([Validators.required, CustomValidators.matchValueWith('password')])

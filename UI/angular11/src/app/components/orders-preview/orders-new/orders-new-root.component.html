@@ -15,9 +15,9 @@
         </div>
 
         <div class="input-container">
-            <input id="city" list="citiesReadable" formControlName="city" type="text" placeholder="Город">
-            <datalist id="citiesReadable">
-                <option *ngFor="let c of cityService.citiesReadable" [value]="c"></option>
+            <input id="city" list="cities" formControlName="city" type="text" placeholder="Город">
+            <datalist id="cities">
+                <option *ngFor="let c of cities" [value]="c"></option>
             </datalist>
 
             <div *ngIf="city.invalid && (city.dirty || city.touched)" class="validation-error">
