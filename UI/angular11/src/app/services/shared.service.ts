@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'
-import { from, Observable, of, throwError } from 'rxjs'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { Observable } from 'rxjs'
 import { CityReadDto } from 'src/app/dtos/city/city-read-dto'
 import { UserCreateDto } from 'src/app/dtos/user/user-create-dto'
 import { environment } from 'src/environments/environment'
@@ -32,7 +32,11 @@ export class SharedService {
     return this.http.get<OrderRootReadDto[]>(environment.apiUrl + '/Order', httpOptions)
   }
 
-  GetOrdersOfCity(city: CityReadDto): Observable<OrderRootReadDto[]> {
-    return this.http.get<OrderRootReadDto[]>(environment.apiUrl + '/Order/City/' + city.id, httpOptions)
+  GetWorksOfCity(city: CityReadDto): Observable<OrderRootReadDto[]> {
+    return this.http.get<OrderRootReadDto[]>(environment.apiUrl + '/Order/Work/City/' + city.id, httpOptions)
+  }
+
+  GetWorks(): Observable<OrderRootReadDto[]> {
+    return this.http.get<OrderRootReadDto[]>(environment.apiUrl + '/Order/Work', httpOptions)
   }
 }

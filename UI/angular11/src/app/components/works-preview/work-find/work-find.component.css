@@ -3,17 +3,47 @@
     margin: 10px auto;
 }
 
+h3 {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+
 .panel {
     display: flex;
+    justify-content: center;
     padding: 1%;
     margin-bottom: 2%;
     border-bottom: 2px solid rgba(181, 205, 207, 0.5);
 }
 
 .input-container {
-    min-width: 20%;
+    min-width: 45%;
+    align-self: stretch;
+    margin-right: 15px;
 }
 
 button:disabled {
     opacity: 0.5;
+}
+
+.input-header {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.input-header input[type=checkbox]{
+    width: 15px;
+    height: 15px;
+}
+
+@media screen and (max-width: 900px) {
+    .panel {
+        flex-direction: column;
+    }
+    .input-header input[type=checkbox]{
+        width: 20px;
+        height: 20px;
+    }
 }

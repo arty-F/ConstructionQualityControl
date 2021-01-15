@@ -73,10 +73,17 @@ namespace ConstructionQualityControl.Web.Controllers
             return await unitOfWork.GetRepository<Order>().GetAsync(o => o.IsRoot && !o.IsStarted);
         }
 
-        [HttpGet("City/{id}")]
-        public async Task<ActionResult<IEnumerable<OrderRootReadDto>>> GetOrdersByCityId(int id)
+        [HttpGet("Work/City/{id}")]
+        public async Task<ActionResult<IEnumerable<OrderRootReadDto>>> GetWorksByCityId(int id)
         {
-            var orders = await unitOfWork.GetRepository<Order>().GetAsync(o => o.IsRoot && o.City.Id == id);
+            var orders = await unitOfWork.GetRepository<Order>().GetAsync(o => o.IsRoot && !o.IsStarted && o.City.Id == id);
+            return Ok(mapper.Map<List<OrderRootReadDto>>(orders));
+        }
+
+        [HttpGet("Work")]
+        public async Task<ActionResult<IEnumerable<OrderRootReadDto>>> GetWorks()
+        {
+            var orders = await unitOfWork.GetRepository<Order>().GetAsync(o => o.IsRoot && !o.IsStarted);
             return Ok(mapper.Map<List<OrderRootReadDto>>(orders));
         }
     }

@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, of, Subject } from 'rxjs';
-import { CityReadDto } from 'src/app/dtos/city/city-read-dto';
 import { OrderCreateDto } from 'src/app/dtos/order/order-create-dto';
 import { CustomValidators } from 'src/app/helpers/custom-validators';
-import { personalData } from 'src/app/models/personal-data';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CityService } from 'src/app/services/city.service';
 import { SharedService } from 'src/app/services/shared.service';

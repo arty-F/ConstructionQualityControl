@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, HostListener } from '@angular/core'
 import { Component } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
 import { AuthenticationService } from 'src/app/services/authentication.service'
 import { userRole } from '../models/user-roles'
@@ -13,7 +11,6 @@ import { CityService } from '../services/city.service'
 })
 export class AppComponent {
 
-  appForm: FormGroup
   isAuthenticated: boolean
   userName: string
   userRole: string

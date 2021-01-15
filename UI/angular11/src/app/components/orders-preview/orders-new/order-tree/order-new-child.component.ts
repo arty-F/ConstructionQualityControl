@@ -1,7 +1,6 @@
 import { Component, ComponentRef, Inject, Input } from '@angular/core'
 import { OrderCreateDto } from 'src/app/dtos/order/order-create-dto';
 import { SharedService } from 'src/app/services/shared.service';
-import { OrdersNewRootComponent } from '../orders-new-root.component';
 
 @Component({
   selector: 'app-order-new-child',

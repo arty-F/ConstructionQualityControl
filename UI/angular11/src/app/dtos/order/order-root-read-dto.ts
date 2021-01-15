@@ -7,6 +7,7 @@ export class OrderRootReadDto {
     creationDate: Date
     user: UserReadDto
     demands: string
+    postPaid: number
     isCompleted: boolean
     isStarted: boolean
     city: CityReadDto

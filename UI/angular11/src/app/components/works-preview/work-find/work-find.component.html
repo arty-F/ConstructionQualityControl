@@ -1,21 +1,48 @@
 <div class="container">
+    <h3>Фильтры</h3>
 
     <form novalidate [formGroup]="worksForm">
         <div class="panel">
 
             <div class="input-container">
+                <div class="input-header">
+                    <input type="checkbox" [checked]="byCity" (change)="onByCityChanged()">
+                    <label for="city">Поиск по городу</label>
+                </div>
                 <input id="city" list="cities" formControlName="city" type="text" placeholder="Город">
                 <datalist id="cities">
                     <option *ngFor="let c of cities" [value]="c"></option>
                 </datalist>
 
-                <div *ngIf="city.invalid && (city.dirty || city.touched)" class="validation-error">
-                    <div *ngIf="city.errors.required">
-                        Это поле обязательное.
+                <div *ngIf="byCity">
+                    <div *ngIf="city.invalid && (city.dirty || city.touched)" class="validation-error">
+                        <div *ngIf="city.errors.required">
+                            Это поле обязательное.
+                        </div>
+    
+                        <div *ngIf="city.errors.wrongCity">
+                            Выберите город из списка.
+                        </div>
                     </div>
+                </div>
+            </div>
 
-                    <div *ngIf="city.errors.wrongCity">
-                        Выберите город из списка.
+            <div class="input-container">
+                <div class="input-header">
+                    <input type="checkbox" [checked]="byCost" (change)="onByCostChanged()">
+                    <label for="cost">Поиск по бюджету</label>
+                </div>
+                <input id="cost" formControlName="cost" type="number" placeholder="Минимальная стоимость">
+
+                <div *ngIf="byCost">
+                    <div *ngIf="cost.invalid && (cost.dirty || cost.touched)" class="validation-error">
+                        <div *ngIf="cost.errors.required">
+                            Это поле обязательное.
+                        </div>
+    
+                        <div *ngIf="cost.errors.min">
+                            Минимальное значение 0.
+                        </div>
                     </div>
                 </div>
             </div>

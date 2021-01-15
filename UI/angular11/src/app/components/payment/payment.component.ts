@@ -29,6 +29,8 @@ export class PaymentComponent implements OnInit {
         this.cost = this.cost + subOrder.prePaid + subOrder.postPaid
       }
     }
+
+    this.sharedService.creatingOrder.postPaid = this.cost
   }
 
   onPaymentChange(e) {

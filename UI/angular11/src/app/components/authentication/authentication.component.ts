@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
-import { Observable, throwError } from 'rxjs'
-import { catchError, first } from 'rxjs/operators'
-import { personalData } from 'src/app/models/personal-data'
 import { userRole } from 'src/app/models/user-roles'
 import { AuthenticationService } from 'src/app/services/authentication.service'
 
