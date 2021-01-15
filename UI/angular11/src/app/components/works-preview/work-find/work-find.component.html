@@ -51,6 +51,8 @@
 
         <p *ngFor="let work of works">
             {{work.demands}}
+            {{work.postPaid.toFixed(2)}}
+            {{getFormatedDate(work.creationDate)}}
         </p>
     </form>
 </div>

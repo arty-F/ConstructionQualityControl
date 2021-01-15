@@ -85,4 +85,8 @@ export class WorkFindComponent implements OnInit {
       return orders
     }
   }
+
+  getFormatedDate(dateStr: Date): string {
+    return this.sharedService.GetFormatedDate(dateStr)
+  }
 }
