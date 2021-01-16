@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   userType: string
   cities: string[]
 
-  constructor(private router: Router, private fb: FormBuilder, public cityService: CityService, private sharedService: SharedService) { }
+  constructor(private router: Router, private fb: FormBuilder, private cityService: CityService, private sharedService: SharedService) { }
 
   get user() { return this.registerForm.get('user') }
   get email() { return this.registerForm.get('email') }

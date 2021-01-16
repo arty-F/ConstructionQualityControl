@@ -19,7 +19,7 @@ export class OrdersNewRootComponent implements OnInit {
   summary: string
   cities: string[]
 
-  constructor(private router: Router, private fb: FormBuilder, public cityService: CityService, private sharedService: SharedService, private authService: AuthenticationService) {
+  constructor(private router: Router, private fb: FormBuilder, private cityService: CityService, private sharedService: SharedService, private authService: AuthenticationService) {
     this.cityService = cityService
     this.rootOrder = new OrderCreateDto()
     this.rootOrder.isRoot = true

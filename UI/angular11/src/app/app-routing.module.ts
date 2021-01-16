@@ -11,6 +11,7 @@ import { OrdersNewRootComponent } from './components/orders-preview/orders-new/o
 import { PaymentComponent } from './components/payment/payment.component'
 import { WorksPreviewComponent } from './components/works-preview/works-preview.component'
 import { WorkFindComponent } from './components/works-preview/work-find/work-find.component'
+import { WorkInfoComponent } from './components/works-preview/work-info/work-info.component'
 
 const routes: Routes = [
   { path: 'Auth', component: AuthenticationComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'Orders/NewOrder', component: OrdersNewRootComponent },
   { path: 'Payment', component: PaymentComponent},
   { path: 'Works', component: WorksPreviewComponent},
-  { path: 'Works/Find', component: WorkFindComponent}
+  { path: 'Works/Find', component: WorkFindComponent},
+  { path: 'Works/Info', component: WorkInfoComponent}
 ]
 
 @NgModule({

@@ -33,17 +33,61 @@ button:disabled {
     align-items: center;
 }
 
-.input-header input[type=checkbox]{
+.input-header input[type=checkbox] {
     width: 15px;
     height: 15px;
+}
+
+.work {
+    margin: 20px auto;
+    border: 2px solid #485258;
+    border-radius: 2px;
+    padding: 15px;
+}
+
+.work-name {
+    border-bottom: 1px solid rgb(181, 205, 207);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.work-name-container {
+    display: flex;
+}
+
+.work-name-date, .work-footer-price-text, .work-name-city {
+    opacity: 0.5;
+}
+
+.work-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.work-footer-price {
+    display: inline-flex;
+}
+
+.work-footer-price-value, .work-name-city {
+    margin: 0px 5px;
 }
 
 @media screen and (max-width: 900px) {
     .panel {
         flex-direction: column;
     }
-    .input-header input[type=checkbox]{
+    .input-header input[type=checkbox] {
         width: 20px;
         height: 20px;
+    }
+    .work-name-container {
+        flex-direction: column;
+    }
+    .work-name-city {
+        margin: 0px;
+    }
+    .input-container {
+        margin-right: 0px;
     }
 }

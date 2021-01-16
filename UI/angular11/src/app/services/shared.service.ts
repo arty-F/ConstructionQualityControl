@@ -6,6 +6,7 @@ import { UserCreateDto } from 'src/app/dtos/user/user-create-dto'
 import { environment } from 'src/environments/environment'
 import { OrderCreateDto } from '../dtos/order/order-create-dto'
 import { OrderRootReadDto } from '../dtos/order/order-root-read-dto'
+import { WorkReadDto } from '../dtos/order/work-read-dto'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,6 +18,7 @@ const httpOptions = {
 export class SharedService {
 
   creatingOrder: OrderCreateDto
+  viewedWork: OrderRootReadDto
 
   constructor(private http: HttpClient) { }
 
@@ -38,6 +40,10 @@ export class SharedService {
 
   GetWorks(): Observable<OrderRootReadDto[]> {
     return this.http.get<OrderRootReadDto[]>(environment.apiUrl + '/Order/Work', httpOptions)
+  }
+
+  GetViewedWorkInfo(): Observable<WorkReadDto> {
+    return this.http.get<WorkReadDto>(environment.apiUrl + '/Order/Work/' + this.viewedWork.id, httpOptions)
   }
 
   GetFormatedDate(dateStr: Date): string {

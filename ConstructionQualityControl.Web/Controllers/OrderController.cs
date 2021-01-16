@@ -86,5 +86,12 @@ namespace ConstructionQualityControl.Web.Controllers
             var orders = await unitOfWork.GetRepository<Order>().GetAsync(o => o.IsRoot && !o.IsStarted);
             return Ok(mapper.Map<List<OrderRootReadDto>>(orders));
         }
+
+        [HttpGet("Work/{id}")]
+        public async Task<ActionResult<WorkReadDto>> GetWorkById(int id)
+        {
+            var work = await unitOfWork.GetRepository<Order>().GetFirstOrDefaultAsync(o => o.Id == id);
+            return Ok(mapper.Map<WorkReadDto>(work));
+        }
     }
 }

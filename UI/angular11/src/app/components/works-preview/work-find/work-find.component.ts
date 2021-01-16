@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { OrderRootReadDto } from 'src/app/dtos/order/order-root-read-dto';
 import { CustomValidators } from 'src/app/helpers/custom-validators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -19,7 +20,7 @@ export class WorkFindComponent implements OnInit {
   byCity: boolean = true
   byCost: boolean = false
 
-  constructor(private fb: FormBuilder, public cityService: CityService, private sharedService: SharedService, private authService: AuthenticationService) { }
+  constructor(private router: Router, private fb: FormBuilder, private cityService: CityService, private sharedService: SharedService, private authService: AuthenticationService) { }
 
   get city() { return this.worksForm.get('city') }
   get cost() { return this.worksForm.get('cost') }
@@ -88,5 +89,10 @@ export class WorkFindComponent implements OnInit {
 
   getFormatedDate(dateStr: Date): string {
     return this.sharedService.GetFormatedDate(dateStr)
+  }
+
+  onInfoClick(work: OrderRootReadDto) {
+    this.sharedService.viewedWork = work
+    this.router.navigate(['Works/Info'])
   }
 }

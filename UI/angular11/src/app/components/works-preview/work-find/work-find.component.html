@@ -1,7 +1,7 @@
 <div class="container">
     <h3>Фильтры</h3>
 
-    <form novalidate [formGroup]="worksForm">
+    <div novalidate [formGroup]="worksForm">
         <div class="panel">
 
             <div class="input-container">
@@ -19,7 +19,7 @@
                         <div *ngIf="city.errors.required">
                             Это поле обязательное.
                         </div>
-    
+
                         <div *ngIf="city.errors.wrongCity">
                             Выберите город из списка.
                         </div>
@@ -39,7 +39,7 @@
                         <div *ngIf="cost.errors.required">
                             Это поле обязательное.
                         </div>
-    
+
                         <div *ngIf="cost.errors.min">
                             Минимальное значение 0.
                         </div>
@@ -49,10 +49,23 @@
 
         </div>
 
-        <p *ngFor="let work of works">
-            {{work.demands}}
-            {{work.postPaid.toFixed(2)}}
-            {{getFormatedDate(work.creationDate)}}
-        </p>
-    </form>
+        <div *ngFor="let work of works" class="work">
+            <div class="work-name">
+                <div class="work-name-container">
+                    <div>{{work.demands}}</div>
+                    <div class="work-name-city">({{work.city.name}}, {{work.city.region.name}})</div>
+                </div>
+                <div class="work-name-date">{{getFormatedDate(work.creationDate)}}</div>
+            </div>
+
+            <div class="work-footer">
+                <div class="work-footer-price">
+                    <div class="work-footer-price-text">Бюджет: </div>
+                    <div class="work-footer-price-value">{{work.postPaid.toFixed(2)}}</div>
+                    <div class="work-footer-price-text"> рублей</div>
+                </div>
+                <button (click)="onInfoClick(work)" class="simple-button">Подробнее</button>
+            </div>
+        </div>
+    </div>
 </div>
