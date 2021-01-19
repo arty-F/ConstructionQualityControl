@@ -7,13 +7,12 @@
     display: flex;
     padding: 1%;
     margin-bottom: 2%;
-    border-bottom: 2px solid rgba(181, 205, 207, 0.5);
 }
 
 .order {
     max-width: 70%;
     margin: 10px auto;
-    border: 2px solid #485258;
+    border: 2px solid rgb(181, 205, 207);
     border-radius: 2px;
     padding: 15px;
 }
