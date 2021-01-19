@@ -49,7 +49,7 @@ namespace ConstructionQualityControl.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Login = table.Column<string>(maxLength: 50, nullable: false),
-                    Password = table.Column<string>(maxLength: 30, nullable: false),
+                    Password = table.Column<string>(maxLength: 100, nullable: false),
                     RegistrationDate = table.Column<DateTime>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 25, nullable: false),
                     LastName = table.Column<string>(maxLength: 25, nullable: false),

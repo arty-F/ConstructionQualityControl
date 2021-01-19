@@ -9,7 +9,7 @@ namespace ConstructionQualityControl.Data.Models
         public int Id { get; set; }
         [Required, MaxLength(50)]
         public string Login { get; set; }
-        [Required, MinLength(6), MaxLength(30)]
+        [Required, MinLength(6), MaxLength(100)]
         public string Password { get; set; }
         public DateTime RegistrationDate { get; set; }
         [Required, MaxLength(25)]
