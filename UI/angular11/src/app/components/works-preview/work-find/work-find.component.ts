@@ -19,6 +19,7 @@ export class WorkFindComponent implements OnInit {
   cities: string[]
   byCity: boolean = true
   byCost: boolean = false
+  userId: number
 
   constructor(private router: Router, private fb: FormBuilder, private cityService: CityService, private sharedService: SharedService, private authService: AuthenticationService) { }
 
@@ -48,6 +49,8 @@ export class WorkFindComponent implements OnInit {
       this.city.setValidators([Validators.required, CustomValidators.containInList(res)])
       this.city.setValue(this.authService.user.city.name + ', ' + this.authService.user.city.region.name)
     })
+
+    this.userId = this.authService.user.id
   }
 
   onByCityChanged() {
@@ -94,5 +97,15 @@ export class WorkFindComponent implements OnInit {
   onInfoClick(work: OrderRootReadDto) {
     this.sharedService.viewedWork = work
     this.router.navigate(['Works/Info'])
+  }
+
+  isOffered(work: OrderRootReadDto): boolean {    
+    let result = false
+    work.workOffers.forEach(e => {
+      if (e.worker.id === this.authService.user.id) {
+        result = true
+      }
+    }) 
+    return result
   }
 }

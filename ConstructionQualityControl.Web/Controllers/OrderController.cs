@@ -93,5 +93,29 @@ namespace ConstructionQualityControl.Web.Controllers
             var work = await unitOfWork.GetRepository<Order>().GetFirstOrDefaultAsync(o => o.Id == id);
             return Ok(mapper.Map<WorkReadDto>(work));
         }
+
+        [HttpPost("Work/{id}")]
+        public async Task<IActionResult> AddOffer(int id, WorkOfferCreateDto offerDto)
+        {
+            var order = await unitOfWork.GetRepository<Order>().GetByIdAsync(id);
+            if (order == null || order.IsStarted)
+                return BadRequest();
+
+            var offer = mapper.Map<WorkOffer>(offerDto);
+            offer.Worker = await unitOfWork.GetRepository<User>().GetByIdAsync(offer.Worker.Id);
+            order.WorkOffers.Add(offer);
+            
+            try
+            {
+                unitOfWork.GetRepository<Order>().Update(order);
+                await unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
     }
 }

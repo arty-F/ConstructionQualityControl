@@ -1,5 +1,67 @@
-
 <div *ngIf="work != null">
-    <p>{{work.id}}</p>
-</div>
+    <div class="container">
+        <div class="work-header">
+            <div class="work-header-name">{{work.demands}}</div>
+            <div class="work-header-city">{{work.city.name}} ({{work.city.region.name}})</div>
+        </div>
 
+        <div class="work-client">
+            <div class="work-client-text">Заказчик: </div>
+            <div>{{work.user.lastName}} {{work.user.firstName}} {{work.user.patronymic}}</div>
+        </div>
+
+        <div class="work-body">
+            <div *ngFor="let order of work.subOrders" class="work-order">
+
+                <div class="work-order-name">{{order.demands}}</div>
+                <div class="work-order-paid">
+                    <div class="work-order-paid-column">
+                        <div class="work-header-city">Предоплата</div>
+                        <div class="work-header-city">Основная выплата</div>
+                    </div>
+                    <div class="work-order-paid-column">
+                        <div class="work-order-paid-item">{{order.prePaid}} руб.</div>
+                        <div class="work-order-paid-item">{{order.postPaid}} руб.</div>
+                    </div>
+
+                </div>
+
+                <div *ngFor="let subOrder of order.subOrders" class="work-suborder">
+                    <div class="work-suborder-name">{{subOrder.demands}}</div>
+                    <div class="work-order-paid">
+                        <div class="work-order-paid-column">
+                            <div class="work-header-city">Предоплата</div>
+                            <div class="work-header-city">Основная выплата</div>
+                        </div>
+                        <div class="work-order-paid-column">
+                            <div class="work-order-paid-item">{{subOrder.prePaid}} руб.</div>
+                            <div class="work-order-paid-item">{{subOrder.postPaid}} руб.</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="work-summary">
+            <div class="work-summary-item">
+                <div class="work-header-city">Предоплата</div>
+                <div class="work-header-city">Основная выплата</div>
+                <div class="work-header-city">Итого</div>
+            </div>
+            <div class="work-summary-item">
+                <div>{{summaryPrePaid}} руб.</div>
+                <div>{{summaryPrePaid}} руб.</div>
+                <div>{{summaryPrePaid + summaryPrePaid}} руб.</div>
+            </div>
+        </div>
+
+        <input class="work-message" type="text" [(ngModel)]="message" placeholder="Сообщение пользователю"/> 
+
+        <div class="work-buttons">
+            <button (click)="onOffer()" class="simple-button">Подать заявку</button>
+            <button routerLink="../Find" class="simple-button">Назат</button>
+        </div>
+    </div>
+</div>

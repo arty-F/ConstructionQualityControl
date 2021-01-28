@@ -1,0 +1,95 @@
+.container {
+    max-width: 90%;
+    margin: 20px auto;
+}
+
+.work-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid rgba(181, 205, 207, 0.5);
+}
+
+.work-client {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.work-client-text {
+    margin-right: 5px;
+}
+
+.work-header-city, .work-client-text {
+    opacity: 0.5;
+}
+
+.work-body {
+    margin-top: 20px;
+}
+
+.work-order {
+    max-width: 95%;
+    margin: 30px auto;
+}
+
+.work-order-name {
+    border-bottom: 1px solid rgba(181, 205, 207, 0.75);
+    margin-bottom: 5px;
+}
+
+.work-order-paid {
+    display: flex;
+    flex-direction: row;
+}
+
+.work-order-paid-column {
+    margin-right: 15px;
+}
+
+.work-order-paid-item {
+    text-align: center
+}
+
+.work-suborder {
+    max-width: 95%;
+    margin: 20px auto;
+}
+
+.work-suborder-name {
+    margin-bottom: 5px;
+}
+
+.work-summary {
+    display: flex;
+    flex-direction: row;
+}
+
+.work-summary-item {
+    margin-right: 15px;
+}
+
+.work-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 5%;
+}
+
+.simple-button {
+    min-width: 15%;
+}
+
+.work-message {
+    margin-top: 5%;
+}
+
+@media screen and (max-width: 900px) {
+    .simple-button {
+        min-width: 30%;
+        margin-top: 25px;
+    }
+    .work-buttons {
+        flex-direction: column;
+    }
+}

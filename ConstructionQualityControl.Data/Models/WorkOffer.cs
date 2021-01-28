@@ -2,7 +2,7 @@
 
 namespace ConstructionQualityControl.Data.Models
 {
-    public class WorkOffer
+    public class WorkOffer: IEntity
     {
         public int Id { get; set; }
         public virtual User Worker { get; set; }

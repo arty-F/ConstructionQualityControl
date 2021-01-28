@@ -49,22 +49,24 @@
 
         </div>
 
-        <div *ngFor="let work of works" class="work">
+        <div *ngFor="let w of works" class="work">
             <div class="work-name">
                 <div class="work-name-container">
-                    <div>{{work.demands}}</div>
-                    <div class="work-name-city">({{work.city.name}}, {{work.city.region.name}})</div>
+                    <div>{{w.demands}}</div>
+                    <div class="work-name-city">({{w.city.name}}, {{w.city.region.name}})</div>
                 </div>
-                <div class="work-name-date">{{getFormatedDate(work.creationDate)}}</div>
+                <div class="work-name-date">{{getFormatedDate(w.creationDate)}}</div>
             </div>
 
             <div class="work-footer">
                 <div class="work-footer-price">
                     <div class="work-footer-price-text">Бюджет: </div>
-                    <div class="work-footer-price-value">{{work.postPaid.toFixed(2)}}</div>
+                    <div class="work-footer-price-value">{{w.postPaid.toFixed(2)}}</div>
                     <div class="work-footer-price-text"> рублей</div>
                 </div>
-                <button (click)="onInfoClick(work)" class="simple-button">Подробнее</button>
+                
+                <button *ngIf="!isOffered(w)" (click)="onInfoClick(w)" class="simple-button">Подробнее</button>
+                <div *ngIf="isOffered(w)">Заявка подана</div>
             </div>
         </div>
     </div>

@@ -14,6 +14,7 @@ namespace ConstructionQualityControl.Domain.Dtos
         public bool IsRoot { get; set; }
         public CityReadDto City { get; set; }
 
+        public List<WorkOfferReadDto> WorkOffers { get; set; } = new List<WorkOfferReadDto>();
         public List<WorkReadDto> SubOrders { get; set; } = new List<WorkReadDto>();
     }
 }
