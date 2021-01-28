@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionQualityControl.Data.Migrations
 {
     [DbContext(typeof(QualityControlContext))]
-    [Migration("20210111073810_Init")]
+    [Migration("20210119124030_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -9291,8 +9291,8 @@ namespace ConstructionQualityControl.Data.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Patronymic")
                         .HasColumnType("nvarchar(25)")

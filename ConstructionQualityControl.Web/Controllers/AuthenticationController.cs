@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
@@ -9,7 +6,6 @@ using ConstructionQualityControl.Domain.Dtos;
 using ConstructionQualityControl.Web.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 
 namespace ConstructionQualityControl.Web.Controllers
 {
@@ -19,19 +15,21 @@ namespace ConstructionQualityControl.Web.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly ICryptographer cryptographer;
 
-        public AuthenticationController(IUnitOfWork unitOfWork, IMapper mapper)
+        public AuthenticationController(IUnitOfWork unitOfWork, IMapper mapper, ICryptographer cryptographer)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
+            this.cryptographer = cryptographer;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string login, [FromBody]string password)
+        public async Task<IActionResult> Login(string login, [FromBody] string password)
         {
             var user = await unitOfWork.GetRepository<User>().GetFirstOrDefaultAsync(u => u.Login == login);
 
-            if (user == null || user?.Password != password) return Unauthorized();
+            if (user == null || cryptographer.Decrypt(user.Password) != password) return Unauthorized();
 
             return Ok(JWTAuthenticationManager.GetToken(mapper.Map<UserReadDto>(user)));
         }

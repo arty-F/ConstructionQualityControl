@@ -52,6 +52,8 @@ namespace ConstructionQualityControl.Web
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddSingleton<ICryptographer, Cryptographer>(s => new Cryptographer(Configuration["Key"]));
         }
 
         public void Configure(IApplicationBuilder app)

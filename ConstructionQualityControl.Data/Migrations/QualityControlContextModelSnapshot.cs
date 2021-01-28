@@ -9289,8 +9289,8 @@ namespace ConstructionQualityControl.Data.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Patronymic")
                         .HasColumnType("nvarchar(25)")
