@@ -1,0 +1,32 @@
+<div class="container">
+
+    <h2>Заявки на работу</h2>
+
+    <ul>
+        <li *ngFor="let offer of order.workOffers">
+
+            <div class="item-container">
+                <div class="item-container-info">
+                    <div class="item-container-info-element">{{offer.worker.companyName}}</div>
+                    <div class="item-container-info-name">
+                        <div class="item-container-info-name-item">{{offer.worker.lastName}}</div>
+                        <div class="item-container-info-name-item">{{offer.worker.firstName}}</div>
+                        <div class="item-container-info-name-item">{{offer.worker.patronymic}}</div>
+                    </div>
+                    <div class="item-container-info-element">{{offer.worker.companyDescription}}</div>
+                </div>
+                <button (click)="confirmOffer(offer)" class="simple-button">Подтвердить</button>
+            </div>
+
+            <div class="item-container-footer">
+                <div class="item-container-footer-message">
+                    <div class="item-container-footer-text">сообщение:</div>
+                    <div class="item-container-footer-data">{{offer.message}}</div>
+                </div>
+                <div class="item-container-footer-text">{{getDate(offer.date)}}</div>
+            </div>
+
+        </li>
+    </ul>
+
+</div>

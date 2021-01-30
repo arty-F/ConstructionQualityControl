@@ -61,6 +61,15 @@
     color: rgba(0, 0, 0, 0.5);
 }
 
+.choose-button {
+    border: none;
+    color: rgb(0, 0, 255);
+}
+
+.choose-button:hover {
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 900px) {
     .order-status, .order-name {
         flex-direction: column;

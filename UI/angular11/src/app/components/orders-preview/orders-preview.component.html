@@ -20,13 +20,18 @@
             </div>
 
             <div class="order-status">
-                <div class="order-status-item">{{getWorker(order)}}</div>
+
+                <div *ngIf="order.workOffers.length > 0 && !order.isStarted; then contentButton else contentText"></div>
+                
+                <ng-template #contentButton><div class="order-status-item" ><button (click)="chooseWorker(order)" class="choose-button">{{getWorker(order)}}</button></div></ng-template>
+                <ng-template #contentText><div class="order-status-item" >{{getWorker(order)}}</div></ng-template>
                 <div class="order-status-item">{{getOrderStatus(order)}}</div>
+                
             </div>
 
             <div class="order-buttons-container">
                 <button class="simple-button">Подробнее</button>
-                <button class="simple-button">Удалить</button>
+                <button *ngIf="!order.isStarted" class="simple-button">Удалить</button>
             </div>
 
             <div class="order-date">

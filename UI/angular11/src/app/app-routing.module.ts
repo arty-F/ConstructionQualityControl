@@ -12,6 +12,7 @@ import { PaymentComponent } from './components/payment/payment.component'
 import { WorksPreviewComponent } from './components/works-preview/works-preview.component'
 import { WorkFindComponent } from './components/works-preview/work-find/work-find.component'
 import { WorkInfoComponent } from './components/works-preview/work-info/work-info.component'
+import { ChooseWorkerComponent } from './components/orders-preview/choose-worker/choose-worker.component'
 
 const routes: Routes = [
   { path: 'Auth', component: AuthenticationComponent },
@@ -19,11 +20,12 @@ const routes: Routes = [
   { path: '', component: StartedComponent },
   //{ path: 'City', component: CityComponent, canActivate: [AuthGuard] },
   { path: 'Orders', component: OrdersPreviewComponent, canActivate: [UserGuard], data: {roles: [userRole.Customer]} },
-  { path: 'Orders/NewOrder', component: OrdersNewRootComponent },
-  { path: 'Payment', component: PaymentComponent},
-  { path: 'Works', component: WorksPreviewComponent},
-  { path: 'Works/Find', component: WorkFindComponent},
-  { path: 'Works/Info', component: WorkInfoComponent}
+  { path: 'Orders/NewOrder', component: OrdersNewRootComponent, canActivate: [UserGuard], data: {roles: [userRole.Customer]} },
+  { path: 'Payment', component: PaymentComponent, canActivate: [UserGuard], data: {roles: [userRole.Customer]}},
+  { path: 'ChooseWorker', component: ChooseWorkerComponent, canActivate: [UserGuard], data: {roles: [userRole.Customer]}},
+  { path: 'Works', component: WorksPreviewComponent, canActivate: [UserGuard], data: {roles: [userRole.Builder]}},
+  { path: 'Works/Find', component: WorkFindComponent, canActivate: [UserGuard], data: {roles: [userRole.Builder]}},
+  { path: 'Works/Info', component: WorkInfoComponent, canActivate: [UserGuard], data: {roles: [userRole.Builder]}}
 ]
 
 @NgModule({

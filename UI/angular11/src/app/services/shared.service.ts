@@ -8,6 +8,7 @@ import { OrderCreateDto } from '../dtos/order/order-create-dto'
 import { OrderRootReadDto } from '../dtos/order/order-root-read-dto'
 import { WorkReadDto } from '../dtos/order/work-read-dto'
 import { WorkOfferCreateDto } from '../dtos/work-offer/work-offer-create-dto'
+import { WorkOfferReadDto } from '../dtos/work-offer/work-offer-read-dto'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -49,6 +50,10 @@ export class SharedService {
 
   AddOfferToViewedWork(offer: WorkOfferCreateDto): Observable<WorkOfferCreateDto> {
     return this.http.post<WorkOfferCreateDto>(environment.apiUrl + '/Order/Work/' + this.viewedWork.id, offer, httpOptions)
+  }
+
+  ConfirmOffer(offer: WorkOfferReadDto): Observable<WorkOfferReadDto> {
+    return this.http.put<WorkOfferReadDto>(environment.apiUrl + '/Order/' + this.viewedWork.id, offer, httpOptions)
   }
 
   GetFormatedDate(dateStr: Date): string {

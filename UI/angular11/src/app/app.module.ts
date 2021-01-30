@@ -20,7 +20,8 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { WorksPreviewComponent } from './components/works-preview/works-preview.component';
 import { WorkFindComponent } from './components/works-preview/work-find/work-find.component';
 import { CityService } from './services/city.service';
-import { WorkInfoComponent } from './components/works-preview/work-info/work-info.component'
+import { WorkInfoComponent } from './components/works-preview/work-info/work-info.component';
+import { ChooseWorkerComponent } from './components/orders-preview/choose-worker/choose-worker.component'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { WorkInfoComponent } from './components/works-preview/work-info/work-inf
     PaymentComponent,
     WorksPreviewComponent,
     WorkFindComponent,
-    WorkInfoComponent
+    WorkInfoComponent,
+    ChooseWorkerComponent
   ],
   imports: [
     BrowserModule,

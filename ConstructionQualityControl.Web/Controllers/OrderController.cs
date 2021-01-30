@@ -103,8 +103,33 @@ namespace ConstructionQualityControl.Web.Controllers
 
             var offer = mapper.Map<WorkOffer>(offerDto);
             offer.Worker = await unitOfWork.GetRepository<User>().GetByIdAsync(offer.Worker.Id);
+            offer.Date = DateTime.Now;
             order.WorkOffers.Add(offer);
             
+            try
+            {
+                unitOfWork.GetRepository<Order>().Update(order);
+                await unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> ConfirmOffer(int id, WorkOfferReadDto offerDto)
+        {
+            var order = await unitOfWork.GetRepository<Order>().GetByIdAsync(id);
+
+            if (order.User.Id != int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value))
+                return BadRequest();
+
+            order.WorkOffers.RemoveAll(o => o.Id != offerDto.Id);
+            order.IsStarted = true;
+
             try
             {
                 unitOfWork.GetRepository<Order>().Update(order);

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OrderRootReadDto } from 'src/app/dtos/order/order-root-read-dto';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -11,7 +12,7 @@ export class OrdersPreviewComponent implements OnInit {
 
   orders: OrderRootReadDto[]
 
-  constructor(private sharedService: SharedService) { }
+  constructor(private router: Router, private sharedService: SharedService) { }
 
   ngOnInit(): void {
     this.sharedService.GetOrders().subscribe(res => {
@@ -41,11 +42,16 @@ export class OrdersPreviewComponent implements OnInit {
     }
     else {
       if (order.workOffers.length > 0) {
-        return "выберите одного из " + order.workOffers.length.toString() + " исполнителя"
+        return "выберите исполнителя (в списке: " + order.workOffers.length.toString() + ")"
       }
       else {
-        return "иполнитель не назначен"
+        return "исполнитель не назначен"
       }
     }
+  }
+
+  chooseWorker(order: OrderRootReadDto){
+    this.sharedService.viewedWork = order
+    this.router.navigate(["ChooseWorker"])
   }
 }
