@@ -142,5 +142,13 @@ namespace ConstructionQualityControl.Web.Controllers
 
             return Ok();
         }
+
+        [HttpGet("Works")]
+        public async Task<ActionResult<IEnumerable<OrderRootReadDto>>> GetConfirmedWorksForUser()
+        {
+            var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            var works = await unitOfWork.GetRepository<Order>().GetAsync(ord => ord.WorkOffers.FirstOrDefault().Worker.Id == userId && ord.IsStarted);
+            return Ok(mapper.Map<List<OrderRootReadDto>>(works));
+        }
     }
 }

@@ -8,4 +8,31 @@
         </nav>
     </div>
 
+    <div class="works-container">
+        <div *ngFor="let work of works" class="order">
+
+            <div class="order-name">
+                <div class="name-container">
+                    {{work.demands}}
+                </div>
+                <div class="city-container">
+                    {{work.city.name}}, {{work.city.region.name}}
+                </div>
+            </div>
+
+            <div>
+                <div class="order-status">
+                    <div class="order-status-item">заказчик:</div>
+                    <div class="order-status-item-text">
+                        <div>{{work.user.lastName}} {{work.user.firstName}} {{work.user.patronymic}}</div>
+                    </div>
+                </div>
+
+                <button class="simple-button">Подробнее</button>
+            </div>
+
+
+        </div>
+    </div>
+
 </div>

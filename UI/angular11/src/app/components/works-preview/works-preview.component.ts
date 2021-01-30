@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { OrderRootReadDto } from 'src/app/dtos/order/order-root-read-dto';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-works-preview',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorksPreviewComponent implements OnInit {
 
-  constructor() { }
+  works: OrderRootReadDto[]
+
+  constructor(private router: Router, private sharedService: SharedService) { }
 
   ngOnInit(): void {
+    this.sharedService.GetConfirmedWorksForUser().subscribe(res => {
+      this.works = res
+    })
   }
 
+  
 }

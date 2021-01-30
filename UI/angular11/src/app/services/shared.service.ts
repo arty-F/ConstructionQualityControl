@@ -56,6 +56,10 @@ export class SharedService {
     return this.http.put<WorkOfferReadDto>(environment.apiUrl + '/Order/' + this.viewedWork.id, offer, httpOptions)
   }
 
+  GetConfirmedWorksForUser(): Observable<OrderRootReadDto[]> {
+    return this.http.get<OrderRootReadDto[]>(environment.apiUrl + '/Order/Works', httpOptions)
+  }
+
   GetFormatedDate(dateStr: Date): string {
 
     let date = new Date(dateStr)

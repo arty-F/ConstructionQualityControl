@@ -8,3 +8,42 @@
     padding: 1%;
     margin-bottom: 2%;
 }
+
+.order {
+    max-width: 70%;
+    margin: 10px auto;
+    border: 2px solid rgb(181, 205, 207);
+    border-radius: 2px;
+    padding: 15px;
+}
+
+.order-name {
+    border-bottom: 1px solid rgb(181, 205, 207);
+    display: flex;
+    justify-content: space-between;
+}
+
+.name-container {
+    font-size: 18px;
+}
+
+.city-container {
+    opacity: 0.5;
+    margin-right: 10px;
+}
+
+.order-status {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.order-status-item{
+    opacity: 0.5;
+    margin-right: 1%;
+}
+
+.order-status-item-text {
+    margin-right: 1%;
+}
