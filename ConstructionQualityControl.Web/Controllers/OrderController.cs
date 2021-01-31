@@ -46,6 +46,22 @@ namespace ConstructionQualityControl.Web.Controllers
             return Ok();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OrderReadDto>> GetOrder(int id)
+        {
+            var order = await unitOfWork.GetRepository<Order>().GetByIdAsync(id);
+            if (order == null)
+                return BadRequest();
+
+            var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            if (order.User.Id != userId && order.WorkOffers.FirstOrDefault().Worker.Id != userId)
+                return Unauthorized();
+
+            var a = mapper.Map<OrderReadDto>(order); //test
+
+            return Ok(mapper.Map<OrderReadDto>(order));
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderRootReadDto>>> GetOrders()
         {

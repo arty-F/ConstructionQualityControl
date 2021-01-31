@@ -30,7 +30,7 @@
             </div>
 
             <div class="order-buttons-container">
-                <button class="simple-button">Подробнее</button>
+                <button class="simple-button" (click)="getInfo(order)">Подробнее</button>
                 <button *ngIf="!order.isStarted" class="simple-button">Удалить</button>
             </div>
 

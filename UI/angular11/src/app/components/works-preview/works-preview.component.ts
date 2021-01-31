@@ -20,5 +20,8 @@ export class WorksPreviewComponent implements OnInit {
     })
   }
 
-  
+  getInfo(order: OrderRootReadDto) {
+    this.sharedService.viewedWork = order
+    this.router.navigate(["OrderProgress"])
+  }
 }

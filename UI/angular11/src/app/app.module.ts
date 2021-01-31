@@ -21,7 +21,8 @@ import { WorksPreviewComponent } from './components/works-preview/works-preview.
 import { WorkFindComponent } from './components/works-preview/work-find/work-find.component';
 import { CityService } from './services/city.service';
 import { WorkInfoComponent } from './components/works-preview/work-info/work-info.component';
-import { ChooseWorkerComponent } from './components/orders-preview/choose-worker/choose-worker.component'
+import { ChooseWorkerComponent } from './components/orders-preview/choose-worker/choose-worker.component';
+import { OrderProgressComponent } from './components/order-progress/order-progress.component'
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ChooseWorkerComponent } from './components/orders-preview/choose-worker
     WorksPreviewComponent,
     WorkFindComponent,
     WorkInfoComponent,
-    ChooseWorkerComponent
+    ChooseWorkerComponent,
+    OrderProgressComponent
   ],
   imports: [
     BrowserModule,

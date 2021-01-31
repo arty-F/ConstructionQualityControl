@@ -50,8 +50,13 @@ export class OrdersPreviewComponent implements OnInit {
     }
   }
 
-  chooseWorker(order: OrderRootReadDto){
+  chooseWorker(order: OrderRootReadDto) {
     this.sharedService.viewedWork = order
     this.router.navigate(["ChooseWorker"])
+  }
+
+  getInfo(order: OrderRootReadDto) {
+    this.sharedService.viewedWork = order
+    this.router.navigate(["OrderProgress"])
   }
 }

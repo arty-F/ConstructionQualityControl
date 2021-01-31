@@ -25,6 +25,15 @@ namespace ConstructionQualityControl.Domain.MapperProfile
 
             CreateMap<Order, OrderRootReadDto>();
             CreateMap<Order, WorkReadDto>();
+            CreateMap<Order, OrderReadDto>();
+
+            CreateMap<Comment, CommentReadDto>();
+            CreateMap<CommentCreateDto, Comment>();
+            CreateMap<CommentCreateDto, Comment>();
+
+            CreateMap<Report, ReportReadDto>();
+            CreateMap<ReportReadDto, Report>();
+            CreateMap<ReportCreateDto, Report>();
         }
     }
 }
