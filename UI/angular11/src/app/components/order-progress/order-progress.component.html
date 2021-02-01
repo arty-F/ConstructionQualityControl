@@ -1,1 +1,69 @@
-<p>order-progress works!</p>
+<div class="container">
+
+    <div class="header">{{getHeader()}}</div>
+
+    <div class="header-info">
+        <div class="header-info-container">
+            <div class="transperent-text">{{getUserType()}}</div>
+            <div class="transperent-text">создан</div>
+            <div class="transperent-text">начат</div>
+        </div>
+
+        <div class="header-info-container">
+            <div>{{getUserName()}}</div>
+            <div>{{getCreationDate()}}</div>
+            <div>{{getStartedDate()}}</div>
+        </div>
+    </div>
+
+    <div class="orders">
+        <div *ngFor="let o of order?.subOrders" class="order">
+
+            <div class="order-demands">{{o.demands}}</div>
+
+            <div class="order-payments">
+                <div class="order-payments-container">
+                    <div class="transperent-text">предоплата</div>
+                    <div class="transperent-text">основная выплата</div>
+                </div>
+                <div class="order-payments-container">
+                    <div>{{o.postPaid}}</div>
+                    <div>{{o.prePaid}}</div>
+                </div>
+                <div class="order-payments-container">
+                    <div class="transperent-text">руб.</div>
+                    <div class="transperent-text">руб.</div>
+                </div>
+            </div>
+
+            <div class="order-panel">
+
+            </div>
+
+            <div *ngFor="let so of o?.subOrders" class="sub-order">
+                <div>{{so.demands}}</div>
+
+                <div class="order-payments">
+                    <div class="order-payments-container">
+                        <div class="transperent-text">предоплата</div>
+                        <div class="transperent-text">основная выплата</div>
+                    </div>
+                    <div class="order-payments-container">
+                        <div>{{so.postPaid}}</div>
+                        <div>{{so.prePaid}}</div>
+                    </div>
+                    <div class="order-payments-container">
+                        <div class="transperent-text">руб.</div>
+                        <div class="transperent-text">руб.</div>
+                    </div>
+                </div>
+
+                <div class="order-panel">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

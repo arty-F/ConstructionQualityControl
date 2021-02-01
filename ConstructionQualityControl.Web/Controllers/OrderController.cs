@@ -57,8 +57,6 @@ namespace ConstructionQualityControl.Web.Controllers
             if (order.User.Id != userId && order.WorkOffers.FirstOrDefault().Worker.Id != userId)
                 return Unauthorized();
 
-            var a = mapper.Map<OrderReadDto>(order); //test
-
             return Ok(mapper.Map<OrderReadDto>(order));
         }
 

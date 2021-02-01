@@ -9,6 +9,7 @@ import { OrderRootReadDto } from '../dtos/order/order-root-read-dto'
 import { WorkReadDto } from '../dtos/order/work-read-dto'
 import { WorkOfferCreateDto } from '../dtos/work-offer/work-offer-create-dto'
 import { WorkOfferReadDto } from '../dtos/work-offer/work-offer-read-dto'
+import { OrderReadDto } from '../dtos/order/order-read-dto'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -30,6 +31,10 @@ export class SharedService {
 
   AddOrder(): Observable<OrderCreateDto> {
     return this.http.post<OrderCreateDto>(environment.apiUrl + '/Order', this.creatingOrder, httpOptions)
+  }
+
+  GetOrder(): Observable<OrderReadDto> {
+    return this.http.get<OrderReadDto>(environment.apiUrl + '/Order/' + this.viewedWork.id, httpOptions)
   }
 
   GetOrders(): Observable<OrderRootReadDto[]> {

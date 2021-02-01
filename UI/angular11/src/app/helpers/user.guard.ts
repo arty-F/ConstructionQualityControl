@@ -10,7 +10,7 @@ export class UserGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let roles = route.data.roles as Array<string>
-        if (localStorage.getItem(personalData.UserRole) === roles[0]) {
+        if (roles.indexOf(localStorage.getItem(personalData.UserRole)) > -1) {
             return true
         }
 
