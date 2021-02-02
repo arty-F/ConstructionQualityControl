@@ -143,6 +143,8 @@ namespace ConstructionQualityControl.Web.Controllers
 
             order.WorkOffers.RemoveAll(o => o.Id != offerDto.Id);
             order.IsStarted = true;
+            if (order.SubOrders.Count > 0)
+                order.SubOrders.FirstOrDefault().IsStarted = true;
 
             try
             {

@@ -10,6 +10,8 @@ import { WorkReadDto } from '../dtos/order/work-read-dto'
 import { WorkOfferCreateDto } from '../dtos/work-offer/work-offer-create-dto'
 import { WorkOfferReadDto } from '../dtos/work-offer/work-offer-read-dto'
 import { OrderReadDto } from '../dtos/order/order-read-dto'
+import { CommentCreateDto } from '../dtos/comment/comment-create-dto'
+import { CommentReadDto } from '../dtos/comment/comment-read-dto'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -63,6 +65,10 @@ export class SharedService {
 
   GetConfirmedWorksForUser(): Observable<OrderRootReadDto[]> {
     return this.http.get<OrderRootReadDto[]>(environment.apiUrl + '/Order/Works', httpOptions)
+  }
+
+  AddComment(comment: CommentCreateDto, orderId: number): Observable<CommentReadDto> {
+    return this.http.post<CommentReadDto>(environment.apiUrl + '/Data/Comment/' + orderId, comment, httpOptions)
   }
 
   GetFormatedDate(dateStr: Date): string {

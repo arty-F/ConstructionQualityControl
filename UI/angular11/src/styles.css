@@ -53,11 +53,14 @@ input[type=date] {
 }
 
 input[type=submit] {
+    margin-top: 8%;
+    margin-bottom: 15px;
+}
+
+input[type=submit], .submit-button {
     background-color: #44484b;
     color: white;
     padding: 14px 20px;
-    margin-top: 8%;
-    margin-bottom: 15px;
     border: none;
     cursor: pointer;
     outline: none;

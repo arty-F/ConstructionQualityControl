@@ -36,7 +36,31 @@
                 </div>
             </div>
 
-            <div class="order-panel">
+            <div *ngIf="o.isStarted" class="order-panel">
+
+
+
+                <div *ngFor="let c of o.comments">
+                    <div>{{c.text}}</div>
+                </div>
+
+                <div class="order-panel-menu">
+                    <div class="order-panel-menu-element">
+                        <textarea [(ngModel)]="comment.text" rows="3" min=1 placeholder="Текст сообщения"></textarea>
+                        <button (click)="addComment(o)" class="simple-button">Добавить комментарий</button>
+                    </div>
+
+                    <div *ngIf="isUserBuilder()" class="order-panel-menu-element">
+                        <textarea [(ngModel)]="comment.text" rows="3" min=1 placeholder="Текст сообщения"></textarea>
+                        <button class="simple-button">Добавить отчет</button>
+                    </div>
+                </div>
+
+                <div *ngIf="isUserCustomer()">
+                    <button (click)="confirmSubOrder()" class="submit-button">Принять работу и перейти к следующей</button>
+                </div>
+
+
 
             </div>
 
@@ -58,7 +82,7 @@
                     </div>
                 </div>
 
-                <div class="order-panel">
+                <div *ngIf="so.isStarted" class="order-panel">
 
                 </div>
 

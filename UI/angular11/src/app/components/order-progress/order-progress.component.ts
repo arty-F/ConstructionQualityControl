@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { elementAt } from 'rxjs/operators';
+import { CommentCreateDto } from 'src/app/dtos/comment/comment-create-dto';
 import { OrderReadDto } from 'src/app/dtos/order/order-read-dto';
 import { userRole } from 'src/app/models/user-roles';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -14,6 +14,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class OrderProgressComponent implements OnInit {
 
   order: OrderReadDto
+  comment: CommentCreateDto = new CommentCreateDto()
 
   constructor(private router: Router, private sharedService: SharedService, private authService: AuthenticationService) { }
 
@@ -21,6 +22,7 @@ export class OrderProgressComponent implements OnInit {
     this.sharedService.GetOrder().subscribe(res => {
       this.order = res
     })
+    this.comment.user = this.authService.user
   }
 
   getHeader(): string {
@@ -51,7 +53,7 @@ export class OrderProgressComponent implements OnInit {
   }
 
   getUserType(): string {
-    if (this.authService.user.role == userRole.Builder) {
+    if (this.isUserBuilder()) {
       return 'заказчик'
     }
     else {
@@ -60,12 +62,52 @@ export class OrderProgressComponent implements OnInit {
   }
 
   getUserName(): string {
-    if (this.authService.user.role == userRole.Builder) {
-      return this.order.user.lastName + ' ' + this.order.user.firstName + ' ' + this.order.user.patronymic
+    if (this.order) {
+      if (this.isUserBuilder()) {
+        return this.order.user.lastName + ' ' + this.order.user.firstName + ' ' + this.order.user.patronymic
+      }
+      else {
+        return this.sharedService.viewedWork.workOffers[0].worker.companyName
+      }
     }
     else {
-      return this.sharedService.viewedWork.workOffers[0].worker.companyName
+      return ''
     }
   }
 
+  isUserCustomer(): boolean {
+    return this.authService.user.role == userRole.Customer
+  }
+
+  isUserBuilder(): boolean {
+    return this.authService.user.role == userRole.Builder
+  }
+
+  addComment(order: OrderReadDto) {
+    this.sharedService.AddComment(this.comment, order.id).subscribe(res => {
+      this.comment.text = ''
+      this.getLastStartedOrder().comments.push(res)
+    })
+  }
+
+  confirmSubOrder() {
+
+  }
+
+  getLastStartedOrder(): OrderReadDto {
+    let result: OrderReadDto
+
+    this.order.subOrders.forEach(o => {
+      if (o.isStarted) {
+        result = o
+      }
+      o.subOrders.forEach(so => {
+        if (so.isStarted) {
+          result = o
+        }
+      })
+    })
+
+    return result
+  }
 }
