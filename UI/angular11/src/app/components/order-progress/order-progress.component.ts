@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { min } from 'rxjs/operators';
 import { CommentCreateDto } from 'src/app/dtos/comment/comment-create-dto';
 import { OrderReadDto } from 'src/app/dtos/order/order-read-dto';
+import { UserReadDto } from 'src/app/dtos/user/user-read-dto';
 import { userRole } from 'src/app/models/user-roles';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -73,6 +75,23 @@ export class OrderProgressComponent implements OnInit {
     else {
       return ''
     }
+  }
+
+  getCommentUserName(user: UserReadDto): string {
+    return user.companyName ? user.companyName : user.lastName + ' ' + user.firstName + ' ' + user.patronymic
+  }
+
+  getCommentDate(date: Date): string {
+    let d = new Date(date)
+    let hour = d.getHours().toString()
+    if (hour.length == 1) {
+      hour = '0' + hour
+    }
+    let minute = d.getMinutes().toString()
+    if (minute.length == 1) {
+      minute = '0' + minute
+    }
+    return this.sharedService.GetFormatedDate(date) + ' ' + hour + ':' + minute 
   }
 
   isUserCustomer(): boolean {

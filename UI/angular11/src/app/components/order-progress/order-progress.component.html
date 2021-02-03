@@ -39,9 +39,14 @@
             <div *ngIf="o.isStarted" class="order-panel">
 
 
-
-                <div *ngFor="let c of o.comments">
-                    <div>{{c.text}}</div>
+                <div class="order-panel-comments">
+                    <div *ngFor="let c of o.comments" class="comment">
+                        <div class="comment-header">
+                            <div>{{getCommentUserName(c.user)}}</div>
+                            <div class="transperent-text">{{getCommentDate(c.date)}}</div>
+                        </div>
+                        <div>{{c.text}}</div>
+                    </div>
                 </div>
 
                 <div class="order-panel-menu">

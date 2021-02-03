@@ -54,7 +54,7 @@ namespace ConstructionQualityControl.Web.Controllers
                 return BadRequest();
 
             var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-            if (order.User.Id != userId && order.WorkOffers.FirstOrDefault().Worker.Id != userId)
+            if (order.User.Id != userId && order.WorkOffers.FirstOrDefault()?.Worker.Id != userId)
                 return Unauthorized();
 
             return Ok(mapper.Map<OrderReadDto>(order));
