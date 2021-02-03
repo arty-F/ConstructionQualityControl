@@ -56,7 +56,16 @@
                     </div>
 
                     <div *ngIf="isUserBuilder()" class="order-panel-menu-element">
-                        <textarea [(ngModel)]="comment.text" rows="3" min=1 placeholder="Текст сообщения"></textarea>
+                        <div>
+                            <div class="order-panel-menu-imgpreview">
+                                <img *ngFor="let url of urls" [src]="url" alt="">
+                            </div>
+                            <input type="file" name="filePick" id="filePick" (change)="selectFiles($event)" multiple>
+                            <div class="file-buttons">
+                                <label for="filePick" class="file-button">Выбрать файлы для отчета (выбрано {{urls.length}})</label>
+                                <button class="file-button" (click)="clearFiles()">Очистить</button>
+                            </div>
+                        </div>
                         <button class="simple-button">Добавить отчет</button>
                     </div>
                 </div>

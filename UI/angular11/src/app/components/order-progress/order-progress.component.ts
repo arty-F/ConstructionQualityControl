@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { min } from 'rxjs/operators';
 import { CommentCreateDto } from 'src/app/dtos/comment/comment-create-dto';
 import { OrderReadDto } from 'src/app/dtos/order/order-read-dto';
 import { UserReadDto } from 'src/app/dtos/user/user-read-dto';
@@ -17,6 +16,7 @@ export class OrderProgressComponent implements OnInit {
 
   order: OrderReadDto
   comment: CommentCreateDto = new CommentCreateDto()
+  urls = []
 
   constructor(private router: Router, private sharedService: SharedService, private authService: AuthenticationService) { }
 
@@ -91,7 +91,7 @@ export class OrderProgressComponent implements OnInit {
     if (minute.length == 1) {
       minute = '0' + minute
     }
-    return this.sharedService.GetFormatedDate(date) + ' ' + hour + ':' + minute 
+    return this.sharedService.GetFormatedDate(date) + ' ' + hour + ':' + minute
   }
 
   isUserCustomer(): boolean {
@@ -129,4 +129,23 @@ export class OrderProgressComponent implements OnInit {
 
     return result
   }
+
+  selectFiles(event) {
+    if (event.target.files) {
+      for (var i = 0; i < event.target.files.length; i++) {
+        var reader = new FileReader()
+        reader.readAsDataURL(event.target.files[i])
+        reader.onload = (event: any) => {
+          this.urls.push(event.target.result)
+        }
+      }
+    }
+  }
+
+  clearFiles(){
+    this.urls = []
+  }
+
+  //TODO из reader'a создавать dto репортов и отправлять на бэк
+  //readAsDataURL создает текст что-то типо "type=file / png / data byte[]" нужно разобраться и распарсить это
 }
