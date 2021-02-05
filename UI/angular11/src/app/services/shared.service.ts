@@ -12,6 +12,8 @@ import { WorkOfferReadDto } from '../dtos/work-offer/work-offer-read-dto'
 import { OrderReadDto } from '../dtos/order/order-read-dto'
 import { CommentCreateDto } from '../dtos/comment/comment-create-dto'
 import { CommentReadDto } from '../dtos/comment/comment-read-dto'
+import { ReportCreateDto } from '../dtos/report/report-create-dto'
+import { ReportReadDto } from '../dtos/report/report-read-dto'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -69,6 +71,10 @@ export class SharedService {
 
   AddComment(comment: CommentCreateDto, orderId: number): Observable<CommentReadDto> {
     return this.http.post<CommentReadDto>(environment.apiUrl + '/Data/Comment/' + orderId, comment, httpOptions)
+  }
+
+  AddReports(reports: ReportCreateDto[], orderId: number): Observable<ReportReadDto[]> {
+    return this.http.post<ReportReadDto[]>(environment.apiUrl + '/Data/Report/' + orderId, reports, httpOptions)
   }
 
   GetFormatedDate(dateStr: Date): string {

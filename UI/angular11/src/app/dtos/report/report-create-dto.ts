@@ -5,5 +5,5 @@ export class ReportCreateDto {
     user: UserReadDto
     order: OrderReadDto
     fileExtension: string
-    data: number[]
+    data: string
 }

@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using ConstructionQualityControl.Data.Models;
@@ -46,6 +46,34 @@ namespace ConstructionQualityControl.Web.Controllers
             }
 
             return Ok(mapper.Map<CommentReadDto>(comment));
+        }
+
+        [HttpPost("Report/{id}")]
+        public async Task<ActionResult<IEnumerable<ReportReadDto>>> AddReports(int id, ReportCreateDto[] reportsDto)
+        {
+            var order = await unitOfWork.GetRepository<Order>().GetByIdAsync(id);
+            var user = await unitOfWork.GetRepository<User>().GetByIdAsync(reportsDto[0].User.Id);
+
+            var reports = mapper.Map<List<Report>>(reportsDto.ToList());
+            foreach (var r in reports)
+            {
+                r.User = user;
+                r.CreationDate = DateTime.Now;
+            }
+                
+            order.Reports.AddRange(reports);
+
+            try
+            {
+                unitOfWork.GetRepository<Order>().Update(order);
+                await unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok(mapper.Map<List<ReportReadDto>>(reports));
         }
     }
 }

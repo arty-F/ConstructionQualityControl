@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommentCreateDto } from 'src/app/dtos/comment/comment-create-dto';
 import { OrderReadDto } from 'src/app/dtos/order/order-read-dto';
+import { ReportCreateDto } from 'src/app/dtos/report/report-create-dto';
 import { UserReadDto } from 'src/app/dtos/user/user-read-dto';
 import { userRole } from 'src/app/models/user-roles';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -136,16 +137,29 @@ export class OrderProgressComponent implements OnInit {
         var reader = new FileReader()
         reader.readAsDataURL(event.target.files[i])
         reader.onload = (event: any) => {
-          this.urls.push(event.target.result)
+          this.urls.push(event.target.result)  
         }
       }
     }
   }
 
-  clearFiles(){
+  clearFiles() {
     this.urls = []
   }
 
-  //TODO из reader'a создавать dto репортов и отправлять на бэк
-  //readAsDataURL создает текст что-то типо "type=file / png / data byte[]" нужно разобраться и распарсить это
+  //data:image/png;base64,iVBORw0KGgoAAAANSUhEUg
+  addReports() {
+    let reports: ReportCreateDto[] = []
+    this.urls.forEach(u => {
+      let str = new String(u)
+      let reportDto = new ReportCreateDto()
+      reportDto.user = this.authService.user
+      reportDto.order = this.order
+      reportDto.fileExtension = str.substring(str.indexOf('/') + 1, str.indexOf(';'))
+      reportDto.data = str.substring(str.indexOf(',') + 1)
+      reports.push(reportDto)
+    })
+
+    console.log(reports.length)
+  }
 }

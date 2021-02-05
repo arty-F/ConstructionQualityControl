@@ -6,6 +6,6 @@ namespace ConstructionQualityControl.Domain.Dtos
     {
         public DateTime CreationDate { get; set; }
         public string FileExtension { get; set; }
-        public byte[] Data { get; set; }
+        public string Data { get; set; }
     }
 }
