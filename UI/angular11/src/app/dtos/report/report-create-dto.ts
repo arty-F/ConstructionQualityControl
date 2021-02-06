@@ -4,6 +4,5 @@ import { UserReadDto } from "../user/user-read-dto"
 export class ReportCreateDto {
     user: UserReadDto
     order: OrderReadDto
-    fileExtension: string
     data: string
 }

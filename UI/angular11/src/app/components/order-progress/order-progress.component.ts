@@ -137,7 +137,7 @@ export class OrderProgressComponent implements OnInit {
         var reader = new FileReader()
         reader.readAsDataURL(event.target.files[i])
         reader.onload = (event: any) => {
-          this.urls.push(event.target.result)  
+          this.urls.push(event.target.result)
         }
       }
     }
@@ -147,19 +147,21 @@ export class OrderProgressComponent implements OnInit {
     this.urls = []
   }
 
-  //data:image/png;base64,iVBORw0KGgoAAAANSUhEUg
-  addReports() {
+  addReports(order: OrderReadDto) {
     let reports: ReportCreateDto[] = []
     this.urls.forEach(u => {
       let str = new String(u)
       let reportDto = new ReportCreateDto()
       reportDto.user = this.authService.user
       reportDto.order = this.order
-      reportDto.fileExtension = str.substring(str.indexOf('/') + 1, str.indexOf(';'))
-      reportDto.data = str.substring(str.indexOf(',') + 1)
+      reportDto.data = str.toString()
       reports.push(reportDto)
     })
 
-    console.log(reports.length)
+    this.sharedService.AddReports(reports, order.id).subscribe(res => {
+      res.forEach(r => {
+        this.getLastStartedOrder().reports.push(r)
+      })
+    })
   }
 }

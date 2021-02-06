@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain.Dtos;
+using System.Text;
 
 namespace ConstructionQualityControl.Domain.MapperProfile
 {
@@ -26,6 +27,7 @@ namespace ConstructionQualityControl.Domain.MapperProfile
             CreateMap<Order, OrderRootReadDto>();
             CreateMap<Order, WorkReadDto>();
             CreateMap<Order, OrderReadDto>();
+            CreateMap<OrderReadDto, Order>();
 
             CreateMap<Comment, CommentReadDto>();
             CreateMap<CommentCreateDto, Comment>();
@@ -34,6 +36,9 @@ namespace ConstructionQualityControl.Domain.MapperProfile
             CreateMap<Report, ReportReadDto>();
             CreateMap<ReportReadDto, Report>();
             CreateMap<ReportCreateDto, Report>();
+
+            CreateMap<string, byte[]>().ConvertUsing(s => Encoding.ASCII.GetBytes(s));
+            CreateMap<byte[], string>().ConvertUsing(b => Encoding.ASCII.GetString(b));
         }
     }
 }

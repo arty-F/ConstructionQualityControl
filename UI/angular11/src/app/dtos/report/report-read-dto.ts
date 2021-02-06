@@ -1,5 +1,7 @@
+import { UserReadDto } from "../user/user-read-dto"
+
 export class ReportReadDto {
+    user: UserReadDto
     creationDate: Date
-    fileExtension: string
     data: string
 }

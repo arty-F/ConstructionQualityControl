@@ -60,7 +60,7 @@ namespace ConstructionQualityControl.Web.Controllers
                 r.User = user;
                 r.CreationDate = DateTime.Now;
             }
-                
+
             order.Reports.AddRange(reports);
 
             try
@@ -68,7 +68,7 @@ namespace ConstructionQualityControl.Web.Controllers
                 unitOfWork.GetRepository<Order>().Update(order);
                 await unitOfWork.SaveAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }

@@ -49,6 +49,16 @@
                     </div>
                 </div>
 
+                <div class="order-panel-reports">
+                    <div *ngFor="let r of o.reports" class="report">
+                        <div class="report-header">
+                            <div>{{getCommentUserName(r.user)}}</div>
+                            <div class="transperent-text">{{getCommentDate(r.creationDate)}}</div>
+                        </div>
+                        <img [src]="r.data" alt="">
+                    </div>
+                </div>
+
                 <div class="order-panel-menu">
                     <div class="order-panel-menu-element">
                         <textarea [(ngModel)]="comment.text" rows="3" min=1 placeholder="Текст сообщения"></textarea>
@@ -66,7 +76,7 @@
                                 <button class="file-button" (click)="clearFiles()">Очистить</button>
                             </div>
                         </div>
-                        <button (click)="addReports()" class="simple-button">Добавить отчет</button>
+                        <button (click)="addReports(o)" class="simple-button">Добавить отчет</button>
                     </div>
                 </div>
 
