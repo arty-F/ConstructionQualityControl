@@ -57,6 +57,9 @@ export class OrdersNewRootComponent implements OnInit {
   }
 
   onSubmit(form) {
+    if (this.rootOrder.subOrders.length === 0) {
+      return
+    }
     this.rootOrder.city = this.cityService.ConvertStrToCityDto(this.city.value)
     this.rootOrder.demands = this.title.value;
     this.router.navigate(['Payment'])

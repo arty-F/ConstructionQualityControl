@@ -39,24 +39,29 @@
             <div *ngIf="o.isStarted" class="order-panel">
 
 
-                <div class="order-panel-comments">
-                    <div *ngFor="let c of o.comments" class="comment">
-                        <div class="comment-header">
-                            <div>{{getCommentUserName(c.user)}}</div>
-                            <div class="transperent-text">{{getCommentDate(c.date)}}</div>
-                        </div>
-                        <div>{{c.text}}</div>
-                    </div>
-                </div>
 
-                <div class="order-panel-reports">
-                    <div *ngFor="let r of o.reports" class="report">
-                        <div class="report-header">
-                            <div>{{getCommentUserName(r.user)}}</div>
-                            <div class="transperent-text">{{getCommentDate(r.creationDate)}}</div>
+                <div *ngFor="let i of groupAndSort(o.comments, o.reports)">
+                    <div *ngIf="isComment(i); then comment; else report"></div>
+
+                    <ng-template #comment>
+                        <div class="comment">
+                            <div class="comment-header">
+                                <div>{{getCommentUserName(i)}}</div>
+                                <div class="transperent-text">{{getCommentDate(i)}}</div>
+                            </div>
+                            <div>{{i.text}}</div>
                         </div>
-                        <img [src]="r.data" alt="">
-                    </div>
+                    </ng-template>
+
+                    <ng-template #report>
+                        <div class="comment">
+                            <div class="comment-header">
+                                <div>{{getCommentUserName(i)}}</div>
+                                <div class="transperent-text">{{getCommentDate(i)}}</div>
+                            </div>
+                            <img *ngFor="let r of i" [src]="r.data" alt="">
+                        </div>
+                    </ng-template>
                 </div>
 
                 <div class="order-panel-menu">
@@ -72,7 +77,8 @@
                             </div>
                             <input type="file" name="filePick" id="filePick" (change)="selectFiles($event)" multiple>
                             <div class="file-buttons">
-                                <label for="filePick" class="file-button">Выбрать файлы для отчета (выбрано {{urls.length}})</label>
+                                <label for="filePick" class="file-button">Выбрать файлы для отчета (выбрано
+                                    {{urls.length}})</label>
                                 <button class="file-button" (click)="clearFiles()">Очистить</button>
                             </div>
                         </div>
@@ -81,7 +87,8 @@
                 </div>
 
                 <div *ngIf="isUserCustomer()">
-                    <button (click)="confirmSubOrder()" class="submit-button">Принять работу и перейти к следующей</button>
+                    <button (click)="confirmSubOrder()" class="submit-button">Принять работу и перейти к
+                        следующей</button>
                 </div>
 
 

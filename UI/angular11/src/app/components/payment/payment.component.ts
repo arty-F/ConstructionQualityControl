@@ -24,9 +24,19 @@ export class PaymentComponent implements OnInit {
     })
 
     for (let order of this.sharedService.creatingOrder.subOrders) {
-      this.cost = this.cost + order.prePaid + order.postPaid
+      if (order.prePaid != undefined) {
+        this.cost += order.prePaid
+      }
+      if (order.postPaid != undefined) {
+        this.cost += order.postPaid
+      }
       for (let subOrder of order.subOrders) {
-        this.cost = this.cost + subOrder.prePaid + subOrder.postPaid
+        if (subOrder.prePaid != undefined) {
+          this.cost += subOrder.prePaid
+        }
+        if (subOrder.postPaid != undefined) {
+          this.cost += subOrder.postPaid
+        }
       }
     }
 

@@ -30,6 +30,7 @@ namespace ConstructionQualityControl.Domain.MapperProfile
             CreateMap<OrderReadDto, Order>();
 
             CreateMap<Comment, CommentReadDto>();
+            CreateMap<CommentReadDto, Comment>();
             CreateMap<CommentCreateDto, Comment>();
             CreateMap<CommentCreateDto, Comment>();
 

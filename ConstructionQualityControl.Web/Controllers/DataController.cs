@@ -28,6 +28,9 @@ namespace ConstructionQualityControl.Web.Controllers
         [HttpPost("Comment/{id}")]
         public async Task<ActionResult<CommentReadDto>> AddComment(int id, CommentCreateDto commentDto)
         {
+            if (commentDto.Text.Length == 0)
+                return BadRequest();
+
             var order = await unitOfWork.GetRepository<Order>().GetByIdAsync(id);
 
             var comment = mapper.Map<Comment>(commentDto);
@@ -51,6 +54,9 @@ namespace ConstructionQualityControl.Web.Controllers
         [HttpPost("Report/{id}")]
         public async Task<ActionResult<IEnumerable<ReportReadDto>>> AddReports(int id, ReportCreateDto[] reportsDto)
         {
+            if (reportsDto.Length == 0)
+                return BadRequest();
+
             var order = await unitOfWork.GetRepository<Order>().GetByIdAsync(id);
             var user = await unitOfWork.GetRepository<User>().GetByIdAsync(reportsDto[0].User.Id);
 
@@ -68,7 +74,7 @@ namespace ConstructionQualityControl.Web.Controllers
                 unitOfWork.GetRepository<Order>().Update(order);
                 await unitOfWork.SaveAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return BadRequest();
             }

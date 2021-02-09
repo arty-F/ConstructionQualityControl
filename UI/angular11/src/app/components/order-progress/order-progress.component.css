@@ -137,7 +137,12 @@ input[type="file"] {
     color: white;
 }
 
-
+.comment img {
+    width: 10%;
+    height: 10%;
+    margin-left: 2px;
+    margin-right: 2px;
+}
 
 @media screen and (max-width: 900px) {
     .order-panel-menu-imgpreview img {

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommentCreateDto } from 'src/app/dtos/comment/comment-create-dto';
+import { CommentReadDto } from 'src/app/dtos/comment/comment-read-dto';
 import { OrderReadDto } from 'src/app/dtos/order/order-read-dto';
 import { ReportCreateDto } from 'src/app/dtos/report/report-create-dto';
+import { ReportReadDto } from 'src/app/dtos/report/report-read-dto';
 import { UserReadDto } from 'src/app/dtos/user/user-read-dto';
 import { userRole } from 'src/app/models/user-roles';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -78,12 +80,28 @@ export class OrderProgressComponent implements OnInit {
     }
   }
 
-  getCommentUserName(user: UserReadDto): string {
+  getCommentUserName(item: CommentReadDto | ReportReadDto[]): string {
+    let user: UserReadDto
+
+    if (!Array.isArray(item)) {
+      user = item.user
+    }
+    else {
+      user = item[0].user
+    }
+
     return user.companyName ? user.companyName : user.lastName + ' ' + user.firstName + ' ' + user.patronymic
   }
 
-  getCommentDate(date: Date): string {
-    let d = new Date(date)
+  getCommentDate(item: CommentReadDto | ReportReadDto[]): string {
+    let d: Date
+    if (!Array.isArray(item)) {
+      d = new Date(item.date)
+    }
+    else {
+      d = new Date(item[0].creationDate)
+    }
+
     let hour = d.getHours().toString()
     if (hour.length == 1) {
       hour = '0' + hour
@@ -92,7 +110,7 @@ export class OrderProgressComponent implements OnInit {
     if (minute.length == 1) {
       minute = '0' + minute
     }
-    return this.sharedService.GetFormatedDate(date) + ' ' + hour + ':' + minute
+    return this.sharedService.GetFormatedDate(d) + ' ' + hour + ':' + minute
   }
 
   isUserCustomer(): boolean {
@@ -161,7 +179,71 @@ export class OrderProgressComponent implements OnInit {
     this.sharedService.AddReports(reports, order.id).subscribe(res => {
       res.forEach(r => {
         this.getLastStartedOrder().reports.push(r)
+        this.clearFiles()
       })
     })
+  }
+
+  groupReports(reports: ReportReadDto[]): ReportReadDto[][] {
+    let result: ReportReadDto[][] = []
+    let i: number = 0
+
+    reports.forEach(r => {
+      if (result.length == 0) {
+        result[i] = []
+        result[i].push(r)
+      }
+      else {
+        var diffMinutes = (new Date(r.creationDate).getTime() - new Date(result[result.length - 1][0].creationDate).getTime()) / 21600
+        if (diffMinutes > 5) {
+          ++i
+          result[i] = []
+        }
+        result[i].push(r)
+      }
+    })
+
+    return result
+  }
+
+  groupAndSort(comments: CommentReadDto[], reports: ReportReadDto[]): (CommentReadDto | ReportReadDto[])[] {
+    let result: (CommentReadDto | ReportReadDto[])[] = []
+    let groupedReports = this.groupReports(reports)
+
+    let c: number = 0
+    let r: number = 0
+
+    comments.forEach(c => {
+      result.push(c)
+    })
+    groupedReports.forEach(g => {
+      result.push(g)
+    })
+
+    result.sort((i1, i2) => {
+      if (!Array.isArray(i1) && !Array.isArray(i2)) {
+        return new Date(i1.date).getTime() - new Date(i2.date).getTime()
+      }
+      if (!Array.isArray(i1) && Array.isArray(i2)) {
+        return new Date(i1.date).getTime() - new Date(i2[0].creationDate).getTime()
+      }
+      if (Array.isArray(i1) && !Array.isArray(i2)) {
+        return new Date(i1[0].creationDate).getTime() - new Date(i2.date).getTime()
+      }
+      if (Array.isArray(i1) && Array.isArray(i2)) {
+        return new Date(i1[0].creationDate).getTime() - new Date(i2[0].creationDate).getTime()
+      }
+    })
+
+    return result
+  }
+
+  isComment(item: CommentReadDto | ReportReadDto[]): boolean {
+    if (!Array.isArray(item)) {
+      return true
+    }
+    else {
+      return false
+    }
   }
 }
