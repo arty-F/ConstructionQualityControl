@@ -81,6 +81,10 @@ export class SharedService {
     return this.http.post<OrderReadDto>(environment.apiUrl + '/Order/' + this.viewedWork.id, order, httpOptions)
   }
 
+  DeleteOrder(order: OrderRootReadDto): Observable<OrderRootReadDto> {
+    return this.http.delete<OrderRootReadDto>(environment.apiUrl + '/Order/' + order.id, httpOptions)
+  }
+
   GetFormatedDate(dateStr: Date): string {
 
     let date = new Date(dateStr)

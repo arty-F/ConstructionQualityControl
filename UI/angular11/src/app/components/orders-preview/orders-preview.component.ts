@@ -96,4 +96,14 @@ export class OrdersPreviewComponent implements OnInit {
       }
     })
   }
+
+  deleteOrder(order: OrderRootReadDto) {
+    this.sharedService.DeleteOrder(order).subscribe(res => {
+      const index = this.orders.indexOf(order, 0)
+      if (index > -1) {
+        this.orders.splice(index, 1)
+      }
+      this.onFilterChanged()
+    })
+  }
 }

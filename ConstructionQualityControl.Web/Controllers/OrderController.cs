@@ -183,7 +183,7 @@ namespace ConstructionQualityControl.Web.Controllers
             {
                 if (nextOrder != null)
                     break;
-                
+
                 if (!o.IsStarted)
                 {
                     nextOrder = o;
@@ -214,8 +214,39 @@ namespace ConstructionQualityControl.Web.Controllers
             {
                 return BadRequest();
             }
-            
+
             return Ok(mapper.Map<OrderReadDto>(rootOrder));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRootOrder(int id)
+        {
+            var order = await unitOfWork.GetRepository<Order>().GetByIdAsync(id);
+            var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
+            if (order.User.Id != userId || order.IsStarted)
+                return BadRequest();
+
+            try
+            {
+                var repo = unitOfWork.GetRepository<Order>();
+
+                foreach (var o in order.SubOrders)
+                {
+                    foreach (var so in o.SubOrders)
+                        await repo.DeleteByIdAsync(so.Id);
+
+                    await repo.DeleteByIdAsync(o.Id);
+                }
+                await unitOfWork.GetRepository<Order>().DeleteByIdAsync(id);
+                await unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
     }
 }

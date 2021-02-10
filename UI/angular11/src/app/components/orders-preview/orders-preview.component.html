@@ -40,7 +40,7 @@
 
             <div class="order-buttons-container">
                 <button class="simple-button" (click)="getInfo(order)">Подробнее</button>
-                <button *ngIf="!order.isStarted" class="simple-button">Удалить</button>
+                <button *ngIf="!order.isStarted" (click)="deleteOrder(order)" class="simple-button">Удалить</button>
             </div>
 
             <div class="order-date">
