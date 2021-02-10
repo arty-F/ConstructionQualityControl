@@ -77,6 +77,10 @@ export class SharedService {
     return this.http.post<ReportReadDto[]>(environment.apiUrl + '/Data/Report/' + orderId, reports, httpOptions)
   }
 
+  ConfirmOrder(order: OrderReadDto): Observable<OrderReadDto> {
+    return this.http.post<OrderReadDto>(environment.apiUrl + '/Order/' + this.viewedWork.id, order, httpOptions)
+  }
+
   GetFormatedDate(dateStr: Date): string {
 
     let date = new Date(dateStr)

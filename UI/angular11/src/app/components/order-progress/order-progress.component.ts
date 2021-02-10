@@ -128,8 +128,10 @@ export class OrderProgressComponent implements OnInit {
     })
   }
 
-  confirmSubOrder() {
-
+  confirmSubOrder(order: OrderReadDto) {
+    this.sharedService.ConfirmOrder(order).subscribe(res => {
+      this.order = res
+    })
   }
 
   getLastStartedOrder(): OrderReadDto {
@@ -141,7 +143,7 @@ export class OrderProgressComponent implements OnInit {
       }
       o.subOrders.forEach(so => {
         if (so.isStarted) {
-          result = o
+          result = so
         }
       })
     })
@@ -245,5 +247,14 @@ export class OrderProgressComponent implements OnInit {
     else {
       return false
     }
+  }
+
+  onPrewiev(data: string) {
+    (document.getElementById('modal-img') as HTMLImageElement).src = data
+    document.getElementById('modal').style.display = "block"
+  }
+
+  closeModal() {
+    document.getElementById('modal').style.display = "none"
   }
 }

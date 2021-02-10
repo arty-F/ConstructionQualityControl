@@ -16,6 +16,10 @@
         </div>
     </div>
 
+    <div id="modal" class="modal" (click)="closeModal()">
+        <img id="modal-img" [src]="">
+    </div>
+
     <div class="orders">
         <div *ngFor="let o of order?.subOrders" class="order">
 
@@ -36,9 +40,7 @@
                 </div>
             </div>
 
-            <div *ngIf="o.isStarted" class="order-panel">
-
-
+            <div class="order-panel">
 
                 <div *ngFor="let i of groupAndSort(o.comments, o.reports)">
                     <div *ngIf="isComment(i); then comment; else report"></div>
@@ -59,12 +61,12 @@
                                 <div>{{getCommentUserName(i)}}</div>
                                 <div class="transperent-text">{{getCommentDate(i)}}</div>
                             </div>
-                            <img *ngFor="let r of i" [src]="r.data" alt="">
+                            <img *ngFor="let r of i" [src]="r.data" alt="" (click)="onPrewiev(r.data)">
                         </div>
                     </ng-template>
                 </div>
 
-                <div class="order-panel-menu">
+                <div *ngIf="o.isStarted && !o.isCompleted" class="order-panel-menu">
                     <div class="order-panel-menu-element">
                         <textarea [(ngModel)]="comment.text" rows="3" min=1 placeholder="Текст сообщения"></textarea>
                         <button (click)="addComment(o)" class="simple-button">Добавить комментарий</button>
@@ -86,12 +88,10 @@
                     </div>
                 </div>
 
-                <div *ngIf="isUserCustomer()">
-                    <button (click)="confirmSubOrder()" class="submit-button">Принять работу и перейти к
+                <div *ngIf="isUserCustomer() && o.isStarted && !o.isCompleted">
+                    <button (click)="confirmSubOrder(o)" class="submit-button">Принять работу и перейти к
                         следующей</button>
                 </div>
-
-
 
             </div>
 
@@ -114,6 +114,59 @@
                 </div>
 
                 <div *ngIf="so.isStarted" class="order-panel">
+                    
+                    <div *ngFor="let j of groupAndSort(so.comments, so.reports)">
+                        <div *ngIf="isComment(j); then commentSo; else reportSo"></div>
+
+                        <ng-template #commentSo>
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <div>{{getCommentUserName(j)}}</div>
+                                    <div class="transperent-text">{{getCommentDate(j)}}</div>
+                                </div>
+                                <div>{{j.text}}</div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #reportSo>
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <div>{{getCommentUserName(j)}}</div>
+                                    <div class="transperent-text">{{getCommentDate(j)}}</div>
+                                </div>
+                                <img *ngFor="let r of j" [src]="r.data" alt="" (click)="onPrewiev(r.data)">
+                            </div>
+                        </ng-template>
+                    </div>
+
+                    <div *ngIf="so.isStarted && !so.isCompleted" class="order-panel-menu">
+                        <div class="order-panel-menu-element">
+                            <textarea [(ngModel)]="comment.text" rows="3" min=1
+                                placeholder="Текст сообщения"></textarea>
+                            <button (click)="addComment(so)" class="simple-button">Добавить комментарий</button>
+                        </div>
+
+                        <div *ngIf="isUserBuilder()" class="order-panel-menu-element">
+                            <div>
+                                <div class="order-panel-menu-imgpreview">
+                                    <img *ngFor="let url of urls" [src]="url" alt="">
+                                </div>
+                                <input type="file" name="filePick" id="filePick" (change)="selectFiles($event)"
+                                    multiple>
+                                <div class="file-buttons">
+                                    <label for="filePick" class="file-button">Выбрать файлы для отчета (выбрано
+                                        {{urls.length}})</label>
+                                    <button class="file-button" (click)="clearFiles()">Очистить</button>
+                                </div>
+                            </div>
+                            <button (click)="addReports(so)" class="simple-button">Добавить отчет</button>
+                        </div>
+                    </div>
+
+                    <div *ngIf="isUserCustomer() && so.isStarted && !so.isCompleted">
+                        <button (click)="confirmSubOrder(so)" class="submit-button">Принять работу и перейти к
+                            следующей</button>
+                    </div>
 
                 </div>
 

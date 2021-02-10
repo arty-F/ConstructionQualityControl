@@ -34,7 +34,6 @@
 .order {
     margin-top: 8%;
     padding-bottom: 20px;
-    border-bottom: 2px solid rgb(181, 205, 207);
 }
 
 .order-demands {
@@ -49,7 +48,7 @@
 
 .order-panel {
     margin: 2% auto;
-    border: 4px solid rgb(181, 205, 207);
+    border-bottom: 2px solid rgb(181, 205, 207);
 }
 
 .order-panel-comments {
@@ -110,11 +109,11 @@
 
 input[type="file"] {
     width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
 .file-buttons {
@@ -139,9 +138,31 @@ input[type="file"] {
 
 .comment img {
     width: 10%;
-    height: 10%;
+    height: auto;
     margin-left: 2px;
     margin-right: 2px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #000000b6;
+}
+
+.modal img {
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
 }
 
 @media screen and (max-width: 900px) {

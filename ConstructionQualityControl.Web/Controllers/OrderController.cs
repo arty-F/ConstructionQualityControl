@@ -119,7 +119,7 @@ namespace ConstructionQualityControl.Web.Controllers
             offer.Worker = await unitOfWork.GetRepository<User>().GetByIdAsync(offer.Worker.Id);
             offer.Date = DateTime.Now;
             order.WorkOffers.Add(offer);
-            
+
             try
             {
                 unitOfWork.GetRepository<Order>().Update(order);
@@ -165,6 +165,57 @@ namespace ConstructionQualityControl.Web.Controllers
             var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             var works = await unitOfWork.GetRepository<Order>().GetAsync(ord => ord.WorkOffers.FirstOrDefault().Worker.Id == userId && ord.IsStarted);
             return Ok(mapper.Map<List<OrderRootReadDto>>(works));
+        }
+
+        [HttpPost("{id}")]
+        public async Task<ActionResult<OrderReadDto>> ConfirmOrder(int id, OrderReadDto orderDto)
+        {
+            var rootOrder = await unitOfWork.GetRepository<Order>().GetByIdAsync(id);
+            var order = await unitOfWork.GetRepository<Order>().GetByIdAsync(orderDto.Id);
+            var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
+            if (order.User.Id != userId)
+                return BadRequest();
+            order.IsCompleted = true;
+
+            Order nextOrder = null;
+            foreach (var o in rootOrder.SubOrders)
+            {
+                if (nextOrder != null)
+                    break;
+                
+                if (!o.IsStarted)
+                {
+                    nextOrder = o;
+                    break;
+                }
+
+                foreach (var so in o.SubOrders)
+                {
+                    if (!so.IsStarted)
+                    {
+                        nextOrder = so;
+                        break;
+                    }
+                }
+            }
+
+            if (nextOrder != null)
+                nextOrder.IsStarted = true;
+            else
+                rootOrder.IsCompleted = true;
+
+            try
+            {
+                unitOfWork.GetRepository<Order>().Update(rootOrder);
+                await unitOfWork.SaveAsync();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            
+            return Ok(mapper.Map<OrderReadDto>(rootOrder));
         }
     }
 }
