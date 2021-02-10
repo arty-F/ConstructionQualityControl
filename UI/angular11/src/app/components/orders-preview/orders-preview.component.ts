@@ -11,12 +11,18 @@ import { SharedService } from 'src/app/services/shared.service';
 export class OrdersPreviewComponent implements OnInit {
 
   orders: OrderRootReadDto[]
+  filteredOrders: OrderRootReadDto[]
+
+  active: boolean = true
+  unstarted: boolean = true
+  completed: boolean = false
 
   constructor(private router: Router, private sharedService: SharedService) { }
 
   ngOnInit(): void {
     this.sharedService.GetOrders().subscribe(res => {
       this.orders = res
+      this.onFilterChanged()
     })
   }
 
@@ -58,5 +64,36 @@ export class OrdersPreviewComponent implements OnInit {
   getInfo(order: OrderRootReadDto) {
     this.sharedService.viewedWork = order
     this.router.navigate(["OrderProgress"])
+  }
+
+  onActiveChange() {
+    this.active = !this.active
+    this.onFilterChanged()
+  }
+
+  onUnstartedChanged() {
+    this.unstarted = !this.unstarted
+    this.onFilterChanged()
+  }
+
+  onCompletedChange() {
+    this.completed = !this.completed
+    this.onFilterChanged()
+  }
+
+  onFilterChanged() {
+    this.filteredOrders = []
+
+    this.orders.forEach(o => {
+      if (this.active == true && o.isCompleted == false && o.isStarted == true) {
+        this.filteredOrders.push(o)
+      }
+      else if (this.unstarted == true && o.isStarted == false) {
+        this.filteredOrders.push(o)
+      }
+      else if (this.completed == true && o.isCompleted == true) {
+        this.filteredOrders.push(o)
+      }
+    })
   }
 }

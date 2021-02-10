@@ -7,6 +7,7 @@
     display: flex;
     padding: 1%;
     margin-bottom: 2%;
+    justify-content: space-around;
 }
 
 .order {
@@ -46,4 +47,14 @@
 
 .order-status-item-text {
     margin-right: 1%;
+}
+
+@media screen and (max-width: 900px) {
+    .panel {
+        flex-direction: column;
+        align-items: center;
+    }
+    .panel-filter {
+        margin-top: 10px;
+    }
 }

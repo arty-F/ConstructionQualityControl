@@ -1,15 +1,24 @@
 <div class="container">
 
     <div class="panel">
-        <nav>
-            <ul>
-                <li><button routerLink="NewOrder" class="simple-button">Создать заказ</button></li>
-            </ul>
-        </nav>
+        <div class="panel-filter">
+            <input type="checkbox" [checked]="active" (change)="onActiveChange()">
+            <label for="city">Активные</label>
+        </div>
+
+        <div class="panel-filter">
+            <input type="checkbox" [checked]="unstarted" (change)="onUnstartedChanged()">
+            <label for="city">Не начатые</label>
+        </div>
+
+        <div class="panel-filter">
+            <input type="checkbox" [checked]="completed" (change)="onCompletedChange()">
+            <label for="city">Завершенные</label>
+        </div>
     </div>
 
     <div class="orders-container">
-        <div *ngFor="let order of orders" class="order">
+        <div *ngFor="let order of filteredOrders" class="order">
             <div class="order-name">
                 <div class="name-container">
                     {{order.demands}}

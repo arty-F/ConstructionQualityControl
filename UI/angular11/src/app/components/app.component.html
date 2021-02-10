@@ -1,21 +1,51 @@
 <div>
 
   <header>
-    <a routerLink="/">
-      <h1>Construction quality control</h1>
-    </a>
 
-    <nav>
-      <ul>
+    <div class="header-full">
+      <a routerLink="/">
+        <h1>Construction quality control</h1>
+      </a>
+
+      <nav>
+        <ul>
+          <li *ngIf="IsUserCustomer()"><a routerLink="Orders">Мои заказы</a></li>
+          <li *ngIf="IsUserBuilder()"><a routerLink="Works">Мои работы</a></li>
+          <li *ngIf="IsUserCustomer()"><a routerLink="Orders/NewOrder">Создать заказ</a></li>
+          <li *ngIf="IsUserBuilder()"><a routerLink="Works/Find">Найти заказ</a></li>
+        </ul>
+      </nav>
+
+      <a routerLink="/Auth" class="a_auth" *ngIf="userName == undefined"><button>Войти</button></a>
+      <div class="logout-container" *ngIf="userName">
+        <p>{{userName}}</p>
+        <button (click)="logout()">Выйти</button>
+      </div>
+    </div>
+
+    <div class="hamburger-menu">
+      <input id="menu__toggle" type="checkbox" (click)="changeVisibility()" />
+      <label class="menu__btn" for="menu__toggle">
+        <span></span>
+      </label>
+    </div>
+
+    <div class="header-hamburger" id="h-menu">
+
+      <div *ngIf="userName">
+        <p class="header-hamburger-username">{{userName}}</p>
+        <button class="simple-button" (click)="logout()">Выйти</button>
+      </div>
+
+      <ul class="header-hamburger-nav">
+        <li><a routerLink="/">На главную</a></li>
+        <li><a routerLink="/Auth" class="a_auth" *ngIf="userName == undefined">Войти</a></li>
         <li *ngIf="IsUserCustomer()"><a routerLink="Orders">Мои заказы</a></li>
         <li *ngIf="IsUserBuilder()"><a routerLink="Works">Мои работы</a></li>
+        <li *ngIf="IsUserCustomer()"><a routerLink="Orders/NewOrder">Создать заказ</a></li>
+        <li *ngIf="IsUserBuilder()"><a routerLink="Works/Find">Найти заказ</a></li>
       </ul>
-    </nav>
 
-    <a routerLink="/Auth" class="a_auth" *ngIf="userName == undefined"><button>Войти</button></a>
-    <div class="logout-container" *ngIf="userName">
-      <p>{{userName}}</p>
-      <button (click)="logout()">Выйти</button>
     </div>
 
   </header>
@@ -26,14 +56,13 @@
 
   <footer>
     <ul>
-      <li><a routerLink="City">City</a></li>
-      <li><a routerLink="City">Home</a></li>
-      <li><a routerLink="City">About</a></li>
-      <li><a routerLink="City">Company</a></li>
+      <li><a routerLink="/">На главную</a></li>
+      <li *ngIf="IsUserCustomer()"><a routerLink="Orders">Мои заказы</a></li>
+      <li *ngIf="IsUserBuilder()"><a routerLink="Works">Мои работы</a></li>
+      <li *ngIf="IsUserCustomer()"><a routerLink="Orders/NewOrder">Создать заказ</a></li>
+      <li *ngIf="IsUserBuilder()"><a routerLink="Works/Find">Найти заказ</a></li>
     </ul>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae voluptas totam minus, reprehenderit dolore hic
-      deserunt dolorum eius voluptates laborum architecto accusantium cupiditate cum in molestiae soluta, consequuntur
-      nobis eum.</p>
+    <p>Сайт создан для учебных целей.</p>
   </footer>
 
 </div>

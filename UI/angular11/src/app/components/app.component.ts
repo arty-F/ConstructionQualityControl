@@ -38,4 +38,13 @@ export class AppComponent {
   IsUserBuilder(): boolean {
     return this.userRole === userRole.Builder
   }
+
+  changeVisibility() {
+    if (document.getElementById('h-menu').style.display ===  '') {
+      document.getElementById('h-menu').style.display = 'flex'
+    }
+    else {
+      document.getElementById('h-menu').style.display = ''
+    }
+  }
 }

@@ -1,6 +1,6 @@
 /*-----HEADER-----*/
 
-header {
+.header-full {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -8,18 +8,18 @@ header {
     background-color: #35383a;
 }
 
-header * {
+.header-full * {
     color: white;
     background-color: rgba(0, 0, 0, 0);
 }
 
-header a h1 {
+.header-full a h1 {
     font-size: 22px;
     text-transform: uppercase;
     font-weight: bold;
 }
 
-header ul li {
+.header-full ul li {
     display: inline-block;
     padding: 0px 15px;
 }
@@ -45,11 +45,11 @@ header ul li {
     outline: none;
 }
 
-header ul li a:hover, footer ul li a:hover {
+.header-full ul li a:hover, footer ul li a:hover {
     color: #b3bb00;
 }
 
-header .a_auth button {
+.header-full .a_auth button {
     padding: 25px 25px;
     background-color: #282a2b;
     border: none;
@@ -58,10 +58,114 @@ header .a_auth button {
     outline: none;
 }
 
-header .a_auth button:hover, .logout-container button:hover{
+.header-full .a_auth button:hover, .logout-container button:hover {
     background-color: rgb(255, 255, 255);
     color: #35383a;
     font-weight: bold;
+}
+
+.header-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #35383a;
+    padding-top: 10px;
+}
+
+.header-hamburger *, .hamburger-menu * {
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.header-hamburger-nav {
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+.header-hamburger-nav li {
+    margin-top: 10px;
+    padding: 0px 10px;
+    border: 2px solid rgb(181, 205, 207);
+    border-radius: 5px;
+}
+
+.header-hamburger-nav a {
+    color: white;
+}
+
+.hamburger-menu {
+    display: none;
+    height: 0px;
+}
+
+.header-hamburger-username {
+    font-weight: bold;
+    color: white;
+}
+
+/* скрываем чекбокс */
+
+#menu__toggle {
+    opacity: 0;
+    height: 0px;
+}
+
+.menu__btn {
+    display: flex;
+    /* используем flex для центрирования содержимого */
+    align-items: center;
+    /* центрируем содержимое кнопки */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* добавляем "гамбургер" */
+
+.menu__btn>span, .menu__btn>span::before, .menu__btn>span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #616161;
+}
+
+.menu__btn>span::before {
+    content: '';
+    top: -8px;
+}
+
+.menu__btn>span::after {
+    content: '';
+    top: 8px;
+}
+
+#menu__toggle:checked~.menu__btn>span {
+    transform: rotate(45deg);
+}
+
+#menu__toggle:checked~.menu__btn>span::before {
+    top: 0;
+    transform: rotate(0);
+}
+
+#menu__toggle:checked~.menu__btn>span::after {
+    top: 0;
+    transform: rotate(90deg);
+}
+
+@media screen and (max-width: 900px) {
+    .header-full {
+        display: none;
+    }
+    .hamburger-menu {
+        display: block;
+    }
 }
 
 /*-----FOOTER-----*/
@@ -70,7 +174,7 @@ footer {
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
-    padding: 10px 5%;
+    padding: 10px 5% 30px 5%;
     background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -86,7 +190,7 @@ footer ul {
 
 footer ul li {
     text-align: center;
-    padding: 5px 0;
+    margin-top: 15px;
 }
 
 footer p {
