@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ConstructionQualityControl.Data\ConstructionQualityControl.Data.csproj" />
     <ProjectReference Include="..\ConstructionQualityControl.Domain\ConstructionQualityControl.Domain.csproj" />
+    <ProjectReference Include="..\ConstructionQualityControl.Web\ConstructionQualityControl.Web.csproj" />
   </ItemGroup>
 
 </Project>
