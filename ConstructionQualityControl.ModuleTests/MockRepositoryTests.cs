@@ -112,4 +112,3 @@ namespace ConstructionQualityControl.ModuleTests
         }
     }
 }
-
