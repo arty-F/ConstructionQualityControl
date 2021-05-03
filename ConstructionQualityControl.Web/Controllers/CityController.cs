@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
 using ConstructionQualityControl.Domain.Dtos;
+using ConstructionQualityControl.Web.Handlers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionQualityControl.Web.Controllers
@@ -12,21 +13,22 @@ namespace ConstructionQualityControl.Web.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+        private readonly CityHandler handler;
 
         public CityController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
+            handler = new CityHandler(unitOfWork, mapper);
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CityReadDto>>> GetAllCities()
         {
-            var cities = await unitOfWork.GetRepository<City>().GetAsync();
-            if (cities == null) return NotFound();
-            return Ok(mapper.Map<IEnumerable<CityReadDto>>(cities));
+            try
+            {
+                return Ok(await handler.GetAllCitiesAsync());
+            }
+            catch (NullReferenceException) { return NotFound(); }
+            catch (Exception) { return BadRequest(); }
         }
     }
 }

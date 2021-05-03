@@ -1,9 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
-using ConstructionQualityControl.Data.Models;
 using ConstructionQualityControl.Domain;
-using ConstructionQualityControl.Domain.Dtos;
-using ConstructionQualityControl.Web.Authentication;
+using ConstructionQualityControl.Web.Handlers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,35 +12,33 @@ namespace ConstructionQualityControl.Web.Controllers
     [Route("[controller]")]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
-        private readonly ICryptographer cryptographer;
+        private readonly AuthenticationHandler handler;
 
         public AuthenticationController(IUnitOfWork unitOfWork, IMapper mapper, ICryptographer cryptographer)
         {
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
-            this.cryptographer = cryptographer;
+            handler = new AuthenticationHandler(unitOfWork, mapper, cryptographer);
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(string login, [FromBody] string password)
         {
-            var user = await unitOfWork.GetRepository<User>().GetFirstOrDefaultAsync(u => u.Login == login);
-
-            if (user == null || cryptographer.Decrypt(user.Password) != password) return Unauthorized();
-
-            return Ok(JWTAuthenticationManager.GetToken(mapper.Map<UserReadDto>(user)));
+            try
+            {
+                return Ok(await handler.LoginAsync(login, password));
+            }
+            catch (UnauthorizedAccessException) { return Unauthorized(); }
+            
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetCurrentUserData()
         {
-            var userName = HttpContext.User.Identity.Name;
-            var user = await unitOfWork.GetRepository<User>().GetFirstOrDefaultAsync(u => u.Login == userName);
-
-            return Ok(mapper.Map<UserReadDto>(user));
+            try
+            {
+                return Ok(await handler.GetCurrentUserDataAsync(HttpContext.User.Identity.Name));
+            }
+            catch (Exception) { return BadRequest(); }
         }
     }
 }
