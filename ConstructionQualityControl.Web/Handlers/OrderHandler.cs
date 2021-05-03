@@ -44,7 +44,7 @@ namespace ConstructionQualityControl.Web.Handlers
             if (order == null)
                 throw new Exception();
 
-            var userId = int.Parse(userClaims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value));
+            var userId = int.Parse(userClaims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             if (order.User.Id != userId && order.WorkOffers.FirstOrDefault()?.Worker.Id != userId)
                 throw new UnauthorizedAccessException();
 
@@ -58,22 +58,12 @@ namespace ConstructionQualityControl.Web.Handlers
 
             IEnumerable<Order> orders = role.Value switch
             {
-                "Customer" => await GetCustomerOrdersAsync(userId),
-                "Builder" => await GetAllUnstartedOrdersAsync(),
+                "Customer" => await unitOfWork.GetRepository<Order>().GetAsync(o => o.User.Id == userId && o.IsRoot == true),
+                "Builder" => await unitOfWork.GetRepository<Order>().GetAsync(o => o.IsRoot && !o.IsStarted),
                 _ => throw new Exception("Unsupported user role.")
             };
 
             return mapper.Map<List<OrderRootReadDto>>(orders);
-        }
-
-        private async Task<IEnumerable<Order>> GetCustomerOrdersAsync(int customerId)
-        {
-            return await unitOfWork.GetRepository<Order>().GetAsync(o => o.User.Id == customerId && o.IsRoot == true);
-        }
-
-        private async Task<IEnumerable<Order>> GetAllUnstartedOrdersAsync()
-        {
-            return await unitOfWork.GetRepository<Order>().GetAsync(o => o.IsRoot && !o.IsStarted);
         }
 
         public async Task<IEnumerable<OrderRootReadDto>> GetWorksByCityIdAsync(int id)

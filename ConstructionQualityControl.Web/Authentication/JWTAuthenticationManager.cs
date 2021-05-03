@@ -13,12 +13,12 @@ using ConstructionQualityControl.Domain.Dtos;
 
 namespace ConstructionQualityControl.Web.Authentication
 {
-    internal static class JWTAuthenticationManager
+    public static class JWTAuthenticationManager
     {
         private static readonly int keyLength = 32;
 
         private static string key = "";
-        internal static string Key
+        public static string Key
         {
             get
             {
@@ -31,21 +31,20 @@ namespace ConstructionQualityControl.Web.Authentication
 
         private static IWebHostEnvironment env;
 
-        internal static void Initialize(IWebHostEnvironment env)
+        public static void Initialize(IWebHostEnvironment env = null)
         {
             JWTAuthenticationManager.env = env;
 
-            if (env.IsDevelopment())
+            if (env == null || env.IsDevelopment())
                 Key = string.Join("", Enumerable.Repeat("a", keyLength));
-
-            if (env.IsProduction())
+            else if (env.IsProduction())
                 Key = GenerateKey(keyLength);
         }
 
         /// <summary>
         /// Returns generated JSON Web Token for current user.
         /// </summary>
-        internal static object GetToken(UserReadDto user)
+        public static object GetToken(UserReadDto user)
         {
             var claims = new List<Claim>
             {
@@ -54,7 +53,7 @@ namespace ConstructionQualityControl.Web.Authentication
                 new Claim(ClaimTypes.Role, user.Role)
             };
 
-            if (JWTAuthenticationManager.env.IsProduction())
+            if (env != null && JWTAuthenticationManager.env.IsProduction())
             {
                 claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()));
                 claims.Add(new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddMinutes(1)).ToUnixTimeSeconds().ToString()));

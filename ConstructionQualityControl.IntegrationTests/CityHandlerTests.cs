@@ -1,22 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using ConstructionQualityControl.Data.Models;
-using ConstructionQualityControl.Domain.Dtos;
 using ConstructionQualityControl.Domain.MapperProfile;
 using ConstructionQualityControl.Domain.Mocks;
-using ConstructionQualityControl.Web.Controllers;
-using Microsoft.AspNetCore.Mvc;
+using ConstructionQualityControl.Web.Handlers;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ConstructionQualityControl.IntegrationTests
 {
-    public class CityControllerTests
+    class CityHandlerTests
     {
         MockUnitOfWork mockUoW;
         MockRepository<City> repo;
-        CityController controller;
+        CityHandler handler;
         IMapper mapper;
         List<City> data;
 
@@ -35,18 +33,16 @@ namespace ConstructionQualityControl.IntegrationTests
 
             repo = new MockRepository<City>(data);
             mockUoW = new MockUnitOfWork(cityRep: repo);
-            controller = new CityController(mockUoW, mapper);
+            handler = new CityHandler(mockUoW, mapper);
         }
-
 
         [Test]
         public async Task Geting_correct_count()
         {
             var expected = data.Count;
 
-            var result = await controller.GetAllCities();
-            var okResult = result.Result as OkObjectResult;
-            var actual = (okResult.Value as IEnumerable<CityReadDto>).Count();
+            var result = await handler.GetAllCitiesAsync();
+            var actual = result.Count();
 
             Assert.AreEqual(expected, actual);
         }
