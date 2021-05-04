@@ -40,6 +40,8 @@ namespace ConstructionQualityControl.Domain.Mocks
             if (filter != null)
                 query = query.Where(filter);
 
+            if (query.Count() == 0) return null;
+
             if (orderBy != null)
                 return await Task.Run( () => orderBy(query).ToList());
             else
@@ -49,7 +51,7 @@ namespace ConstructionQualityControl.Domain.Mocks
         public async Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
         {
             var result = await GetAsync(filter, orderBy);
-            return result.FirstOrDefault();
+            return result?.FirstOrDefault() ?? null;
         }
 
         public async Task<T> GetByIdAsync(int id)

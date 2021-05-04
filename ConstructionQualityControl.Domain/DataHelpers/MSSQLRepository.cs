@@ -58,7 +58,7 @@ namespace ConstructionQualityControl.Domain
         public async Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
         {
             var result = await GetAsync(filter, orderBy);
-            return result.FirstOrDefault();
+            return result?.FirstOrDefault() ?? null;
         }
 
         public async Task<T> GetByIdAsync(int id) => await dbSet.FindAsync(id);

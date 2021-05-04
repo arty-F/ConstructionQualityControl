@@ -58,7 +58,7 @@ namespace ConstructionQualityControl.Web.Handlers
 
             IEnumerable<Order> orders = role.Value switch
             {
-                "Customer" => await unitOfWork.GetRepository<Order>().GetAsync(o => o.User.Id == userId && o.IsRoot == true),
+                "Customer" => await unitOfWork.GetRepository<Order>().GetAsync(o => o.User.Id == userId && o.IsRoot),
                 "Builder" => await unitOfWork.GetRepository<Order>().GetAsync(o => o.IsRoot && !o.IsStarted),
                 _ => throw new Exception("Unsupported user role.")
             };
