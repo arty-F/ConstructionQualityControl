@@ -4,7 +4,6 @@ using ConstructionQualityControl.Domain;
 using ConstructionQualityControl.Domain.Dtos;
 using ConstructionQualityControl.Domain.MapperProfile;
 using ConstructionQualityControl.Domain.Mocks;
-using ConstructionQualityControl.Web.Authentication;
 using ConstructionQualityControl.Web.Handlers;
 using NUnit.Framework;
 using System;
@@ -61,6 +60,15 @@ namespace ConstructionQualityControl.IntegrationTests
             var userCreateDto = mapper.Map<UserCreateDto>(user);
 
             Assert.DoesNotThrowAsync(async () => await handler.CreateUserAsync(userCreateDto));
+        }
+
+        [Test]
+        public void Negative_Create_Existing_User_Throw_Exception()
+        {
+            var user = new User { Login = login, Password = password, City = new City { Id = 0, Name = "" } };
+            var userCreateDto = mapper.Map<UserCreateDto>(user);
+
+            Assert.ThrowsAsync<ArgumentException>(async () => await handler.CreateUserAsync(userCreateDto));
         }
     }
 }

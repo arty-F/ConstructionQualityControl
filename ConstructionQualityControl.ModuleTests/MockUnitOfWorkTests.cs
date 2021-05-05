@@ -4,7 +4,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ConstructionQualityControl.IntegrationTests
+namespace ConstructionQualityControl.ModuleTests
 {
     public class MockUnitOfWorkTests
     {

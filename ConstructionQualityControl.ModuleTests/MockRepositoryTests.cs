@@ -25,7 +25,7 @@ namespace ConstructionQualityControl.ModuleTests
         }
 
         [Test]
-        public async Task Add_is_adding_entity_to_repository()
+        public async Task Positive_Add_Is_Incremented_Entities()
         {
             var expected = new City { Id = 4, Name = "ABC" };
 
@@ -35,7 +35,7 @@ namespace ConstructionQualityControl.ModuleTests
         }
 
         [Test]
-        public async Task DeleteById_is_deleting_entity()
+        public async Task Positive_DeleteById_Is_Deleting_Entity()
         {
             await repo.DeleteByIdAsync(3);
 
@@ -45,7 +45,7 @@ namespace ConstructionQualityControl.ModuleTests
         }
 
         [Test]
-        public async Task GetById_is_getting_correct_entity()
+        public async Task Positive_GetById_Is_Getting_Correct_Entity()
         {
             var actual = await repo.GetByIdAsync(2);
 
@@ -53,7 +53,7 @@ namespace ConstructionQualityControl.ModuleTests
         }
 
         [Test]
-        public async Task GetById_is_getting_null_when_entity_not_exist()
+        public async Task Positive_GetById_Is_Getting_Null_When_Entity_Not_Exist()
         {
             var actual = await repo.GetByIdAsync(4);
 
@@ -61,7 +61,7 @@ namespace ConstructionQualityControl.ModuleTests
         }
 
         [Test]
-        public void Update_is_updating_entity()
+        public void Positive_Update()
         {
             var expected = new City { Id = 2, Name = "123" };
 
@@ -71,7 +71,7 @@ namespace ConstructionQualityControl.ModuleTests
         }
 
         [Test]
-        public async Task Get_without_parameters_getting_all_entities()
+        public async Task Positive_Get_Without_Parameters_Get_All_Entities()
         {
             var actual = await repo.GetAsync();
 
@@ -82,7 +82,7 @@ namespace ConstructionQualityControl.ModuleTests
         }
 
         [Test]
-        public async Task Get_with_expression_getting_correct_entities()
+        public async Task Positive_Get_Expression()
         {
             var actual = await repo.GetAsync(c => c.Name == "ZZZ");
 
@@ -91,7 +91,7 @@ namespace ConstructionQualityControl.ModuleTests
         }
 
         [Test]
-        public async Task Get_with_order_getting_correct_entities()
+        public async Task Positive_Get_Filter()
         {
             var actual = await repo.GetAsync(orderBy: c => c.OrderBy(n => n.Name));
 
@@ -102,7 +102,7 @@ namespace ConstructionQualityControl.ModuleTests
         }
 
         [Test]
-        public async Task Get_with_expression_and_order_getting_correct_entities()
+        public async Task Positive_Get_Expression_And_Filter()
         {
             var actual = await repo.GetAsync(c => c.Name != "ZZZ", c => c.OrderByDescending(n => n.Name));
 
