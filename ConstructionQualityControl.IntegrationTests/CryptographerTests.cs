@@ -1,7 +1,7 @@
 ﻿using ConstructionQualityControl.Domain;
 using NUnit.Framework;
 
-namespace ConstructionQualityControl.UnitTests
+namespace ConstructionQualityControl.ModuleTests
 {
     public class CryptographerTests
     {

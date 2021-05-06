@@ -1,10 +1,11 @@
 ﻿using ConstructionQualityControl.Data.Models;
+using ConstructionQualityControl.Domain.Mocks;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ConstructionQualityControl.UnitTests
+namespace ConstructionQualityControl.ModuleTests
 {
     public class MockRepositoryTests
     {
